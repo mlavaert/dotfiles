@@ -1,0 +1,9 @@
+[user]
+  name = Mathias Lavaert
+  email = mlavaert@gmail.com
+
+[github]
+  user = mlavaert
+
+[core]
+  editor = vim 
