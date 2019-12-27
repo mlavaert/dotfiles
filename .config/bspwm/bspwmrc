@@ -1,0 +1,15 @@
+#!/bin/sh
+
+sxhkd &
+dunst &
+picom &
+
+bspc monitor -d term web music files code chat
+
+bspc config border_width 3
+bspc ocnfig window_gap 8
+
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+
+${HOME}/.config/polybar/launch.sh &
