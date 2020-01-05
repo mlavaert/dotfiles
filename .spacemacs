@@ -39,7 +39,7 @@ values."
      python
      (scala :variables scala-backend 'scala-metals)
      (shell-scripts :variables shell-scripts-backend 'lsp)
-     ;; terraform
+     terraform
      clojure
      git
      markdown

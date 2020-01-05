@@ -21,3 +21,7 @@ function aws-credentials-for-docker() {
          "-e AWS_SECRET_ACCESS_KEY=`aws configure get aws_secret_access_key` " \
          "-e AWS_SESSION_TOKEN=`aws configure get aws_session_token` "
 }
+
+function connect-vpn() {
+    sudo openconnect -u mathias.lavaert@persgroep.net --juniper https://homeworker.persgroep.net
+}
