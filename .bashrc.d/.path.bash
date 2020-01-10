@@ -13,5 +13,6 @@ pathmunge /usr/local/bin
 pathmunge /sbin after
 pathmunge $HOME/.bin after
 pathmunge $HOME/.node_modules after
+pathmunge $HOME/.pyenv/bin
 
 export PATH

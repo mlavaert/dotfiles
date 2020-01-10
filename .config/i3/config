@@ -145,6 +145,9 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# move workspace to monitor
+# bindsym $mod+Ctrl+Shift+j move workspace to output left
+
 # common apps keybinds
 bindsym $mod+Escape exec i3lock -i ~/.wallpaper.png
 
@@ -190,25 +193,22 @@ bar {
 	position top
 
 	colors {
-	        background #2f343f
+	        background #1d1f21
         	statusline #2f343f
         	separator #4b5262
 
          	# colour of border, background, and text
-        	focused_workspace       #2f343f #bf616a #d8dee8
-                active_workspace        #2f343f #2f343f #d8dee8
-                inactive_workspace      #2f343f #2f343f #d8dee8
-                urgent_workspacei       #2f343f #ebcb8b #2f343f
+        	focused_workspace       #1d1f21 #cc6666 #d8dee8
+                active_workspace        #1d1f21 #cc6666 #d8dee8
+                inactive_workspace      #1d1f21 #2f343f #d8dee8
+                urgent_workspace        #1d1f21 #ebcb8b #2f343f
 	}
 
-	font xft:URWGothic-Book 13
+	font xft:URWGothic-Book 14
 	status_command i3status
 }
 
-# Set inner/outer gaps
-gaps inner 10 
-gaps outer -4 
 
 # Hide title bars
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 4
 new_window 1pixel
