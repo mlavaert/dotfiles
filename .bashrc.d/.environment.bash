@@ -1,5 +1,5 @@
 export EDITOR="vim"
-export TERMINAL="alacritty"
+export TERMINAL="xterm"
 export BROWSER="firefox"
 export READER="zathura"
 
@@ -20,3 +20,6 @@ export LANG=en_US.UTF-8
 export PYENV_ROOT="${HOME}/.pyenv"
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+# Ranger
+export RANGER_LOAD_DEFAULT_RC=FALSE

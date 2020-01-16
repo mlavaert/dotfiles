@@ -39,4 +39,26 @@
 *.color15:      #ffffff
 
 
-st.alpha: 0.9 
+Xft.dpi: 144 
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: true
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcdfilter
+
+xterm.termName: xterm-256color
+xterm*saveLines: 4096
+xterm*locale: true
+xterm*loginShell: true
+xterm*internalBorder: 17
+xterm*faceName: xft:Hack Nerd Font
+xterm*faceSize: 11
+xterm*renderFont: true
+xterm*cursorBlink: false
+xterm*ScrollBar: false
+xterm.vt100.locale: true
+xterm.vt100.metaSendsEscape: true
+xterm.vt100.backarrowKey: false
+xterm.ttyModes: erase ^?
+xterm.vt100.geometry: 80x32
