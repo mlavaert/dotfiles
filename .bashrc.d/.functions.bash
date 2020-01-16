@@ -25,3 +25,7 @@ function aws-credentials-for-docker() {
 function connect-vpn() {
     sudo openconnect -u mathias.lavaert@persgroep.net --juniper https://homeworker.persgroep.net
 }
+
+function fix-mouse {
+    sudo modprobe -r psmouse && sudo modprobe psmouse
+}
