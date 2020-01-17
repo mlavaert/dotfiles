@@ -52,10 +52,10 @@ xterm*saveLines: 4096
 xterm*locale: true
 xterm*loginShell: true
 xterm*internalBorder: 17
-xterm*faceName: xft:Hack Nerd Font
-xterm*faceSize: 11
+xterm*faceName: monospace
+xterm*faceSize: 8
 xterm*renderFont: true
-xterm*cursorBlink: false
+xterm*cursorBlink: true
 xterm*ScrollBar: false
 xterm.vt100.locale: true
 xterm.vt100.metaSendsEscape: true

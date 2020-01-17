@@ -187,7 +187,6 @@ bar {
                 urgent_workspace        #1d1f21 #ebcb8b #2f343f
 	}
 
-	font xft:URWGothic-Book 14
 	status_command i3status
 }
 

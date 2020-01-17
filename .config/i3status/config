@@ -9,19 +9,17 @@ general {
 }
 
 order += "load"
-order += "cpu_temperature 0"
-order += "wireless wlp2s0"
+order += "memory"
 order += "volume master"
 order += "battery 1"
 order += "tztime local"
 
 load {
-        format = "<span background='#f59335'>  %5min Load </span>"
+        format = "<span background='#f59335'> %5min </span>"
 }
 
-wireless wlp2s0 {
-        format_up = "<span background='#b48ead'> 直 %essid </span>"
-        format_down = "<span background='#b48ead'> 睊 Disconnected </span>"
+memory {
+        format = "<span background='#b48ead'> %used / %total </span>"
 }
 
 volume master {
@@ -36,8 +34,8 @@ battery 1 {
 	last_full_capacity = true
         format = "<span background='#a3be8c'>  %status %percentage </span>"
         format_down = "No Battery"
-        status_chr = "Charging"
-        status_bat = "Battery"
+        status_chr = "CHR"
+        status_bat = "BAT"
         status_unk = ""
         status_full = ""
         path = "/sys/class/power_supply/BAT0/uevent"
@@ -46,5 +44,5 @@ battery 1 {
 
 tztime local {
 	format = "<span background='#81a1c1'> %time </span>"
-	format_time = " %a %-d %b %H:%M"
+	format_time = "%Y-%m-%d %H:%M"
 }

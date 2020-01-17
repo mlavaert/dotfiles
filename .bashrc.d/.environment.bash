@@ -1,5 +1,5 @@
 export EDITOR="vim"
-export TERMINAL="xterm"
+export TERMINAL="alacritty"
 export BROWSER="firefox"
 export READER="zathura"
 
