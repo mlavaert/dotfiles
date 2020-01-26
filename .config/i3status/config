@@ -43,6 +43,7 @@ battery 1 {
 }
 
 tztime local {
+	align = "center"
 	format = "<span background='#81a1c1'> %time </span>"
 	format_time = "%Y-%m-%d %H:%M"
 }
