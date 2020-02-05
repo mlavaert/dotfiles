@@ -1,16 +1,27 @@
-# Setup PATH
-PATH="$PATH:$HOME/.bin"
+#!/usr/bin/env zsh
+
+# paths
+typeset -gU cdpath fpath mailpath path
+path=( $XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin  $path )
+fpath=( $XDG_BIN_HOME $fpath )
 
 export EDITOR="vim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 export READER="zathura"
 
-export JAVA_HOME="/usr/lib/jvm/default"
-export NPM_CONFIG_PREFIX=${HOME}/.node_modules
-export PIP_REQUIRE_VIRTUALENV=true
-export PIP_DOWNLOAD_CACHE=$HOME/.cache/pip
-export AWS_DEFAULT_REGION=eu-west-1
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_BIN_HOME="$HOME/.local/bin"
+
+for dir in "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_BIN_HOME"; do
+	[[ -d $dir ]]  || mkdir -p "$dir"
+done
+
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZGEN_DIR="$XDG_CACHE_HOME/zgen"
+export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 
 # Ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE

@@ -62,3 +62,34 @@ xterm.vt100.metaSendsEscape: true
 xterm.vt100.backarrowKey: false
 xterm.ttyModes: erase ^?
 xterm.vt100.geometry: 80x32
+
+! urxvt
+URxvt*.termName:               xterm-256color
+URxvt*.geometry:               81x20
+URxvt*.buffered:               true
+URxvt*.cursorBlink:            true
+URxvt*.underlineColor:         grey
+URxvt*.depth:                  32
+URxvt*.borderless:             1
+URxvt.iso14755:                false
+URxvt.iso14755_52:             false
+URxvt*.internalBorder:         8
+URxvt*.scrollBar:              false
+URxvt*.saveLines:              5000
+URxvt*.loginShell:             false
+URxvt.perl-ext-common:         default,matcher
+URxvt*.matcher.button:         1
+URxvt*.matcher.rend.0:         Uline Bold fg5
+URxvt*.url-launcher:           qutebrowser
+URxvt.clipboard.autocopy:      true
+
+! fonts
+urxvt-stream.font:             xft:Fira Mono:pixelsize=17
+urxvt-stream.lineSpace:        0
+urxvt-stream.letterSpace:      -1
+
+URxvt*.lineSpace:              0
+URxvt*.letterSpace:            -1
+URxvt*.font:                   xft:Fira Mono:pixelsize=14
+urxvt-scratch.font:            xft:Fira Mono:pixelsize=16
+urxvt-fuzzy.font:              xft:Fira Mono:pixelsize=20
