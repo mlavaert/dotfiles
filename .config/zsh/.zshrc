@@ -1,6 +1,3 @@
-#autoload -U colors && colors
-#PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-
 export ZGEN_DIR="$XDG_CACHE_HOME/zgen"
 export ZGEN_SOURCE="$ZGEN_DIR/zgen.zsh"
 
@@ -20,10 +17,12 @@ if ! zgen saved; then
 fi
 
 source $ZDOTDIR/config.zsh
+
 if [[ $TERM != dumb ]]; then
   source $ZDOTDIR/keybinds.zsh
   source $ZDOTDIR/completion.zsh
   source $ZDOTDIR/aliases.zsh
+  source $ZDOTDIR/extra.zsh
 
   ##
   function _cache {
@@ -46,8 +45,6 @@ if [[ $TERM != dumb ]]; then
     export FZF_ALT_C_COMMAND="fd -t d . $HOME"
   fi
   _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
-
-  source $ZDOTDIR/extra.zsh
 
   ##
   autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump

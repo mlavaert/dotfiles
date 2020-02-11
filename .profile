@@ -20,7 +20,6 @@ for dir in "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_BIN_HOME"
 done
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export ZGEN_DIR="$XDG_CACHE_HOME/zgen"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 
 # Ranger

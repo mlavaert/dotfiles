@@ -1,12 +1,14 @@
 # dotfiles
 alias config='git --git-dir=/home/mlavaert/.dotfiles/ --work-tree=/home/mlavaert'
 
+alias vim=nvim
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias -- -='cd -'
+alias ll='ls -laF'
 
-alias vim=nvim
 alias q=exit
 alias clr=clear
 alias sudo='sudo '
