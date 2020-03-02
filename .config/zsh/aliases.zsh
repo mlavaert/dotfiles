@@ -18,7 +18,11 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias wget='wget -c'
 
+# aliases for tools
 alias mk=make
+alias tf=terraform
+alias k=kubectl
+
 alias rcp='rsync -vaP --delete'
 alias rmirror='rsync -rtvu --delete'
 alias gurl='curl --compressed'

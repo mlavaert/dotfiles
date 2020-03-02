@@ -18,6 +18,7 @@ export GRADLE_USER_HOME="$XDG_CACHE_HOME/gradle"
 # Aws
 export AWS_PROFILE=masl
 export AWS_DEFAULT_REGION=eu-west-1
+export AWS_SDK_LOAD_CONFIG=1
 
 
 # Node

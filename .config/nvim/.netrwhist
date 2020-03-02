@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/mlavaert/.config/zsh/zshrc.d'
+let g:netrw_dirhist_4='/home/mlavaert/dev/data/content/psql/scripts/bash'
+let g:netrw_dirhist_3='/home/mlavaert/dev/data/content/psql/scripts'
+let g:netrw_dirhist_2='/home/mlavaert/dev/data/content/psql'
+let g:netrw_dirhist_1='/home/mlavaert/work/dijoe'
+let g:netrw_dirhist_0='/home/mlavaert/work/dijoe/robo-joe/src/main/scala/be/persgroep/datalake/clean'
+let g:netrw_dirhist_9='/home/mlavaert/work/dijoe/robo-joe/src/main/scala/be/persgroep/datalake'
+let g:netrw_dirhist_8='/home/mlavaert/work/dijoe/robo-joe/src/main/scala/be/persgroep'
+let g:netrw_dirhist_7='/home/mlavaert/work/dijoe/robo-joe/src/main/scala/be'
+let g:netrw_dirhist_6='/home/mlavaert/work/dijoe/robo-joe/src/main/scala'
