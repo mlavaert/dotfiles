@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+# Unlock Bitwarden when necessary
+if test -z "$BW_SESSION"
+then
+	BW_SESSION=$(bw unlock --raw)
+fi
+
+(echo "$(bw get password onelogin)"; echo "$(bw get totp onelogin)") | \
+	sudo openconnect --user=mathias.lavaert@persgroep.net \
+			 --juniper https://homeworker.persgroep.net \
+			 --no-dtls
