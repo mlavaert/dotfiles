@@ -7,7 +7,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias -- -='cd -'
-alias ll='ls -laF'
+alias ll='ls -laF --color'
 
 alias q=exit
 alias clr=clear
