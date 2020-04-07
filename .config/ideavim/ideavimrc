@@ -1,14 +1,14 @@
+set ignorecase 	" if a pattern contains uppercase letter searching
+set smartcase 	" is case sensitive, otherwise it is not
 
-" Selected Intellimacs modules
-source ~/.intellimacs/spacemacs.vim
-source ~/.intellimacs/extra.vim
-source ~/.intellimacs/major.vim
-source ~/.intellimacs/hybrid.vim
+set incsearch   " search as characters are entered
+set hlsearch	" hightlight searches
+set showmode 	" show current vim mode
 
-" My own vim commands
-nnoremap Y y$
+set clipboard+=unnamed
 
-" Add/edit actions
-nnoremap <leader>gl    :action Vcs.Show.Log<CR>
-vnoremap <leader>gl    :action Vcs.Show.Log<CR>
+set surround
+set commentary
 
+nnoremap <Space><Space> :action RecentFiles<CR>
+vnoremap <Space><Space> :action RecentFiles<CR>

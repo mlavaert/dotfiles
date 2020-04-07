@@ -32,7 +32,7 @@ exec --no-startup-id nm-applet &
 exec --no-startup-id blueman-applet &
 exec --no-startup-id picom -b
 exec --no-startup-id xsettingsd &
-exec --no-startup-id feh --bg-scale ~/.wallpaper.png
+exec --no-startup-id feh --bg-scale ~/pix/wallpapers/amongtrees.jpg
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -131,8 +131,14 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# move workspaces to other monitors
+bindsym $mod+Shift+Mod1+h move workspace to output left
+bindsym $mod+Shift+Mod1+j move workspace to output below 
+bindsym $mod+Shift+Mod1+k move workspace to output above 
+bindsym $mod+Shift+Mod1+l move workspace to output right
+
 # common apps keybinds
-bindsym $mod+Escape exec i3lock -i ~/.wallpaper.png
+bindsym $mod+Mod1+Escape exec i3lock -i ~/pix/wallpapers/pot.jpg
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -190,6 +196,7 @@ bar {
 	status_command i3status
 }
 
+gaps inner 5
 
 # Hide title bars
 for_window [class="^.*"] border pixel 2
