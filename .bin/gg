@@ -1,0 +1,12 @@
+#!/bin/bash
+CURRENT_DIR=$(pwd)
+while [ "$CURRENT_DIR" != "/" ]; do
+    if [ -f $CURRENT_DIR/gradlew ]; then
+        echo "$CURRENT_DIR/gradlew $@"
+        $CURRENT_DIR/gradlew "$@"
+        exit 0
+    fi
+    CURRENT_DIR=$(dirname $CURRENT_DIR)
+done
+echo "gradlew not found in parent directories"
+exit 1
