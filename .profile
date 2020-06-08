@@ -6,7 +6,7 @@ path=( $XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin  $path )
 fpath=( $XDG_BIN_HOME $fpath )
 
 export EDITOR="vim"
-export TERMINAL="alacritty"
+export TERMINAL="xterm"
 export BROWSER="firefox"
 export READER="zathura"
 

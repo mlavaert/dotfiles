@@ -11,18 +11,19 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
 
+Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+Plug 'jpalardy/vim-slime' 
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim'
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fireplace'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 call plug#end()
 
 " {{ Status Line }} "
@@ -34,8 +35,17 @@ nnoremap <C-p> :GFiles<CR>
 nnoremap <C-f> :Rg<CR>
 nnoremap <Space><Space> :Buffers<CR>
  
+" {{ NerdTree }} "
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
 
+" Toggle NerdTree
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
+" Automatically close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" {{ CoC }} "
 " Give more space for displaying messages.
 set cmdheight=2
 

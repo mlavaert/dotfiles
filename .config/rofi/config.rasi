@@ -1,0 +1,8 @@
+
+configuration {
+              modi: "drun";
+              show-icons: true;
+              lines: 12;
+              columns: 3;
+              padding: 20;
+}

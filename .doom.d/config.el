@@ -20,15 +20,17 @@
 ;; font string. You generally only need these two:
 ;; test
 (setq doom-font (font-spec :family "monospace" :size 18)
-      doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 16))
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-material)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
+
+(setq org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:

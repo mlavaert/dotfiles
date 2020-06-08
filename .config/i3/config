@@ -31,7 +31,12 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/pix/
 exec --no-startup-id nm-applet &
 exec --no-startup-id blueman-applet &
 exec --no-startup-id xsettingsd &
-exec --no-startup-id feh --bg-scale ~/pix/wallpapers/pot.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/brick.jpg
+
+# Autostarting some applications by default
+exec --no-startup-id i3-msg 'workspace 1;exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace 2;exec /usr/bin/emacs'
+exec --no-startup-id i3-msg 'workspace 10;exec /usr/bin/slack'
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -53,7 +58,7 @@ bindsym $mod+b exec $BROWSER
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run 
+bindsym $mod+d exec rofi -show drun 
 
 # change focus
 bindsym $mod+h focus left
@@ -202,8 +207,8 @@ for_window [class="^.*"] border pixel 2
 new_window 1pixel
 
 
-# Window borders
-client.focused          #bafbaf #fabfab #bafbaf
-client.focused_inactive #bafbaf #fabfab #bafbaf
-client.unfocused        #bafbaf #fabfab #bafbaf
+# # Window borders
+# client.focused          #bafbaf #fabfab #bafbaf
+# client.focused_inactive #bafbaf #fabfab #bafbaf
+# client.unfocused        #bafbaf #fabfab #bafbaf
 

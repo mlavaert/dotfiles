@@ -23,6 +23,7 @@ alias mk=make
 alias tf=terraform
 alias k=kubectl
 
+
 alias rcp='rsync -vaP --delete'
 alias rmirror='rsync -rtvu --delete'
 alias gurl='curl --compressed'

@@ -9,6 +9,25 @@ set clipboard+=unnamed
 
 set surround
 set commentary
+set ideajoin
 
 nnoremap <Space><Space> :action RecentFiles<CR>
 vnoremap <Space><Space> :action RecentFiles<CR>
+
+" code navigation "
+
+nnoremap ,e :action SearchEverywhere<CR>
+nnoremap ,g :action FindInPath<CR>
+nnoremap ,s :action FileStructurePopup<CR>
+
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gb :action JumpToLastChange<CR>
+
+nnoremap U :action FindUsages<CR>
+nnoremap R :action RenameElement<CR>
+
+
+" refactoring "
+nmap <leader>f :action ReformatCode<CR>
