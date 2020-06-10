@@ -25,11 +25,12 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-material)
+(setq doom-theme 'doom-nord)
 
-;; If you intend to use org, it is recommended you change this!
+;; org-mode settings
 (setq org-directory "~/org/")
 
+(setq org-superstar-headline-bullets-list '( "⁖" "⁖" "⁖" "⁖" "⁖" ))
 (setq org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
