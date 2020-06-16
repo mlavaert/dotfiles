@@ -19,7 +19,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; test
-(setq doom-font (font-spec :family "monospace" :size 18)
+(setq doom-font (font-spec :family "Fira Code" :size 16)
       doom-variable-pitch-font (font-spec :family "Fira Code" :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -28,9 +28,10 @@
 (setq doom-theme 'doom-nord)
 
 ;; org-mode settings
-(setq org-directory "~/org/")
+(setq org-directory "~/org/"
+      projectile-project-search-path '("~/dev")
+      org-superstar-headline-bullets-list '( "⁖" "⁖" "⁖" "⁖" "⁖" ))
 
-(setq org-superstar-headline-bullets-list '( "⁖" "⁖" "⁖" "⁖" "⁖" ))
 (setq org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
