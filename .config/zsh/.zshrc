@@ -9,7 +9,6 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-history-substring-search
   zgen load zdharma/history-search-multi-word
   zgen load zsh-users/zsh-completions src
-  zgen load junegunn/fzf shell
   zgen load mafredri/zsh-async
   zgen load sindresorhus/pure
   [ -z "$SSH_CONNECTION" ] && zgen load zdharma/fast-syntax-highlighting
@@ -23,6 +22,8 @@ if [[ $TERM != dumb ]]; then
   source $ZDOTDIR/completion.zsh
   source $ZDOTDIR/aliases.zsh
   source $ZDOTDIR/extra.zsh
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
 
   ##
   function _cache {

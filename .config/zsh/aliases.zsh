@@ -23,25 +23,19 @@ alias mk=make
 alias tf=terraform
 alias k=kubectl
 
-
-alias rcp='rsync -vaP --delete'
-alias rmirror='rsync -rtvu --delete'
-alias gurl='curl --compressed'
-
 alias y='xclip -selection clipboard -in'
 alias p='xclip -selection clipboard -out'
 
 autoload -U zmv
 
 take() {
-  mkdir "$1" && cd "$1";
-}; compdef take=mkdir
-
-zman() {
-  PAGER="less -g -s '+/^       "$1"'" man zshall;
+	mkdir "$1" && cd "$1"
 }
+compdef take=mkdir
 
 r() {
-  local time=$1; shift
-  sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding";
-}; compdef r=sched
+	local time=$1
+	shift
+	sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding"
+}
+compdef r=sched

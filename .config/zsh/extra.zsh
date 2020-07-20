@@ -1,4 +1,6 @@
-# Path 
+#!/usr/bin/env zsh
+
+# Path
 typeset -gU path fpath mailpath cdpath
 path=($XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin $HOME/.emacs.d/bin $path)
 fpath=($XDG_BIN_HOME $fpath)

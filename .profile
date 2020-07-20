@@ -5,8 +5,8 @@ typeset -gU cdpath fpath mailpath path
 path=( $XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin  $path )
 fpath=( $XDG_BIN_HOME $fpath )
 
-export EDITOR="vim"
-export TERMINAL="xterm"
+export EDITOR="em -t"
+export TERMINAL="alacritty"
 export BROWSER="firefox"
 export READER="zathura"
 
@@ -21,9 +21,6 @@ done
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
-
-# Ranger
-export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
