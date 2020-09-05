@@ -8,12 +8,14 @@ syntax enable
 
 " {{ Plugins }} "
 call plug#begin('~/.vim/plugged')
-Plug 'itchyny/lightline.vim'
-Plug 'shinchu/lightline-gruvbox.vim'
 
-Plug 'scrooloose/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+" Colors
+Plug 'itchyny/lightline.vim'
+Plug 'flazz/vim-colorschemes'
 Plug 'ryanoasis/vim-devicons'
-Plug 'jpalardy/vim-slime' 
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -22,12 +24,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
-
-" {{ Status Line }} "
-let g:lightline = { 'colorscheme': 'gruvbox' }
 
 " {{ Navigation }} "
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'

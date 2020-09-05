@@ -7,7 +7,7 @@ then
 	exit 1
 fi
 
-(echo "$(bw get password onelogin)"; echo "$(bw get totp onelogin)") | \
+(echo "TOKEN_ONELOGIN"; echo "$(bw get password onelogin)"; echo "$(bw get totp onelogin)") | \
 	sudo openconnect --user=mathias.lavaert@persgroep.net \
-			 --juniper https://homeworker.persgroep.net \
+			 --juniper https://partnerweb.dpgmedia.net \
 			 --no-dtls
