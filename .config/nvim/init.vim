@@ -17,6 +17,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'Olical/conjure', {'tag': 'v4.5.0'}
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -28,7 +30,7 @@ call plug#end()
 
 " {{ Navigation }} "
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :Files<CR>
 nnoremap <C-f> :Rg<CR>
 nnoremap <Space><Space> :Buffers<CR>
  

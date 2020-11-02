@@ -185,6 +185,7 @@ bar {
 # Hide title bars
 hide_edge_borders smart
 for_window [class="^.*"] border pixel 2
+for_window [title="doom-capture"] floating enable
 new_window 1pixel
 
 

@@ -2,7 +2,6 @@
 
 sxhkd &
 dunst &
-picom &
 
 bspc monitor -d term web music files code chat
 

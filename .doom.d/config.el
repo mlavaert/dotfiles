@@ -7,7 +7,8 @@
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
 (setq user-full-name "Mathias Lavaert"
-      user-mail-address "mathias@pilcrow.be")
+      user-mail-address "mathias@pilcrow.be"
+      company-idle-delay nil)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -19,8 +20,8 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; test
-(setq doom-font (font-spec :family "Fira Code" :size 16)
-      doom-variable-pitch-font (font-spec :family "Fira Code" :size 16))
+(setq doom-font (font-spec :family "Fira Code" :size 14)
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -30,13 +31,11 @@
 ;; org-mode settings
 (setq org-directory "~/org/"
       projectile-project-search-path '("~/dev")
-      org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar"
-      org-superstar-headline-bullets-list '( "⁖" "⁖" "⁖" "⁖" "⁖" ))
+      org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
 (setq display-line-numbers-type `relative)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
