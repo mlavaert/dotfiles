@@ -10,7 +10,6 @@ if ! zgen saved; then
   zgen load zdharma/history-search-multi-word
   zgen load zsh-users/zsh-completions src
   zgen load mafredri/zsh-async
-  zgen load sindresorhus/pure
   [ -z "$SSH_CONNECTION" ] && zgen load zdharma/fast-syntax-highlighting
   zgen save
 fi
@@ -54,3 +53,5 @@ if [[ $TERM != dumb ]]; then
   # If you have host-local configuration, this is where you'd put it
   [ -f ~/.zshrc ] && source ~/.zshrc
 fi
+
+_cache starship init zsh

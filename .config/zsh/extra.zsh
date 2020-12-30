@@ -44,9 +44,6 @@ export AWS_PROFILE=masl
 export AWS_DEFAULT_REGION=eu-west-1
 export AWS_SDK_LOAD_CONFIG=1
 
-# Node
-export NPM_CONFIG_PREFIX=${HOME}/.node_module
-
 # XDG Specification
 export PSQL_HISTORY=$XDG_CACHE_HOME/pg/psql_history
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
