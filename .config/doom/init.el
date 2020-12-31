@@ -24,7 +24,7 @@
        ivy               ; a search engine for love and life
 
        :ui
-       deft              ; notational velocity for Emacs
+       ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
@@ -57,7 +57,7 @@
        ;;lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
-       parinfer          ; turn lisp into python, sort of
+       ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        ;;word-wrap         ; soft wrapping with language-aware indent
@@ -70,7 +70,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;; eshell            ; the elisp shell that works everywhere
+       ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        ;;vterm             ; the best terminal emulation in Emacs
@@ -104,12 +104,12 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
-       tty                 ; improve the terminal Emacs experience
+       ;;tty                 ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
        ;;cc                ; C/C++/Obj-C madness
-       clojure           ; java with a lisp
+       ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
@@ -141,7 +141,7 @@
        ;;lua               ; one-based indices? one-based indices
        markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       nix               ; I hereby declare "nix geht mehr!"
+       ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
         +pretty
@@ -151,7 +151,7 @@
         +journal
         +pandoc)           ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
-       plantuml            ; diagrams for confusing people more
+       ;;plantuml            ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +pyenv +lsp)  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
