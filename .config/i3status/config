@@ -1,11 +1,11 @@
 general {
-        output_format = "i3bar"
-        colors = false
-        markup = pango
-        interval = 5
-        color_good = '#2f343f'
-	color_degraded = '#ebcb8b'
-	color_bad = '#ba5e57'
+    output_format = "i3bar"
+    colors = false
+    markup = pango
+    interval = 5
+    color_good = '#2f343f'
+    color_degraded = '#ebcb8b'
+    color_bad = '#ba5e57'
 }
 
 order += "load"
@@ -15,35 +15,35 @@ order += "battery 1"
 order += "tztime local"
 
 load {
-        format = "<span background='#f59335'> %5min </span>"
+    format = "<span background='#f59335'> %5min </span>"
 }
 
 memory {
-        format = "<span background='#b48ead'> %used / %total </span>"
+    format = "<span background='#b48ead'> %used / %total </span>"
 }
 
 volume master {
-        format = "<span background='#ebcb8b'> 墳 %volume </span>"
-        format_muted = "<span background='#ebcb8b'> ﱝ  Muted </span>"
-        device = "default"
-        mixer = "Master"
-        mixer_idx = 0
+    format = "<span background='#ebcb8b'> 墳 %volume </span>"
+    format_muted = "<span background='#ebcb8b'> ﱝ  Muted </span>"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
 }
 
 battery 1 {
-	last_full_capacity = true
-        format = "<span background='#a3be8c'>  %status %percentage </span>"
-        format_down = "No Battery"
-        status_chr = "CHR"
-        status_bat = "BAT"
-        status_unk = ""
-        status_full = ""
-        path = "/sys/class/power_supply/BAT0/uevent"
-        low_threshold = 10
+    last_full_capacity = true
+    format = "<span background='#a3be8c'>  %status %percentage </span>"
+    format_down = "No Battery"
+    status_chr = "CHR"
+    status_bat = "BAT"
+    status_unk = ""
+    status_full = ""
+    path = "/sys/class/power_supply/BAT0/uevent"
+    low_threshold = 10
 }
 
 tztime local {
-	align = "center"
-	format = "<span background='#81a1c1'> %time </span>"
-	format_time = "%Y-%m-%d %H:%M"
+    align = "center"
+    format = "<span background='#81a1c1'> %time </span>"
+    format_time = "%Y-%m-%d %H:%M"
 }

@@ -2,7 +2,7 @@
 
 # Path
 typeset -gU path fpath mailpath cdpath
-path=($XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin $HOME/.emacs.d/bin $path)
+path=($XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin $HOME/.config/emacs/bin $path)
 fpath=($XDG_BIN_HOME $fpath)
 
 function _is_interactive { [[ $- == *i* ]]; }

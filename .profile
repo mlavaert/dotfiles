@@ -5,7 +5,7 @@ typeset -gU cdpath fpath mailpath path
 path=( $XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin  $path )
 fpath=( $XDG_BIN_HOME $fpath )
 
-export EDITOR="em -t"
+export EDITOR="im"
 export TERMINAL="alacritty"
 export BROWSER="brave"
 export READER="zathura"
@@ -15,6 +15,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_BIN_HOME="$HOME/.local/bin"
 
+# Create XDG Directories if they do not exist
 for dir in "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_BIN_HOME"; do
 	[[ -d $dir ]]  || mkdir -p "$dir"
 done
@@ -24,4 +25,3 @@ export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 
 # Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
-if [ -e /home/mlavaert/.nix-profile/etc/profile.d/nix.sh ]; then . /home/mlavaert/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

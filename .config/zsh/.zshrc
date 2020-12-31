@@ -7,16 +7,18 @@ if ! zgen saved; then
   echo "Initializing zgen"
   zgen load hlissner/zsh-autopair autopair.zsh
   zgen load zsh-users/zsh-history-substring-search
-  zgen load zdharma/history-search-multi-word
   zgen load zsh-users/zsh-completions src
-  zgen load mafredri/zsh-async
-  [ -z "$SSH_CONNECTION" ] && zgen load zdharma/fast-syntax-highlighting
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zdharma/history-search-multi-word
   zgen save
 fi
 
 source $ZDOTDIR/config.zsh
 
 if [[ $TERM != dumb ]]; then
+  autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
+  autopair-init
+
   source $ZDOTDIR/keybinds.zsh
   source $ZDOTDIR/completion.zsh
   source $ZDOTDIR/aliases.zsh
@@ -44,14 +46,10 @@ if [[ $TERM != dumb ]]; then
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND="fd -t d . $HOME"
   fi
-  _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
 
-  ##
-  autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
-  autopair-init
+  _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
+  _cache starship init zsh
 
   # If you have host-local configuration, this is where you'd put it
   [ -f ~/.zshrc ] && source ~/.zshrc
 fi
-
-_cache starship init zsh
