@@ -5,9 +5,9 @@ typeset -gU cdpath fpath mailpath path
 path=( $XDG_BIN_HOME $HOME/.bin $HOME/.node_modules/bin  $path )
 fpath=( $XDG_BIN_HOME $fpath )
 
-export EDITOR="im"
+export EDITOR="vim"
 export TERMINAL="alacritty"
-export BROWSER="brave"
+export BROWSER="firefox"
 export READER="zathura"
 
 export XDG_CACHE_HOME="$HOME/.cache"

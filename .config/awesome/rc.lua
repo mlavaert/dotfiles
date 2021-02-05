@@ -6,17 +6,21 @@ pcall(require, "luarocks.loader")
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
+
+local beautiful = require("beautiful")
+
 -- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
-local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
+
 local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
+
+
+-- Setup configurations
+require('configuration.tags')
+
+local apps = require('configuration.apps')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -45,12 +49,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/xresources/theme.lua")
-
--- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "emacs"
-editor_cmd = terminal .. " -e " .. editor
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/xresources/theme.lua")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -139,12 +138,12 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -171,7 +170,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ height = 30, position = "top", screen = s })
+    s.mywibox = awful.wibar({ height = 24, position = "top", screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -245,8 +244,15 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn(apps.default.terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey,           }, "b", function () awful.spawn(apps.default.browser) end,
+              {description = "open a browser", group = "launcher"}),
+    awful.key({ modkey },            "p",     function () awful.spawn(apps.default.launcher) end,
+              {description = "open launcher", group = "launcher"}),
+    awful.key({ modkey },            "d",     function () awful.spawn(awful.screen.focused().selected_tag.defaultApp) end,
+              {description = "open default app", group = "launcher"}),
+
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -279,11 +285,7 @@ globalkeys = gears.table.join(
                     )
                   end
               end,
-              {description = "restore minimized", group = "client"}),
-
-    -- Launcher 
-    awful.key({ modkey },            "p",     function () awful.spawn("rofi -show drun") end,
-              {description = "run prompt", group = "launcher"})
+              {description = "restore minimized", group = "client"})
 )
 
 clientkeys = gears.table.join(
@@ -338,11 +340,11 @@ for i = 1, 9 do
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                        local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
-                        if tag then
-                           tag:view_only()
-                        end
+                      local screen = awful.screen.focused()
+                      local tag = screen.tags[i]
+                      if tag then
+                          tag:view_only()
+                      end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
         -- Toggle tag display.

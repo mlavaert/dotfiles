@@ -71,8 +71,7 @@ function kssh() {
     kubectl exec -it "$@" ${pod} bash
 }
 
-function em()
-{
+function em() {
     args=""
     nw=false
     # check if emacsclient is already running
@@ -80,32 +79,31 @@ function em()
 
     # check if the user wants TUI mode
     for arg in "$@"; do
-    	if [ "$arg" = "-nw" ] || [ "$arg" = "-t" ] || [ "$arg" = "--tty" ]
-	then
-    	    nw=true
-    	fi
+        if [ "$arg" = "-nw" ] || [ "$arg" = "-t" ] || [ "$arg" = "--tty" ]; then
+            nw=true
+        fi
     done
 
     # if called without arguments - open a new gui instance
     if [ "$#" -eq "0" ] || [ "$running" != true ]; then
-	args=(-c $args) 		# open emacsclient in a new window
+        args=(-c $args)    # open emacsclient in a new window
     fi
     if [ "$#" -gt "0" ]; then
-	# if 'em -' open standard input (e.g. pipe)
-	if [[ "$1" == "-" ]]; then
-    	    TMP="$(mktemp /tmp/emacsstdin-XXX)"
-    	    cat >$TMP
-	    args=($args --eval '(let ((b (generate-new-buffer "*stdin*"))) (switch-to-buffer b) (insert-file-contents "'${TMP}'") (delete-file "'${TMP}'"))')
-	else
-	    args=($@ $args)
-	fi
+        # if 'em -' open standard input (e.g. pipe)
+        if [[ "$1" == "-" ]]; then
+            TMP="$(mktemp /tmp/emacsstdin-XXX)"
+            cat >$TMP
+            args=($args --eval '(let ((b (generate-new-buffer "*stdin*"))) (switch-to-buffer b) (insert-file-contents "'${TMP}'") (delete-file "'${TMP}'"))')
+        else
+            args=($@ $args)
+        fi
     fi
 
     # emacsclient $args
     if $nw; then
-	emacsclient "${args[@]}"
+        emacsclient "${args[@]}"
     else
-	(nohup emacsclient "${args[@]}" > /dev/null 2>&1 &) > /dev/null
+        (nohup emacsclient "${args[@]}" > /dev/null 2>&1 &) > /dev/null
     fi
 }
 

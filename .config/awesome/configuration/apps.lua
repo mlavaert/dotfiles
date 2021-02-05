@@ -1,10 +1,9 @@
-local filesystem = require('gears.filesystem')
-
 return {
   default = {
+    browser = 'firefox',
     terminal = 'alacritty',
     editor = 'emacs',
-    rofi = 'rofi -show drun'
+    launcher = 'rofi -show drun'
   },
   autostart = {
     
