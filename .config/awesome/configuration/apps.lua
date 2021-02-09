@@ -6,6 +6,8 @@ return {
     launcher = 'rofi -show drun'
   },
   autostart = {
-    
+    'pamac-tray',
+    'nm-applet',
+    'blueman-applet'
   }
 }

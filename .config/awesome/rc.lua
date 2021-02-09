@@ -11,45 +11,21 @@ local beautiful = require("beautiful")
 
 -- Widget and layout library
 local wibox = require("wibox")
--- Notification library
-local naughty = require("naughty")
 
 local hotkeys_popup = require("awful.hotkeys_popup")
 
+-- Theme 
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/xresources/theme.lua")
 
--- Setup configurations
+-- Init all modules
+require('modules.autostart')
+require('modules.notifications')
+
+-- Setup all configurations
 require('configuration.tags')
-
 local apps = require('configuration.apps')
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
-
--- Handle runtime errors after startup
-do
-    local in_error = false
-    awesome.connect_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
-
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = tostring(err) })
-        in_error = false
-    end)
-end
--- }}}
-
 -- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/xresources/theme.lua")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -70,7 +46,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
