@@ -52,3 +52,30 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+;;
+(after! org-roam
+      (setq org-roam-capture-ref-templates
+            '(("r" "ref" plain (function org-roam-capture--get-point)
+               "%?"
+               :file-name "websites/${slug}"
+               :head "#+TITLE: ${title}
+    #+ROAM_KEY: ${ref}
+    - source :: ${ref}"
+               :unnarrowed t))))
+
+
+(use-package org-roam-server
+  :after (org-roam server)
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8078
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20)
+  (defun org-roam-server-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (org-roam-server-mode 1)
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))

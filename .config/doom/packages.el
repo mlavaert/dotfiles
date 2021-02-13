@@ -50,4 +50,6 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-(package! org-roam-server)
+(package! org-roam-server :pin "c7793202e9.")
+(package! graphviz-dot-mode :pin "3642a0a5f4..")
+(package! systemd :pin "51c148e09a129ddf33d95276aa0e89d4ef6f8dd2")
