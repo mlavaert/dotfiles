@@ -51,5 +51,8 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! org-roam-server :pin "c7793202e9.")
+(package! org-super-agenda :pin "f5e80e4d0d.")
+
+
 (package! graphviz-dot-mode :pin "3642a0a5f4..")
 (package! systemd :pin "51c148e09a129ddf33d95276aa0e89d4ef6f8dd2")

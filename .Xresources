@@ -18,6 +18,8 @@
 #define nord14 #A3BE8C
 #define nord15 #B48EAD
 
+Xcursor.theme: capitaine-cursors
+
 *.foreground:   nord4
 *.background:   nord0
 *.cursorColor:  nord4

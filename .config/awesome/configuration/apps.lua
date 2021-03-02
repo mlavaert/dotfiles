@@ -1,6 +1,6 @@
 return {
   default = {
-    browser = 'firefox',
+    browser = 'brave',
     terminal = 'alacritty',
     editor = 'emacs',
     launcher = 'rofi -show drun'
