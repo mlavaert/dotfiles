@@ -8,7 +8,7 @@ fpath=( $XDG_BIN_HOME $fpath )
 export EDITOR="vim"
 export TERMINAL="alacritty"
 export BROWSER="brave"
-export READER="zathura"
+export READER="mupdf"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
