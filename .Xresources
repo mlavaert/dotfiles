@@ -23,8 +23,6 @@ Xcursor.theme: capitaine-cursors
 *.foreground:   nord4
 *.background:   nord0
 *.cursorColor:  nord4
-*fading: 35
-*fadeColor: nord3
 
 *.color0: nord1
 *.color1: nord11
@@ -57,7 +55,7 @@ xterm*locale: true
 xterm*loginShell: true
 xterm*internalBorder: 17
 xterm*faceName: monospace
-xterm*faceSize: 8
+xterm*faceSize: 10
 xterm*renderFont: true
 xterm*cursorBlink: true
 xterm*ScrollBar: false

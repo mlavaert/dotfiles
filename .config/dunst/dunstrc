@@ -412,10 +412,3 @@
 #    set_stack_tag = "volume"
 #
 # vim: ft=cfg
-
-[spotifyd]
-    summary = "spotifyd"
-    background = "#d8dee9"
-    foreground = "#4c566a"
-    format = "%b"
-    new_icon = "~/.config/dunst/spotify.png"
