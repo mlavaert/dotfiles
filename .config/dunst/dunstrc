@@ -195,7 +195,7 @@
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
     # automatically after a crash.
-    startup_notification = true
+    startup_notification = false
 
     # Define the corner radius of the notification window
     # in pixel size. If the radius is 0, you have no rounded

@@ -10,6 +10,8 @@ set cmdheight=2 " Give more space for displaying messages.
 set updatetime=300
 set shortmess+=c " Don't pass messages to |ins-completion-menu|.
 set signcolumn=yes
+set clipboard=unnamed
+
 
 " {{ Plugins }} "
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
