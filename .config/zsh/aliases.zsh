@@ -28,17 +28,3 @@ alias k=kubectl
 
 alias y='xclip -selection clipboard -in'
 alias p='xclip -selection clipboard -out'
-
-autoload -U zmv
-
-take() {
-	mkdir "$1" && cd "$1"
-}
-compdef take=mkdir
-
-r() {
-	local time=$1
-	shift
-	sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding"
-}
-compdef r=sched

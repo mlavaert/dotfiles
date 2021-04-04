@@ -1,55 +1,63 @@
-export ZGEN_DIR="$XDG_CACHE_HOME/zgen"
-export ZGEN_SOURCE="$ZGEN_DIR/zgen.zsh"
+# autoload
+autoload -U compinit \
+  edit-command-line 
+zmodload zsh/complist
 
-[ -d "$ZGEN_DIR" ] || git clone https://github.com/tarjoilija/zgen "$ZGEN_DIR"
-source $ZGEN_SOURCE
-if ! zgen saved; then
-  echo "Initializing zgen"
-  zgen load hlissner/zsh-autopair autopair.zsh
-  zgen load zsh-users/zsh-history-substring-search
-  zgen load zsh-users/zsh-completions src
-  zgen load zsh-users/zsh-syntax-highlighting
-  zgen load zdharma/history-search-multi-word
-  zgen save
-fi
+# init
+zstyle ':completion:*' menu select
+zstyle ':completion::complete:*' gain-privileges 1
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "~/.cache/zsh/zcompcache"
 
-source $ZDOTDIR/config.zsh
+compinit; _comp_options+=(globdots) # include hidden files
+zle -N edit-command-line
 
-if [[ $TERM != dumb ]]; then
-  autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
-  autopair-init
+typeset -gU path fpath mailpath cdpath
+path=($XDG_BIN_HOME $HOME/.config/emacs/bin $path)
+fpath=($XDG_BIN_HOME $fpath)
 
-  source $ZDOTDIR/keybinds.zsh
-  source $ZDOTDIR/completion.zsh
-  source $ZDOTDIR/aliases.zsh
-  source $ZDOTDIR/extra.zsh
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
+# set
+HISTSIZE=8000
+SAVEHIST=8000
+HISTFILE=~/.cache/zsh/history
 
-  ##
-  function _cache {
-    command -v "$1" >/dev/null || return 1
-    local cache_dir="$XDG_CACHE_HOME/${SHELL##*/}"
-    local cache="$cache_dir/$1"
-    if [[ ! -f $cache || ! -s $cache ]]; then
-      echo "Caching $1"
-      mkdir -p $cache_dir
-      "$@" >$cache
-    fi
-    source $cache || rm -f $cache
-  }
+eval "$(starship init zsh)"
 
-  # fd > find
-  if command -v fd >/dev/null; then
-    export FZF_DEFAULT_OPTS="--reverse --ansi"
-    export FZF_DEFAULT_COMMAND="fd ."
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_ALT_C_COMMAND="fd -t d . $HOME"
-  fi
+# setopts
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt APPEND_HISTORY            # Appends history to history file on exit
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing non-existent history.
 
-  _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
-  _cache starship init zsh
+## navigation
+setopt AUTO_CD
+setopt EXTENDED_GLOB
+setopt COMPLETE_ALIASES
 
-  # If you have host-local configuration, this is where you'd put it
-  [ -f ~/.zshrc ] && source ~/.zshrc
-fi
+# external sources
+source $ZDOTDIR/z.sh
+source $ZDOTDIR/extra.zsh
+source $ZDOTDIR/aliases.zsh
+source ~/.config/zsh/z.sh
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+## vi mode
+bindkey -v
+bindkey -M viins 'jk' vi-cmd-mode
+bindkey -M viins ' ' magic-space
+bindkey '^ ' edit-command-line
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
