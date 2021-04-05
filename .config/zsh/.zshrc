@@ -9,7 +9,7 @@ zstyle ':completion::complete:*' gain-privileges 1
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path "~/.cache/zsh/zcompcache"
 
-compinit; _comp_options+=(globdots) # include hidden files
+compinit -u; _comp_options+=(globdots) # include hidden files
 zle -N edit-command-line
 
 typeset -gU path fpath mailpath cdpath
@@ -21,6 +21,7 @@ HISTSIZE=8000
 SAVEHIST=8000
 HISTFILE=~/.cache/zsh/history
 
+eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
 # setopts
@@ -41,12 +42,12 @@ setopt HIST_BEEP                 # Beep when accessing non-existent history.
 setopt AUTO_CD
 setopt EXTENDED_GLOB
 setopt COMPLETE_ALIASES
+compdef _zshz ${ZSHZ_CMD:-${_Z_CMD:-z}}
 
 # external sources
-source $ZDOTDIR/z.sh
+source $ZDOTDIR/zsh-z.plugin.zsh
 source $ZDOTDIR/extra.zsh
 source $ZDOTDIR/aliases.zsh
-source ~/.config/zsh/z.sh
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 

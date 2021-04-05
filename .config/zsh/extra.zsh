@@ -1,14 +1,5 @@
 #!/usr/bin/env zsh
 export PIP_REQUIRE_VIRTUALENV=true
-export PIP_DOWNLOAD_CACHE=$XDG_CACHE_HOME/pip
-export IPYTHONDIR=$XDG_CONFIG_HOME/jupyter
-export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
-
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-path=( $PYENV_ROOT/bin $path )
-
-eval "$(pyenv init - --no-rehash)"
-eval "$(pyenv virtualenv-init -)"
 
 # Java
 export JAVA_HOME="/usr/lib/jvm/default"
@@ -23,7 +14,11 @@ export AWS_DEFAULT_REGION=eu-west-1
 export AWS_SDK_LOAD_CONFIG=1
 
 # XDG Specification
+export PIP_DOWNLOAD_CACHE=$XDG_CACHE_HOME/pip
+export IPYTHONDIR=$XDG_CONFIG_HOME/jupyter
+export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/config
+export NVM_DIR="$XDG_DATA_HOME"/nvm 
 export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
 export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker

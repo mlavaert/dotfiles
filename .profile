@@ -12,6 +12,7 @@ export READER="mupdf"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
+export ZSHZ_CMD="$XDG_CACHE_HOME/zsh/z"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -21,3 +22,6 @@ export XDG_BIN_HOME="$HOME/.local/bin"
 for dir in "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_BIN_HOME"; do
 	[[ -d $dir ]]  || mkdir -p "$dir"
 done
+
+# Start graphical server on tty1 if not already running.
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
