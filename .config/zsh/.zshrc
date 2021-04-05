@@ -1,6 +1,5 @@
 # autoload
-autoload -U compinit \
-  edit-command-line 
+autoload -Uz compinit edit-command-line 
 zmodload zsh/complist
 
 # init
@@ -8,13 +7,16 @@ zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path "~/.cache/zsh/zcompcache"
-
-compinit -u; _comp_options+=(globdots) # include hidden files
 zle -N edit-command-line
 
-typeset -gU path fpath mailpath cdpath
+typeset -gU path fpath
 path=($XDG_BIN_HOME $HOME/.config/emacs/bin $path)
 fpath=($XDG_BIN_HOME $fpath)
+
+for dump in $ZDOTDIR/.zcompdump(N.mh+24); do 
+	compinit
+done
+compinit -C
 
 # set
 HISTSIZE=8000
