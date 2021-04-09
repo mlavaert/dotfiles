@@ -11,6 +11,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias -- -='cd -'
 alias ll='ls -laF --color'
+alias ls='ls --color'
 
 alias q=exit
 alias clr=clear
