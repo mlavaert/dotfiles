@@ -1,5 +1,6 @@
 # dotfiles
 alias config='git --git-dir=/home/mlavaert/.dotfiles/ --work-tree=/home/mlavaert'
+compdef config=git
 
 # radio
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
