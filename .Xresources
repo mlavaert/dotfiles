@@ -49,6 +49,7 @@ Xft.autohint: true
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
+!! XTerm
 xterm.termName: xterm-256color
 xterm*saveLines: 4096
 xterm*locale: true
@@ -64,3 +65,19 @@ xterm.vt100.metaSendsEscape: true
 xterm.vt100.backarrowKey: false
 xterm.ttyModes: erase ^?
 xterm.vt100.geometry: 80x32
+
+!! URxvt
+URxvt.font: xft:Fira Code Nerd Font:pixelsize=14:antialias=true
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
+URxvt.geometry: 92x24
+URxvt.internalBorder: 10 
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt.saveline: 2048
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.urgentOnBell: true
+URxvt.depth: 24
+URxvt.iso14755: false
+
