@@ -68,3 +68,8 @@
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
+
+(add-hook! org-tree-slide
+           (setq display-line-numbers-type nil))
+           ;; (org-tree-slide-slide-in-effect t)
+           ;; (org-tree-slide-header t))
