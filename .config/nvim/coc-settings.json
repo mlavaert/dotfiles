@@ -1,22 +1,14 @@
 {
-	"python.venvFolders": [
-		".local/share/pyenv/versions"
-	],
-	"python.formatting.provider": "black",
-	"coc.preferences.formatOnSaveFiletypes": [
-		"python"
-	],
-	"python.linting.flake8Enabled": true,
-	"python.linting.pylintEnabled": false,
-	"python.jediEnabled": false,
 	"languageserver": {
 		"terraform": {
-			"command": "terraform-lsp",
+			"command": "terraform-ls",
+			"args": ["serve"],
 			"filetypes": [
 				"terraform",
 				"tf"
 			],
-			"initializationOptions": {}
+			"initializationOptions": {},
+			"settings": {}
 		}
 	}
 }
