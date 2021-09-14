@@ -25,11 +25,12 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+(setq org-agenda-files '("~/org/" "~/org/roam/daily/"))
 ;; (custom-set-faces
 ;;         '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
 ;;         '(org-level-2 ((t (:inherit outline-2 :height 1.1))))
@@ -69,7 +70,21 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
+
+;; org-roam
+(defun org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (cons arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+
+(map! :leader
+      :desc "Insert immediate"
+      :n
+      "n r I" #'org-roam-node-insert-immediate)
+
+
+
 (add-hook! org-tree-slide
            (setq display-line-numbers-type nil))
-           ;; (org-tree-slide-slide-in-effect t)
-           ;; (org-tree-slide-header t))
