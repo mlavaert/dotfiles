@@ -23,8 +23,6 @@ fpath=($XDG_BIN_HOME $fpath)
 
 # ZSHZ
 compdef _zshz ${ZSHZ_CMD:-${_Z_CMD:-z}}
-# direnv
-eval "$(direnv hook zsh)"
 
 # external sources
 source $ZDOTDIR/config.zsh
