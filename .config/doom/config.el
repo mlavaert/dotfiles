@@ -30,17 +30,13 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-(setq org-agenda-files '("~/org/" "~/org/roam/daily/"))
-;; (custom-set-faces
-;;         '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
-;;         '(org-level-2 ((t (:inherit outline-2 :height 1.1))))
-;; )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
+;;
 ;;
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
@@ -57,6 +53,43 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; org-roam
+(defun pilcrow/org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (cons arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+
+(defun pilcrow/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun pilcrow/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (pilcrow/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun pilcrow/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (append '("~/org/roam/daily") (pilcrow/org-roam-list-notes-by-tag "Project"))))
+
+(after! org-roam
+  (setq org-roam-capture-templates'(("d" "default" plain
+                                     "%?"
+                                     :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                     :unnarrowed t)
+                                    ("p" "project" plain
+                                     "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+                                     :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
+                                     :unnarrowed t)))
+
+  ; build the initial agenda for this sesson
+  (pilcrow/org-roam-refresh-agenda-list)
+
+  (map! :leader
+        :desc "Insert immediate" :n "n r I" #'pilcrow/org-roam-node-insert-immediate))
 
 ;; org-roam-ui
 (use-package! websocket
@@ -70,21 +103,6 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
-
-;; org-roam
-(defun org-roam-node-insert-immediate (arg &rest args)
-  (interactive "P")
-  (let ((args (cons arg args))
-        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
-                                                  '(:immediate-finish t)))))
-    (apply #'org-roam-node-insert args)))
-
-(map! :leader
-      :desc "Insert immediate"
-      :n
-      "n r I" #'org-roam-node-insert-immediate)
-
-
-
-(add-hook! org-tree-slide
-           (setq display-line-numbers-type nil))
+(after! org-roam-ui
+  (map! :leader
+        :desc "Open Roam UI" :n "n u" #'org-roam-ui-mode))
