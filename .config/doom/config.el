@@ -73,7 +73,29 @@
 
 (defun pilcrow/org-roam-refresh-agenda-list ()
   (interactive)
-  (setq org-agenda-files (append '("~/org/roam/daily") (pilcrow/org-roam-list-notes-by-tag "Project"))))
+  (setq org-agenda-files (append '("~/org/todo.org")
+                                 (pilcrow/org-roam-list-notes-by-tag "Project"))))
+
+(defun pilcrow/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
+        (org-roam-dailies-capture-templates
+         '(("t" "tasks" entry "%?"
+            :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+        (org-after-refile-insert-hook #'save-buffer)
+        today-file
+        pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
+
+    ;; Only refile if the target file is different than the current file
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+
 
 (after! org-roam
   (setq org-roam-capture-templates'(("d" "default" plain
@@ -85,8 +107,12 @@
                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
                                      :unnarrowed t)))
 
-  ; build the initial agenda for this sesson
-  (pilcrow/org-roam-refresh-agenda-list)
+  (pilcrow/org-roam-refresh-agenda-list); build the initial agenda for this sesson
+
+  (add-to-list 'org-after-todo-state-change-hook
+               (lambda ()
+                 (when (equal org-state "DONE")
+                   (my/org-roam-copy-todo-to-today))))
 
   (map! :leader
         :desc "Insert immediate" :n "n r I" #'pilcrow/org-roam-node-insert-immediate))
