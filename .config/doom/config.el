@@ -112,7 +112,7 @@
   (add-to-list 'org-after-todo-state-change-hook
                (lambda ()
                  (when (equal org-state "DONE")
-                   (my/org-roam-copy-todo-to-today))))
+                   (pilcrow/org-roam-copy-todo-to-today))))
 
   (map! :leader
         :desc "Insert immediate" :n "n r I" #'pilcrow/org-roam-node-insert-immediate))
