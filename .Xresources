@@ -39,7 +39,6 @@
 *.color14: nord7
 *.color15: nord6
 
-Xft.dpi: 96 
 Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb
@@ -79,7 +78,7 @@ xterm*pointerShape: XTerm
 xterm*bellIsUrgent: false
 xterm*bellSupressTime: 100
 xterm*marginBell: false
-xterm*visualBell: true
+xterm*visualBell: false
 
 ! Text highlighting
 xterm*highlightColor: XtDefaultForeground
@@ -123,6 +122,7 @@ xterm*scrollTtyOutput: false
 xterm*backarrowKey: false
 xterm*metaSendsEscape: true
 xterm*ttyModes: erase ^?
+
 
 ! Key bindings.  Use C-S-{c,v} to copy/paste as in GNOME terminal.  The
 ! keys "Prior" and "Next" represent PgUp and PgDown respectively.
