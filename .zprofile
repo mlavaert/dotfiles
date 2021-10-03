@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 export EDITOR="vim"
-export TERMINAL="st"
-export BROWSER="brave"
+export TERMINAL="xterm"
+export BROWSER="firefox"
 export READER="mupdf"
 
 export XDG_CACHE_HOME="$HOME/.cache"
