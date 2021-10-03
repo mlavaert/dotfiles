@@ -3,7 +3,7 @@
 source "$ZGEN_SOURCE"
 
 if ! zgen saved; then
-  zgen load agkozak/zsh-z
+  # zgen load agkozak/zsh-z
   zgen load zdharma/fast-syntax-highlighting
   zgen load zsh-users/zsh-history-substring-search
   zgen load junegunn/fzf shell
@@ -20,15 +20,11 @@ path=($XDG_BIN_HOME $HOME/.config/emacs/bin $path)
 fpath=($XDG_BIN_HOME $fpath)
 
 # ZSHZ
-compdef _zshz ${ZSHZ_CMD:-${_Z_CMD:-z}}
+# compdef _zshz ${ZSHZ_CMD:-${_Z_CMD:-z}}
 
 # external sources
 source $ZDOTDIR/config.zsh
-source $ZDOTDIR/keybinds.zsh
-source $ZDOTDIR/aliases.zsh
-source $ZDOTDIR/prompt.zsh
-source $ZDOTDIR/extra.zsh
-
+source $ZDOTDIR/userconfig.zsh
 
 # init
 zstyle ':completion:*' menu select
@@ -42,3 +38,4 @@ if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 else
   compinit -C
 fi
+
