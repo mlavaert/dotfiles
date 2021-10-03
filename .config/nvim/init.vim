@@ -23,15 +23,12 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-abolish'
   Plug 'justinmk/vim-sneak'
 
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
 
   Plug 'neoclide/coc.nvim', {'branch':'release'}
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' } 
 
   Plug 'junegunn/goyo.vim'
   Plug 'junegunn/limelight.vim'
@@ -57,11 +54,3 @@ call plug#end()
 " Completion
 runtime coc.vim
 
-" Treesitter
-lua <<EOF
-require 'nvim-treesitter.configs'.setup {
-  ensure_installed = {"python", "hcl"},
-  highlight = { enable = true } ,
-  indent = { enable = true },
-}
-EOF

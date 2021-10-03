@@ -5,7 +5,6 @@ source "$ZGEN_SOURCE"
 if ! zgen saved; then
   zgen load agkozak/zsh-z
   zgen load zdharma/fast-syntax-highlighting
-  # zgen load zsh-users/zsh-completions src
   zgen load zsh-users/zsh-history-substring-search
   zgen load junegunn/fzf shell
   zgen save
@@ -19,7 +18,6 @@ zmodload zsh/complist
 typeset -gU path fpath
 path=($XDG_BIN_HOME $HOME/.config/emacs/bin $path)
 fpath=($XDG_BIN_HOME $fpath)
-
 
 # ZSHZ
 compdef _zshz ${ZSHZ_CMD:-${_Z_CMD:-z}}
