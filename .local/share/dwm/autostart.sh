@@ -1,6 +1,7 @@
 #!/bin/sh
 
-xrdb -merge ~/.Xresources
+xrandr -s 1920x1080
+xrdb ~/.Xresources 
 
 dunst &
 slstatus &
