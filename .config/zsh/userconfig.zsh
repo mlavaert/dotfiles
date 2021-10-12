@@ -23,6 +23,8 @@ alias k=kubectl
 alias y='xclip -selection clipboard -in'
 alias p='xclip -selection clipboard -out'
 
+eval "$(zoxide init zsh)"
+
 
 # environment
 export PIP_REQUIRE_VIRTUALENV=true
