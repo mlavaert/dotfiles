@@ -1,56 +1,70 @@
+"--------------------------------------------------------------------------
 " General settings
-let mapleader = "," 
-
-set hidden 	" Allows you to change buffers even if the current one has unsaved changes
-set smartindent " Intuitive indentatio of new lines when creating them
-set noswapfile nobackup nowritebackup 
-set undodir=${XDG_CACHE_HOME}/nvim/undodir
+"--------------------------------------------------------------------------
+set expandtab
+set termguicolors
+set hidden
+set signcolumn=yes:2
+set number
+set relativenumber
 set undofile
-
-set number relativenumber 	" display line numbers
+set undodir=${XDG_CACHE_HOME}/nvim/undodir
+set title
+set ignorecase
+set smartcase
+set wildmode=longest:full,full
+set nowrap
+set list
+set listchars=tab:▸\ ,trail:·
+set mouse=a
 set scrolloff=8
+set sidescrolloff=8
+set nojoinspaces
+set splitright
 set clipboard=unnamed
+set confirm
+set exrc
+set backup
+set backupdir=${XDG_CACHE_HOME}/nvim/backupdir
+set colorcolumn=80
+set updatetime=300
+set redrawtime=10000
 
+"--------------------------------------------------------------------------
+" Key maps
+"--------------------------------------------------------------------------
+let mapleader = "\<space>" 
+
+nnoremap <leader>ve :edit   ${XDG_CONFIG_HOME}/nvim/init.vim<cr>
+nnoremap <leader>vr :source ${XDG_CONFIG_HOME}/nvim/init.vim<cr>
+
+" Allow gf to open non-existing files
+map gf :edit <cfile><cr>
+
+
+"--------------------------------------------------------------------------
+" Plugins
+"--------------------------------------------------------------------------
 -" {{ Plugins }} "
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
 	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim
-	autocmd VimEnter * PlugInstall
+	autocmd VimEnter * PlugInstall --sync
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-commentary'
-  Plug 'justinmk/vim-sneak'
 
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
+source $XDG_CONFIG_HOME/nvim/plugins/airline.vim
+source $XDG_CONFIG_HOME/nvim/plugins/coc.vim
+source $XDG_CONFIG_HOME/nvim/plugins/fzf.vim
+source $XDG_CONFIG_HOME/nvim/plugins/onedark.vim
+source $XDG_CONFIG_HOME/nvim/plugins/treesitter.vim
+source $XDG_CONFIG_HOME/nvim/plugins/vim-commentary.vim
+source $XDG_CONFIG_HOME/nvim/plugins/vim-sleuth.vim
+source $XDG_CONFIG_HOME/nvim/plugins/vim-repeat.vim
+source $XDG_CONFIG_HOME/nvim/plugins/vim-surround.vim
+source $XDG_CONFIG_HOME/nvim/plugins/goyo.vim
 
-  Plug 'neoclide/coc.nvim', {'branch':'release'}
-
-  Plug 'junegunn/goyo.vim'
-  Plug 'junegunn/limelight.vim'
-
-  Plug 'plasticboy/vim-markdown'
-
-  Plug 'itchyny/lightline.vim'
-  Plug 'ryanoasis/vim-devicons'
 call plug#end()
-
-" Focus mode
-  let g:limelight_conceal_ctermfg = 'gray' 
-  let g:limelight_conceal_ctermfg = 240
-  autocmd! User GoyoEnter Limelight
-  autocmd! User GoyoLeave Limelight!  
-  map <leader>tf :Goyo<CR>
-
-" FZF
-  let g:fzf_buffers_jump = 1
-  nmap <C-P> :Files<CR>
-  nmap <leader><leader> :GFiles<CR>
-
-" Completion
-runtime coc.vim
-
+doautocmd User PlugLoaded
