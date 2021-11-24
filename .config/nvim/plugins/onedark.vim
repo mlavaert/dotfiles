@@ -1,8 +1,6 @@
-Plug 'joshdick/onedark.vim'
+Plug 'navarasu/onedark.nvim'
 
-let g:onedark_terminal_italics = 1
-
-augroup DraculaOverrides
+augroup OneDarkOverrides
     autocmd!
     autocmd User PlugLoaded ++nested colorscheme onedark
 augroup end

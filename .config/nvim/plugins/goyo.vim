@@ -1,12 +1,19 @@
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
 
+function! s:goyo_enter()
+  set wrap
+  set linebreak
+  Limelight
+endfunction
 
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
+function! s:goyo_leave()
+  set nowrap
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 nnoremap <leader>tf :Goyo<cr>
-

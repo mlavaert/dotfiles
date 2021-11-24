@@ -1,13 +1,13 @@
 #!/bin/sh
 
-xrandr -s 1920x1080
 xrdb ~/.Xresources 
 
 dunst &
+picom --no-fading-openclose --daemon &
+redshift &
 slstatus &
 unclutter &
 volumeicon &
-picom --no-fading-openclose --daemon &
 
 feh --no-fehbg --bg-fill ~/.local/share/wallpaper.jpg
 

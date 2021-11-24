@@ -1,5 +1,6 @@
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
 
 let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1

@@ -2,11 +2,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf'
 
 let g:coc_global_extensions = [
-    \ 'coc-sql',
     \ 'coc-diagnostic',
-    \ 'coc-python',
+    \ 'coc-git',
     \ 'coc-json',
+    \ 'coc-pyright',
     \ 'coc-sh',
+    \ 'coc-sql',
 \ ]
 
 

@@ -8,13 +8,7 @@
 	"diagnostic.warningSign": "⚠",
 	"diagnostic.infoSign": "•",
 	"diagnostic.hintSign": "•",
-
 	"git.enableGutters": true,
-	"git.addedSign.text": "┃",
-	"git.changedSign.text": "┃",
-	"git.removedSign.text": "▁",
-	"git.topRemovedSign.text": "▔",
-	"git.changeRemovedSign.text": "▔",
 	"sql.formatOptions": {
 		"uppercase": true
 	},
