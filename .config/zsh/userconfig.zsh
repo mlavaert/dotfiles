@@ -25,12 +25,12 @@ alias p='xclip -selection clipboard -out'
 
 eval "$(zoxide init zsh)"
 
-
-# environment
-export PIP_REQUIRE_VIRTUALENV=true
-
 # Java
 export JAVA_HOME="/usr/lib/jvm/default"
+
+# Python
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Aws
 export AWS_PROFILE=masl

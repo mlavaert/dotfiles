@@ -60,6 +60,7 @@ unsetopt AUTO_NAME_DIRS     # Don't add variable-stored paths to ~ list
 autoload -U is-at-least
 
 ## vi-mode ###############
+zle -N edit-command-line
 bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M viins ' ' magic-space

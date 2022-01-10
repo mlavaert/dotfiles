@@ -14,28 +14,22 @@ fi
 autoload -Uz compinit edit-command-line 
 zmodload zsh/complist
 
-
 typeset -gU path fpath
 path=($XDG_BIN_HOME $HOME/.config/emacs/bin $path)
 fpath=($XDG_BIN_HOME $fpath)
 
-# ZSHZ
-# compdef _zshz ${ZSHZ_CMD:-${_Z_CMD:-z}}
-
-# external sources
-source $ZDOTDIR/config.zsh
-source $ZDOTDIR/userconfig.zsh
-
-# init
+# completions
 zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path "~/.cache/zsh/zcompcache"
 
-zle -N edit-command-line
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
   compinit
 else
   compinit -C
 fi
 
+# external sources
+source $ZDOTDIR/config.zsh
+source $ZDOTDIR/userconfig.zsh
