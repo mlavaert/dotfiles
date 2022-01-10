@@ -2,12 +2,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf'
 
 let g:coc_global_extensions = [
-    \ 'coc-diagnostic',
-    \ 'coc-git',
-    \ 'coc-json',
-    \ 'coc-pyright',
-    \ 'coc-sh',
     \ 'coc-sql',
+    \ 'coc-diagnostic',
+    \ 'coc-pyright',
+    \ 'coc-json',
+    \ 'coc-yaml',
+    \ 'coc-git',
+    \ 'coc-sh',
 \ ]
 
 
@@ -56,7 +57,8 @@ nmap <silent> [h <Plug>(coc-git-prevchunk)
 nmap <leader>af  <plug>(coc-fix-current)
 nmap <leader>am  <plug>(coc-format-selected)
 xmap <leader>am  <plug>(coc-format-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>ac  <Plug>(coc
+nmap <leader>cf  :Format<cr>
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
