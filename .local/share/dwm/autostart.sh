@@ -9,7 +9,7 @@ slstatus &
 unclutter &
 volumeicon &
 
-feh --no-fehbg --bg-fill ~/.local/share/wallpaper.jpg
+feh --no-fehbg --bg-fill ~/.config/wall.png
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export AWT_TOOLKIT=MToolkit
