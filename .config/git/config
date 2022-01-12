@@ -1,12 +1,12 @@
 [user]
   name = Mathias Lavaert
-  email = mlavaert@gmail.com
+  email = mathias@pilcrow.be
 
 [github]
   user = mlavaert
 
 [core]
-  editor = vim 
+  editor = nvim
 
 [init]
   defaultBranch = main
