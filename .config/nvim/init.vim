@@ -58,9 +58,7 @@ call plug#begin('~/.config/nvim/plugged')
 source $XDG_CONFIG_HOME/nvim/plugins/airline.vim
 source $XDG_CONFIG_HOME/nvim/plugins/auto-pairs.vim
 source $XDG_CONFIG_HOME/nvim/plugins/coc.vim
-source $XDG_CONFIG_HOME/nvim/plugins/csv.vim
 source $XDG_CONFIG_HOME/nvim/plugins/editorconfig.vim
-source $XDG_CONFIG_HOME/nvim/plugins/goyo.vim
 source $XDG_CONFIG_HOME/nvim/plugins/nerdtree.vim
 source $XDG_CONFIG_HOME/nvim/plugins/onedark.vim
 source $XDG_CONFIG_HOME/nvim/plugins/telescope.vim
@@ -71,8 +69,6 @@ source $XDG_CONFIG_HOME/nvim/plugins/vim-repeat.vim
 source $XDG_CONFIG_HOME/nvim/plugins/vim-surround.vim
 source $XDG_CONFIG_HOME/nvim/plugins/vim-fugitive.vim
 source $XDG_CONFIG_HOME/nvim/plugins/vim-sneak.vim
-
-
 
 call plug#end()
 doautocmd User PlugLoaded
