@@ -76,6 +76,10 @@ if [ -n $(which direnv) ]; then
 fi
 
 ## Aliases
+if [ -n $(which doas) ]; then
+	alias sudo=doas
+fi
+
 alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 
@@ -103,6 +107,7 @@ alias p='xclip -selection clipboard -out'
 export JAVA_HOME="/usr/lib/jvm/default"
 
 # XDG Specification
+export PYENV_ROOT=$XDG_DATA_HOME/pyenv
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_DOWNLOAD_CACHE=$XDG_CACHE_HOME/pip
 export IPYTHONDIR=$XDG_CONFIG_HOME/jupyter
@@ -110,6 +115,7 @@ export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
 export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
 export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
+export Z_DATA=$XDG_CACHE_HOME/z
 
 # Utility functions
 function bw-unlock() {
