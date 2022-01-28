@@ -1,10 +1,21 @@
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-lualine/lualine.nvim'
 
-let g:airline_theme = 'onedark'
-let g:airline_skip_empty_sections = 1
+function LualineSetup()
+lua << EOF
+require('lualine').setup {
+        tabline = {
+          lualine_a = {'buffers'},
+          lualine_b = {},
+          lualine_c = {'filename'},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {}
+        }
+}
+EOF
+endfunction
 
-let g:airline#extensions#tabline#enabled = 1
-
-set noshowmode
+augroup LualineSetup
+  autocmd!
+  autocmd User PlugLoaded call LualineSetup()
+augroup end

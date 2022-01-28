@@ -6,7 +6,13 @@ function TreesitterSetup()
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = {"python", "typescript", "bash", "json", "hcl", "go"},
+	ensure_installed = {
+                "python", 
+                "bash", 
+                "json",
+                "hcl",
+                "go"
+        },
 	highlight = {
 		enable = true,
 	},
