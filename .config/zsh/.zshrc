@@ -16,28 +16,36 @@ fi
 # ########
 WORDCHARS='_-*?[]~&.;!#$%^(){}<>' # Treat these characters as part of a word.
 
-setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'
-unsetopt BEEP             # Hush now, quiet now.
 
 ## History
 HISTFILE="$XDG_CACHE_HOME/zsh/history"
 HISTSIZE=4000                    # Max events to store in internal history.
 SAVEHIST=4000                    # Max events to store in history file.
 
-setopt BANG_HIST                 # Don't treat '!' specially during expansion.
-setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
-setopt APPEND_HISTORY            # Appends history to history file on exit
-setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY             # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt rc_quotes                 # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'
+unsetopt beep                    # Hush now, quiet now.
+
+setopt bang_hist                 # Don't treat '!' specially during expansion.
+setopt extended_history          # Write the history file in the ':start:elapsed;command' format.
+setopt append_history            # Appends history to history file on exit
+setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
+setopt share_history             # Share history between all sessions.
+setopt hist_expire_dups_first    # Expire a duplicate event first when trimming history.
+setopt hist_ignore_dups          # Do not record an event that was just recorded again.
+setopt hist_ignore_all_dups      # Remove old events if new event is a duplicate
+setopt hist_find_no_dups         # Do not display a previously found event.
 
 ## Directories
-setopt AUTO_CD              # Auto changes to a directory without typing cd.
-setopt EXTENDED_GLOB        # Use extended globbing syntax.
-unsetopt GLOB_DOTS
+setopt auto_cd              # Auto changes to a directory without typing cd.
+setopt extended_glob        # Use extended globbing syntax.
+unsetopt glob_dots
+
+## Jobs
+unsetopt hup
 
 # autoload
-autoload -Uz compinit edit-command-line
+autoload -Uz edit-command-line
+autoload -Uz compinit
 zmodload zsh/complist
 
 typeset -gU path fpath
@@ -57,11 +65,11 @@ _comp_options+=(globdots) # include hidden files
 # - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
 # - '.' matches "regular files"
 # - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-	compinit;
-else
-	compinit -C;
-fi;
+# if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+# 	compinit;
+# else
+# 	compinit -C;
+# fi;
 
 ## vi-mode
 zle -N edit-command-line
@@ -97,8 +105,8 @@ alias mkdir='mkdir -p'
 alias mk=make
 alias tf=terraform
 alias k=kubectl
-
-please='sudo !!'
+alias sudo='doas'
+alias please='sudo !!'
 
 alias y='xclip -selection clipboard -in'
 alias p='xclip -selection clipboard -out'
