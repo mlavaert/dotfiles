@@ -1,7 +1,3 @@
-Plug 'nvim-lualine/lualine.nvim'
-
-function LualineSetup()
-lua << EOF
 require('lualine').setup {
         tabline = {
           lualine_a = {'buffers'},
@@ -12,10 +8,3 @@ require('lualine').setup {
           lualine_z = {}
         }
 }
-EOF
-endfunction
-
-augroup LualineSetup
-  autocmd!
-  autocmd User PlugLoaded call LualineSetup()
-augroup end
