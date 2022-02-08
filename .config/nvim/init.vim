@@ -31,7 +31,6 @@ set updatetime=300
 set redrawtime=10000
 set cmdheight=2
 set shortmess+=c
-
 "--------------------------------------------------------------------------
 " Plugins
 "--------------------------------------------------------------------------
@@ -81,9 +80,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
+
 Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
