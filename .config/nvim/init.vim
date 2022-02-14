@@ -82,6 +82,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 Plug 'gruvbox-community/gruvbox'
 
@@ -130,3 +132,28 @@ nnoremap <leader>. :lua require('telescope').extensions.file_browser.file_browse
 " Visual
 "--------------------------------------------------------------------------
 colorscheme gruvbox
+
+
+"--------------------------------------------------------------------------
+" Configuration
+"--------------------------------------------------------------------------
+
+function! s:goyo_enter()
+    set noshowmode
+    set noshowcmd
+    set wrap
+    set linebreak
+    set scrolloff=999
+    Limelight
+endfunction
+
+function! s:goyo_leave()
+    set showmode
+    set showcmd
+    set scrolloff=8
+    set nowrap
+    Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()

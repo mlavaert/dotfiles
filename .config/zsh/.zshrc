@@ -6,16 +6,15 @@ if ! zgen saved; then
   zgen load agkozak/zsh-z
   zgen load junegunn/fzf shell
   zgen load subnixr/minimal
+  zgen load zsh-users/zsh-history-substring-search
   zgen load zdharma-continuum/fast-syntax-highlighting
   zgen save
 fi
-
 
 # ########
 # Settings
 # ########
 WORDCHARS='_-*?[]~&.;!#$%^(){}<>' # Treat these characters as part of a word.
-
 
 ## History
 HISTFILE="$XDG_CACHE_HOME/zsh/history"
@@ -65,11 +64,15 @@ _comp_options+=(globdots) # include hidden files
 # - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
 # - '.' matches "regular files"
 # - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
-# if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-# 	compinit;
-# else
-# 	compinit -C;
-# fi;
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
+
+## history substring
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 ## vi-mode
 zle -N edit-command-line
