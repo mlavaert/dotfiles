@@ -120,9 +120,8 @@ nnoremap <leader>bs :write<cr>
 nnoremap <leader>bk :bdelete<cr>
 
 nnoremap <leader>sp :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep for > ") })<CR>
-nnoremap <leader>ff :lua require('telescope.builtin').git_files()<CR>
-nnoremap <leader><leader> :lua require('telescope.builtin').git_files()<CR>
-nnoremap <leader>fF :lua require('telescope.builtin').find_files()<CR>
+nnoremap <leader>ff :lua require('mlavaert.telescope').project_files()<CR>
+nnoremap <leader><leader> :lua require('mlavaert.telescope').project_files()<CR>
 nnoremap <leader>fr :lua require('telescope.builtin').oldfiles()<CR>
 nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
 nnoremap <leader>, :lua require('telescope.builtin').buffers()<CR>
@@ -133,11 +132,9 @@ nnoremap <leader>. :lua require('telescope').extensions.file_browser.file_browse
 "--------------------------------------------------------------------------
 colorscheme gruvbox
 
-
 "--------------------------------------------------------------------------
 " Configuration
 "--------------------------------------------------------------------------
-
 function! s:goyo_enter()
     set noshowmode
     set noshowcmd
