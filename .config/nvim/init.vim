@@ -86,6 +86,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/everforest'
 
 call plug#end()
 
@@ -130,11 +131,13 @@ nnoremap <leader>. :lua require('telescope').extensions.file_browser.file_browse
 "--------------------------------------------------------------------------
 " Visual
 "--------------------------------------------------------------------------
-colorscheme gruvbox
+colorscheme everforest
+set background=light
 
 "--------------------------------------------------------------------------
 " Configuration
 "--------------------------------------------------------------------------
+"Goyo
 function! s:goyo_enter()
     set noshowmode
     set noshowcmd
@@ -154,3 +157,16 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" Neoformat
+let g:neoformat_sql_sqlformat = { 
+            \ 'exe': 'sqlformat',
+            \ 'args': [
+            \   '--reindent', 
+            \   '--indent_columns', 
+            \   '--keywords', 'lower',
+            \   '--identifiers', 'lower',
+            \   '-'
+            \] ,
+            \ 'stdin': 1
+            \ }
