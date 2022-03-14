@@ -52,11 +52,9 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'b0o/schemastore.nvim'
 
 Plug 'onsails/lspkind-nvim'
-Plug 'sbdchd/neoformat'
-
-" snippets
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 
@@ -77,17 +75,20 @@ Plug 'nvim-lualine/lualine.nvim'
 " Git
 Plug 'tpope/vim-fugitive'
 
+" Themes
+Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/everforest'
+
+Plug 'sbdchd/neoformat'
+Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 Plug 'justinmk/vim-sneak'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-
-Plug 'gruvbox-community/gruvbox'
-Plug 'sainnhe/everforest'
-
 call plug#end()
 
 lua << EOF
@@ -132,7 +133,7 @@ nnoremap <leader>. :lua require('telescope').extensions.file_browser.file_browse
 " Visual
 "--------------------------------------------------------------------------
 colorscheme everforest
-set background=light
+set background=dark
 
 "--------------------------------------------------------------------------
 " Configuration

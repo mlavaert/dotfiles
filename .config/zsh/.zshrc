@@ -5,9 +5,9 @@ source "$ZGEN_SOURCE"
 if ! zgen saved; then
   zgen load agkozak/zsh-z
   zgen load junegunn/fzf shell
-  zgen load subnixr/minimal
   zgen load zsh-users/zsh-history-substring-search
   zgen load zdharma-continuum/fast-syntax-highlighting
+  zgen load subnixr/minimal
   zgen save
 fi
 
@@ -47,8 +47,11 @@ autoload -Uz edit-command-line
 autoload -Uz compinit
 zmodload zsh/complist
 
+# Golang
+export GOPATH="$HOME/go"
+
 typeset -gU path fpath
-path=($XDG_BIN_HOME $HOME/.config/emacs/bin $path)
+path=($XDG_BIN_HOME $HOME/.config/emacs/bin $GOPATH/bin $path)
 fpath=($XDG_BIN_HOME $fpath)
 
 # completions
@@ -116,6 +119,7 @@ alias p='xclip -selection clipboard -out'
 
 # Java
 export JAVA_HOME="/usr/lib/jvm/default"
+
 
 # XDG Specification
 export PYENV_ROOT=$XDG_DATA_HOME/pyenv
