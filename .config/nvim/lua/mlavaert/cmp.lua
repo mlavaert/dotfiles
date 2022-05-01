@@ -103,6 +103,5 @@ cmp.setup({
         confirm_opts = {
                 behaviour = cmp.ConfirmBehavior.Replace,
                 select = false,
-        },
-        documentation = { }
+        }
 })
