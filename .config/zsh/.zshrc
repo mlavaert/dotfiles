@@ -51,7 +51,7 @@ zmodload zsh/complist
 export GOPATH="$HOME/go"
 
 typeset -gU path fpath
-path=($XDG_BIN_HOME $HOME/.config/emacs/bin $GOPATH/bin $path)
+path=($XDG_BIN_HOME $HOME/.local/share/pyenv/bin $HOME/.config/emacs/bin $GOPATH/bin $path)
 fpath=($XDG_BIN_HOME $fpath)
 
 # completions
@@ -85,15 +85,15 @@ bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
 
 ## Direnv
-if [ -n $(which direnv) ]; then
-        eval "$(direnv hook zsh)"
+if type direnv &>/dev/null; then
+	eval "$(direnv hook zsh)"
 fi
 
-## Aliases
-if [ -n $(which doas) ]; then
+if type doas &>/dev/null; then
 	alias sudo=doas
 fi
 
+## Aliases
 alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 
@@ -111,7 +111,6 @@ alias mkdir='mkdir -p'
 alias mk=make
 alias tf=terraform
 alias k=kubectl
-alias sudo='doas'
 alias please='sudo !!'
 
 alias y='xclip -selection clipboard -in'
@@ -136,3 +135,9 @@ export Z_DATA=$XDG_CACHE_HOME/z
 function bw-unlock() {
     export BW_SESSION=$(bw unlock --raw)
 }
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/mlavaert/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/mlavaert/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/mlavaert/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/mlavaert/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
