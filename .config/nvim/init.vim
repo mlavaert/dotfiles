@@ -3,7 +3,7 @@
 "--------------------------------------------------------------------------
 set completeopt=menu,menuone,noselect
 set expandtab
-set termguicolors
+" set termguicolors
 set hidden
 set signcolumn=yes
 set number
@@ -76,7 +76,6 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'tpope/vim-fugitive'
 
 " Themes
-Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/everforest'
 
 Plug 'sbdchd/neoformat'
@@ -87,6 +86,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'justinmk/vim-sneak'
+
+" Focus mode
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 call plug#end()
