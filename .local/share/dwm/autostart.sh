@@ -10,8 +10,7 @@ unclutter &
 volumeicon &
 
 # Start Teams and Slack
-slack &
-flatpak run com.microsoft.Teams &
+teams &
 
 feh --no-fehbg --bg-fill ~/.config/wall.png
 
