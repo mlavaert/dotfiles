@@ -1,6 +1,7 @@
 [user]
   name = Mathias Lavaert
   email = mathias@pilcrow.be
+  signingkey = 104D0BF996D42284
 
 [github]
   user = mlavaert
