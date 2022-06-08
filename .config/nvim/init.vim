@@ -9,7 +9,9 @@ set signcolumn=yes
 set number
 set relativenumber
 set undofile
+set backupdir=${XDG_CACHE_HOME}/nvim/backupdir
 set undodir=${XDG_CACHE_HOME}/nvim/undodir
+set directory=${XDG_CACHE_HOME}/nvim/swap
 set ignorecase
 set smartcase
 set wildmode=longest:full,full
@@ -25,12 +27,13 @@ set splitright                  " force horizontal splits to go below current
 set splitbelow                  " force vertical splits to go right of current
 set clipboard=unnamedplus
 set backup
-set backupdir=${XDG_CACHE_HOME}/nvim/backupdir
 set colorcolumn=80
 set updatetime=300
 set redrawtime=10000
 set cmdheight=2
 set shortmess+=c
+set iskeyword-=_                " Allow _ to be a word boundary
+
 "--------------------------------------------------------------------------
 " Plugins
 "--------------------------------------------------------------------------
@@ -54,6 +57,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'b0o/schemastore.nvim'
 
+" Snippets
 Plug 'onsails/lspkind-nvim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
@@ -78,6 +82,7 @@ Plug 'tpope/vim-fugitive'
 " Themes
 Plug 'sainnhe/everforest'
 
+" Potpourri
 Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-commentary'
@@ -172,3 +177,9 @@ let g:neoformat_sql_sqlformat = {
             \] ,
             \ 'stdin': 1
             \ }
+
+" Format on save
+augroup fmt
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
+augroup END
