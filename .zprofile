@@ -8,7 +8,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_BIN_HOME="$HOME/.local/bin"
 
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 export ZGEN_DIR="$XDG_DATA_HOME/zsh"
 export ZGEN_SOURCE="$ZGEN_DIR/zgen.zsh"

@@ -169,7 +169,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:neoformat_sql_sqlformat = { 
             \ 'exe': 'sqlformat',
             \ 'args': [
-            \   '--reindent', 
             \   '--indent_columns', 
             \   '--keywords', 'lower',
             \   '--identifiers', 'lower',
