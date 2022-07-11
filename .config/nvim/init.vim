@@ -84,8 +84,8 @@ Plug 'sainnhe/everforest'
 
 " Potpourri
 Plug 'sbdchd/neoformat'
-Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'

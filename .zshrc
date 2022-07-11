@@ -102,7 +102,7 @@ alias vim=nvim
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias ll='ls -laF --color'
+alias ll='ls -lahF --color'
 alias ls='ls --color'
 
 alias mkdir='mkdir -p'
