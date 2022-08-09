@@ -89,7 +89,7 @@ xterm*highlightTextColor: XtDefaultBackground
 ! font will be used if the one before is not available.  "Monospace" is
 ! a fontconfig alias that ultimately points to "DejaVu Sans Mono" (see
 ! my dotfiles fontconfig).
-xterm*faceName: FiraCode Nerd Font:size=12,Monospace
+xterm*faceName: FiraCode Nerd Font:size=14,Monospace
 xterm*faceSize: 9.5
 xterm*renderFont: true
 xterm*boldColors: false

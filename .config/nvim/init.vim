@@ -3,7 +3,7 @@
 "--------------------------------------------------------------------------
 set completeopt=menu,menuone,noselect
 set expandtab
-" set termguicolors
+set termguicolors
 set hidden
 set signcolumn=yes
 set number
@@ -69,7 +69,7 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
 " Treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
 
@@ -84,8 +84,8 @@ Plug 'sainnhe/everforest'
 
 " Potpourri
 Plug 'sbdchd/neoformat'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -116,7 +116,7 @@ nnoremap <leader>ve :edit   ${XDG_CONFIG_HOME}/nvim/init.vim<cr>
 nnoremap <leader>vr :source ${XDG_CONFIG_HOME}/nvim/init.vim<cr>
 
 " stay in visual mode
-vnoremap < <gv 
+vnoremap < <gv
 vnoremap > >gv
 
 " keeping it centered
@@ -125,7 +125,7 @@ nnoremap N Nzzzv
 nnoremap J mzJ`z
 
 nnoremap <leader>bs :write<cr>
-nnoremap <leader>bk :bdelete<cr>
+nnoremap <leader>bk :bdelete!<cr>
 
 nnoremap <leader>sp :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep for > ") })<CR>
 nnoremap <leader>ff :lua require('mlavaert.telescope').project_files()<CR>
@@ -139,12 +139,15 @@ nnoremap <leader>. :lua require('telescope').extensions.file_browser.file_browse
 " Visual
 "--------------------------------------------------------------------------
 colorscheme everforest
-set background=dark
+ set background=dark
 
 "--------------------------------------------------------------------------
 " Configuration
 "--------------------------------------------------------------------------
-"Goyo
+" Delete trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Goyo
 function! s:goyo_enter()
     set noshowmode
     set noshowcmd
@@ -166,10 +169,10 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Neoformat
-let g:neoformat_sql_sqlformat = { 
+let g:neoformat_sql_sqlformat = {
             \ 'exe': 'sqlformat',
             \ 'args': [
-            \   '--indent_columns', 
+            \   '--indent_columns',
             \   '--keywords', 'lower',
             \   '--identifiers', 'lower',
             \   '-'
