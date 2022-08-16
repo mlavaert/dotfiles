@@ -1,6 +1,6 @@
 #!/bin/sh
 
-xrdb ~/.Xresources 
+xrdb ~/.Xresources
 
 dunst &
 picom --no-fading-openclose --daemon &
@@ -8,9 +8,6 @@ redshift &
 slstatus &
 unclutter &
 volumeicon &
-
-# Start Teams and Slack
-teams &
 
 feh --no-fehbg --bg-fill ~/.config/wall.png
 
