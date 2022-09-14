@@ -58,8 +58,8 @@ fpath=($XDG_BIN_HOME $fpath)
 zstyle ':completion:*' menu select
 _comp_options+=(globdots) # include hidden files
 
-# On slow systems, checking the cached .zcompdump file to see if it must be 
-# regenerated adds a noticable delay to zsh startup.  This little hack restricts 
+# On slow systems, checking the cached .zcompdump file to see if it must be
+# regenerated adds a noticable delay to zsh startup.  This little hack restricts
 # it to once a day.  It should be pasted into your own completion file.
 #
 # The globbing is a little complicated here:
@@ -119,7 +119,6 @@ alias p='xclip -selection clipboard -out'
 # Java
 export JAVA_HOME="/usr/lib/jvm/default"
 
-
 # XDG Specification
 export PYENV_ROOT=$XDG_DATA_HOME/pyenv
 export PIP_REQUIRE_VIRTUALENV=true
@@ -135,9 +134,3 @@ export Z_DATA=$XDG_CACHE_HOME/z
 function bw-unlock() {
     export BW_SESSION=$(bw unlock --raw)
 }
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/mlavaert/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/mlavaert/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/mlavaert/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/mlavaert/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
