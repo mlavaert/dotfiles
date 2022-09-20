@@ -4,12 +4,14 @@ source "$ZGEN_SOURCE"
 
 if ! zgen saved; then
   zgen load agkozak/zsh-z
-  zgen load junegunn/fzf shell
   zgen load zsh-users/zsh-history-substring-search
   zgen load zdharma-continuum/fast-syntax-highlighting
   zgen load subnixr/minimal
   zgen save
 fi
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 # ########
 # Settings
@@ -93,11 +95,13 @@ if type doas &>/dev/null; then
 	alias sudo=doas
 fi
 
+if type nvim &>/dev/null; then
+	alias vim=nvim
+fi
+
 ## Aliases
 alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
-
-alias vim=nvim
 
 alias ..='cd ..'
 alias ...='cd ../..'
