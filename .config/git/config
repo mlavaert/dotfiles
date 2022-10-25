@@ -3,6 +3,9 @@
   email = mathias@pilcrow.be
   signingkey = 104D0BF996D42284
 
+[includeIf "gitdir:~/work/"]
+  path = ~/work/.gitconfig
+
 [github]
   user = mlavaert
 

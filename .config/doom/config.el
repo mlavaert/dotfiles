@@ -53,70 +53,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; org-roam
-(defun pilcrow/org-roam-node-insert-immediate (arg &rest args)
-  (interactive "P")
-  (let ((args (cons arg args))
-        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
-                                                  '(:immediate-finish t)))))
-    (apply #'org-roam-node-insert args)))
-
-(defun pilcrow/org-roam-filter-by-tag (tag-name)
-  (lambda (node)
-    (member tag-name (org-roam-node-tags node))))
-
-(defun pilcrow/org-roam-list-notes-by-tag (tag-name)
-  (mapcar #'org-roam-node-file
-          (seq-filter
-           (pilcrow/org-roam-filter-by-tag tag-name)
-           (org-roam-node-list))))
-
-(defun pilcrow/org-roam-refresh-agenda-list ()
-  (interactive)
-  (setq org-agenda-files (append '("~/org/todo.org")
-                                 (pilcrow/org-roam-list-notes-by-tag "Project"))))
-
-(defun pilcrow/org-roam-copy-todo-to-today ()
-  (interactive)
-  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
-        (org-roam-dailies-capture-templates
-         '(("t" "tasks" entry "%?"
-            :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
-        (org-after-refile-insert-hook #'save-buffer)
-        today-file
-        pos)
-    (save-window-excursion
-      (org-roam-dailies--capture (current-time) t)
-      (setq today-file (buffer-file-name))
-      (setq pos (point)))
-
-    ;; Only refile if the target file is different than the current file
-    (unless (equal (file-truename today-file)
-                   (file-truename (buffer-file-name)))
-      (org-refile nil nil (list "Tasks" today-file nil pos)))))
-
-
-
-(after! org-roam
-  (setq org-roam-capture-templates'(("d" "default" plain
-                                     "%?"
-                                     :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-                                     :unnarrowed t)
-                                    ("p" "project" plain
-                                     "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-                                     :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
-                                     :unnarrowed t)))
-
-  (pilcrow/org-roam-refresh-agenda-list); build the initial agenda for this sesson
-
-  (add-to-list 'org-after-todo-state-change-hook
-               (lambda ()
-                 (when (equal org-state "DONE")
-                   (pilcrow/org-roam-copy-todo-to-today))))
-
-  (map! :leader
-        :desc "Insert immediate" :n "n r I" #'pilcrow/org-roam-node-insert-immediate))
-
 ;; org-roam-ui
 (use-package! websocket
   :after org-roam)
@@ -131,4 +67,4 @@
 
 (after! org-roam-ui
   (map! :leader
-        :desc "Open Roam UI" :n "r n u" #'org-roam-ui-mode))
+        :desc "Open Roam UI" :n "n r u" #'org-roam-ui-mode))

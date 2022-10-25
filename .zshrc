@@ -121,7 +121,7 @@ alias y='xclip -selection clipboard -in'
 alias p='xclip -selection clipboard -out'
 
 # Java
-export JAVA_HOME="/usr/lib/jvm/default"
+# export JAVA_HOME="/usr/lib/jvm/default"
 
 # XDG Specification
 export PYENV_ROOT=$XDG_DATA_HOME/pyenv
@@ -134,7 +134,15 @@ export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
 export Z_DATA=$XDG_CACHE_HOME/z
 
+function gpip() {
+    PIP_REQUIRE_VIRTUALENV=false pip $@
+}
+
 # Utility functions
 function bw-unlock() {
     export BW_SESSION=$(bw unlock --raw)
 }
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
