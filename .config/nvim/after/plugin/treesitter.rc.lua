@@ -2,10 +2,18 @@ local status, treesitter = pcall(require, "nvim-treesitter.configs")
 if (not status) then print("Treesitter is not installed") return end
 
 treesitter.setup {
-    ensure_installed = { "python", "lua", "hcl", "make", "bash", "css", "html", "markdown", "json" },
+    ensure_installed = {
+        "bash",
+        "hcl",
+        "json",
+        "lua",
+        "make",
+        "markdown",
+        "python",
+        "scala",
+        "sql"
+    },
     highlight = { enable = true, },
-    indent = { enable = true, },
-    autopairs = { enable = true, },
     textobjects = {
         select = {
             enable = true,

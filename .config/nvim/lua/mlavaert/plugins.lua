@@ -24,6 +24,11 @@ packer.startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/nvim-cmp'
 
+    use({'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }})
+
+    -- DAP
+    use 'mfussenegger/nvim-dap'
+
     -- Auto-install LSP-servers
     use 'williamboman/mason.nvim'
     use 'williamboman/mason-lspconfig.nvim'

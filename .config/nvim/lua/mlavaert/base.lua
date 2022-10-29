@@ -9,11 +9,14 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+
 -- Other options
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
-vim.opt.ai = true -- Auto indent
-vim.opt.autoindent = true
 vim.opt.backspace = 'start,eol,indent'
 vim.opt.backup = false
 vim.opt.breakindent = true
@@ -29,14 +32,10 @@ vim.opt.path:append { '**' } -- find files recursively
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 vim.opt.shell = 'zsh'
-vim.opt.shiftwidth = 4
 vim.opt.showcmd = true
-vim.opt.si = true -- Smart indent
 vim.opt.smarttab = true
-vim.opt.tabstop = 4
-vim.opt.title = true
 vim.opt.wrap = false
-vim.opt.clipboard = "unnamed"
+vim.opt.clipboard = "unnamedplus"
 vim.opt.updatetime=50
 vim.opt.redrawtime=1000
 
