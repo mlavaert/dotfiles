@@ -143,6 +143,18 @@ function bw-unlock() {
     export BW_SESSION=$(bw unlock --raw)
 }
 
+function kcluster() {
+	local cluster=$(aws eks list-clusters --output text "$@" | aws '{print $2}' | fzf)
+	aws eks update-kubeconfig --name "$cluster"
+}
+
+function kssh() {
+	local pod=$(aws kubectl pods "$@" | awk '/Running/ {print $1}' | fzf)
+	kubectl exec -it "$@" ${pod} bash
+}
+
+
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

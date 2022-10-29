@@ -20,7 +20,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>cl', vim.lsp.code_lens.run, opts)
+    vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, opts)
     vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format({ async = true }) end, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
 
