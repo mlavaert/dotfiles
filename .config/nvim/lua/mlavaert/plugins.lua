@@ -23,11 +23,14 @@ packer.startup(function(use)
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/nvim-cmp'
-
     use({'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }})
+
+    -- Formatting
+    use 'sbdchd/neoformat'
 
     -- DAP
     use 'mfussenegger/nvim-dap'
+    use 'mfussenegger/nvim-dap-python'
 
     -- Auto-install LSP-servers
     use 'williamboman/mason.nvim'
@@ -49,4 +52,5 @@ packer.startup(function(use)
     use 'tpope/vim-surround'
     use 'tpope/vim-vinegar'
     use 'tpope/vim-commentary'
+    use 'tpope/vim-fugitive'
 end)

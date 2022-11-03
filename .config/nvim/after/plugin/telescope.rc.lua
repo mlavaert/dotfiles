@@ -15,7 +15,7 @@ vim.keymap.set('n', '<leader>sp', function()
 end
 )
 
-vim.keymap.set('n', '<leader><leader>', function() builtin.find_files() end)
-vim.keymap.set('n', '<leader>ff', function() builtin.treesitter() end)
-vim.keymap.set('n', '<leader>fr', function() builtin.oldfiles() end)
-vim.keymap.set('n', '<leader>,', function() builtin.buffers() end)
+vim.keymap.set('n', '<leader><leader>', builtin.find_files)
+vim.keymap.set('n', '<leader>ff', builtin.treesitter)
+vim.keymap.set('n', '<leader>fr', builtin.oldfiles)
+vim.keymap.set('n', '<leader>,', builtin.buffers )

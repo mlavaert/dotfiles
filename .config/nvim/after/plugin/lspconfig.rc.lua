@@ -1,7 +1,6 @@
 local status, nvim_lsp = pcall(require, "lspconfig")
 if (not status) then return end
 
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -19,9 +18,9 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, opts)
     vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, opts)
-    vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format({ async = true }) end, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
 
     vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next, opts)
