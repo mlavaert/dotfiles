@@ -1,42 +1,40 @@
 vim.cmd('autocmd!')
 
--- File encoding
-vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
-
 -- Numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+
+-- Backup, undo and swap
+vim.opt.backup    = true
+vim.opt.backupdir = vim.fn.stdpath("cache") .. '/backupdir'
+vim.opt.undofile  = true
+vim.opt.undodir   = vim.fn.stdpath("cache") .. '/undodir'
+vim.opt.swapfile  = false
 
 -- Other options
-vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = "80"
-vim.opt.backspace = 'start,eol,indent'
-vim.opt.backup = false
-vim.opt.breakindent = true
+vim.opt.backup = true
+vim.opt.clipboard = "unnamedplus"
 vim.opt.cmdheight = 1
+vim.opt.colorcolumn = "80"
 vim.opt.completeopt = 'menu,menuone,noselect'
 vim.opt.expandtab = true
-vim.opt.hidden = true
-vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.inccommand = 'split'
-vim.opt.laststatus = 2
+vim.opt.list = true
+vim.opt.listchars = { tab = '▸ ', trail = '·' }
 vim.opt.path:append { '**' } -- find files recursively
-vim.opt.scrolloff = 8
+vim.opt.redrawtime    = 1000
+vim.opt.scrolloff     = 8
+vim.opt.shell         = 'zsh'
 vim.opt.sidescrolloff = 8
-vim.opt.shell = 'zsh'
-vim.opt.showcmd = true
-vim.opt.smarttab = true
-vim.opt.wrap = false
-vim.opt.clipboard = "unnamedplus"
-vim.opt.updatetime=50
-vim.opt.redrawtime=1000
+vim.opt.signcolumn    = "yes"
+vim.opt.undofile      = true
+vim.opt.updatetime    = 50
+vim.opt.wrap          = false
 
 vim.cmd [[colorscheme tokyonight]]

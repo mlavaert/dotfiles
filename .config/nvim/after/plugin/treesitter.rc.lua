@@ -6,13 +6,13 @@ treesitter.setup {
         "bash",
         "hcl",
         "json",
-        "lua",
         "make",
         "markdown",
         "python",
         "scala",
         "sql"
     },
+    indent = { enable = true },
     highlight = { enable = true, },
     textobjects = {
         select = {
