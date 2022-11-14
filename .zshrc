@@ -82,9 +82,7 @@ bindkey '^[[B' history-substring-search-down
 ## vi-mode
 zle -N edit-command-line
 bindkey '^ ' edit-command-line # Open current prompt in external editor
-
 bindkey -v
-bindkey -M viins 'jk' vi-cmd-mode
 
 ## Direnv
 if type direnv &>/dev/null; then
@@ -152,8 +150,6 @@ function kssh() {
 	local pod=$(aws kubectl pods "$@" | awk '/Running/ {print $1}' | fzf)
 	kubectl exec -it "$@" ${pod} bash
 }
-
-
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

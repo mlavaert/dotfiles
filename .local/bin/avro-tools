@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+AVRO_VERSION=1.9.1
+
+if [ ! -f ~/.local/share/avro-tools/avro-tools-${AVRO_VERSION}.jar ]; then
+    echo "No local version of Avro found. Downloading it now..."
+    mkdir -p ~/.local/share/avro-tools/
+    wget https://repo1.maven.org/maven2/org/apache/avro/avro-tools/${AVRO_VERSION}/avro-tools-${AVRO_VERSION}.jar \
+        -O ~/.local/share/avro-tools/avro-tools-${AVRO_VERSION}.jar
+fi
+
+java -jar ~/.local/share/avro-tools/avro-tools-1.9.1.jar $@

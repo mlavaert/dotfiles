@@ -1,16 +1,26 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
 
 xrdb ~/.Xresources
 
-dunst &
-picom --no-fading-openclose --daemon &
-redshift &
-slstatus &
-unclutter &
-volumeicon &
+run() {
+    if ! pgrep $1 ;
+    then
+        $@&
+    else
+        echo "=> $1 already running"
+    fi
+}
 
+# Run background applications
+run "dunst"
+run "dbus-daemon --session"
+run "lxpolkit"
+run "redshift"
+run "unclutter"
+run "zscaler"
+run "xfce4-power-manager"
+run "slstatus"
+
+# Set wallpaper
 feh --no-fehbg --bg-fill ~/.config/wall.png
-
-export _JAVA_AWT_WM_NONREPARENTING=1
-export AWT_TOOLKIT=MToolkit
-wmname LG3D

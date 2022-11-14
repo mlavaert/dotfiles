@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+
 CURRENT_DIR=$(pwd)
 while [ "$CURRENT_DIR" != "/" ]; do
     if [ -f $CURRENT_DIR/gradlew ]; then
@@ -8,5 +10,6 @@ while [ "$CURRENT_DIR" != "/" ]; do
     fi
     CURRENT_DIR=$(dirname $CURRENT_DIR)
 done
+
 echo "gradlew not found in parent directories"
 exit 1

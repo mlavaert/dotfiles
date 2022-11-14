@@ -36,6 +36,11 @@ nvim_lsp.pyright.setup {
     capabilities = capabilities
 }
 
+nvim_lsp.bashls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
 nvim_lsp.terraformls.setup {
     on_attach = on_attach,
     capabilities = capabilities

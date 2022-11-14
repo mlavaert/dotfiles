@@ -12,7 +12,7 @@ treesitter.setup {
         "scala",
         "sql"
     },
-    indent = { enable = true },
+    indent = { enable = false },
     highlight = { enable = true, },
     textobjects = {
         select = {
