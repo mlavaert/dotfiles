@@ -1,27 +1,49 @@
 # General settings
 # ================
-
 # Include my scripts in the PATH
-if [ -d "$HOME/.local/bin" ]; then
+if [[ -d "$HOME/.local/bin" ]]; then
     export PATH=$PATH:"$HOME"/.local/bin
 fi
 
-if [ -d "$HOME/.local/share/pyenv/bin" ]; then
+if [[ -d "$HOME/.local/share/pyenv/bin" ]]; then
     export PATH=$PATH:"$HOME"/.local/share/pyenv/bin
 fi
 
+if [[ -d "$HOME/.local/share/tfenv/bin" ]]; then
+    export PATH=$PATH:"$HOME"/.local/share/tfenv/bin
+fi
+
+# Environment variables
 export PAGER="less"
 export MANPAGER=$PAGER
 export VISUAL=nvim
 export EDITOR=$VISUAL
 export BROWSER=/usr/bin/xdg-open
 
+# XDG Specification
+export PYENV_ROOT=$XDG_DATA_HOME/pyenv
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_DOWNLOAD_CACHE=$XDG_CACHE_HOME/pip
+export IPYTHONDIR=$XDG_CONFIG_HOME/jupyter
+export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
+export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
+export LESSHISTFILE=$XDG_CACHE_HOME/less/history
+export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
+export Z_DATA=$XDG_CACHE_HOME/z
+
+# If not running interactively, don't do anything.  This too is taken
+# from Debian 9's bashrc.
+case $- in
+    *i*) ;;
+    *) return;;
+esac
+
 # Simple prompt
 if [ -n "$SSH_CONNECTION" ]
 then
 	export PS1="\u@\h: \w \$ "
 else
-	export PS1="[\w] \$ "
+	export PS1='\[\e[0;2m\] \w \[\e[0;35m\]λ\[\e[0m\] '
 fi
 export PS2="> "
 
@@ -43,12 +65,6 @@ fi
 # Enable tab completion when starting a command with 'sudo'
 [ "$PS1" ] && complete -cf sudo
 
-# If not running interactively, don't do anything.  This too is taken
-# from Debian 9's bashrc.
-case $- in
-    *i*) ;;
-    *) return;;
-esac
 
 # Don't put duplicate lines or lines starting with space in the history.
 # See `man bash` for more options.
@@ -116,28 +132,12 @@ alias lsa='ls -pvA --color=auto --group-directories-first'
 alias ll='ls -lhpv --color=auto --group-directories-first'
 alias lla='ls -lhpvA --color=auto --group-directories-first'
 
-
 # Dotfile managment
 alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Use Neovim
 alias vim=nvim
-
-# XDG Specification
-export PYENV_ROOT=$XDG_DATA_HOME/pyenv
-export PIP_REQUIRE_VIRTUALENV=true
-export PIP_DOWNLOAD_CACHE=$XDG_CACHE_HOME/pip
-export IPYTHONDIR=$XDG_CONFIG_HOME/jupyter
-export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
-export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
-export LESSHISTFILE=$XDG_CACHE_HOME/less/history
-export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
-export Z_DATA=$XDG_CACHE_HOME/z
-
-backupthis() {
-	cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
-}
-
+alias tf=terraform
 
 # Plugins and tools
 source ${HOME}/.local/share/z/z.sh
@@ -145,3 +145,7 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 source /usr/share/doc/fzf/examples/completion.bash
 eval "$(direnv hook bash)"
 
+# Small utilities 
+backupthis() {
+	cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
+}
