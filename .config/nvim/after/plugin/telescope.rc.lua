@@ -15,7 +15,8 @@ vim.keymap.set('n', '<leader>sp', function()
 end
 )
 
-vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = "Find files in current directory" })
-vim.keymap.set('n', '<leader>ff', builtin.treesitter, { desc = "Find keywords and objects using Treesitter" })
-vim.keymap.set('n', '<leader>fr', builtin.oldfiles)
-vim.keymap.set('n', '<leader>,', builtin.buffers)
+vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = "Find files in current directory" })
+vim.keymap.set('n', '<leader>ff', builtin.git_files, { desc = "Find files in current Git project" })
+vim.keymap.set('n', '<leader>fs', builtin.treesitter, { desc = "Find keywords and objects using Treesitter" })
+vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = "Find recent files" })
+vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = "Find buffer" })

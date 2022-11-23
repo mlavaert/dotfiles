@@ -24,7 +24,6 @@ packer.startup(function(use)
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/nvim-cmp'
-    use({'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }})
 
     -- Formatting
     use 'sbdchd/neoformat'
@@ -54,5 +53,4 @@ packer.startup(function(use)
     use 'tpope/vim-vinegar'
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive'
-    use 'tpope/vim-sleuth'
 end)
