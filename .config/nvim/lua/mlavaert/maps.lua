@@ -12,4 +12,4 @@ keymap.set('n', '<leader>pd', ":Lex 25<CR>", { desc = "Open project drawer" })
 -- Buffers
 keymap.set('n', ']b', ":bnext<CR>", { desc = "Next buffer" })
 keymap.set('n', '[b', ":bprev<CR>", { desc = "Previous buffer" })
-keymap.set('n', '<leader>bd', ":bdelete!<CR>", { desc = "Kill current buffer" })
+keymap.set('n', '<leader>bk', ":bdelete!<CR>", { desc = "Kill current buffer" })

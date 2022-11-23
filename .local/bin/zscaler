@@ -1,0 +1,8 @@
+#!/bin/bash
+systemctl --user import-environment DISPLAY XAUTHORITY
+out=$(pidof ZSTray)
+if [ -z  $out ]
+then
+        systemctl --user start ZSTray 
+else /opt/zscaler/bin/ZSTray 
+fi

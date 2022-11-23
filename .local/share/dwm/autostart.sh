@@ -15,12 +15,12 @@ run() {
 # Run background applications
 run "dunst"
 run "dbus-daemon --session"
-run "lxpolkit"
 run "redshift"
-run "unclutter"
 run "zscaler"
 run "xfce4-power-manager"
 run "slstatus"
+
+autorandr --change
 
 # Set wallpaper
 feh --no-fehbg --bg-fill ~/.config/wall.png

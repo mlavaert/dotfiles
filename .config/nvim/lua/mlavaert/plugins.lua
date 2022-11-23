@@ -11,6 +11,7 @@ packer.startup(function(use)
 
     -- Visual 
     use 'folke/tokyonight.nvim' -- theme
+    use { "catppuccin/nvim", as = "catppuccin" }
     use 'hoob3rt/lualine.nvim' -- statusline
     use 'onsails/lspkind-nvim' -- icons for LSP completion
     use 'kyazdani42/nvim-web-devicons' -- icons for files in telescope

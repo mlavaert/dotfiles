@@ -38,12 +38,19 @@ case $- in
     *) return;;
 esac
 
+show_virtual_env() {
+    if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+        echo "[]"
+    fi
+}
+export -f show_virtual_env
+
 # Simple prompt
 if [ -n "$SSH_CONNECTION" ]
 then
-	export PS1="\u@\h: \w \$ "
+        export PS1="\u@\h: \w \$ "
 else
-	export PS1='\[\e[0;2m\] \w \[\e[0;35m\]λ\[\e[0m\] '
+        export PS1='\[\e[0;2m\]$(show_virtual_env) \w$(__git_ps1) \[\e[0;35m\]λ\[\e[0m\] '
 fi
 export PS2="> "
 
@@ -131,6 +138,9 @@ alias ls='ls -pv --color=auto --group-directories-first'
 alias lsa='ls -pvA --color=auto --group-directories-first'
 alias ll='ls -lhpv --color=auto --group-directories-first'
 alias lla='ls -lhpvA --color=auto --group-directories-first'
+
+alias y='xclip -in -selection clipboard'
+alias p='xclip -out -selection clipboard'
 
 # Dotfile managment
 alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
