@@ -13,3 +13,7 @@ keymap.set('n', '<leader>pd', ":Lex 25<CR>", { desc = "Open project drawer" })
 keymap.set('n', ']b', ":bnext<CR>", { desc = "Next buffer" })
 keymap.set('n', '[b', ":bprev<CR>", { desc = "Previous buffer" })
 keymap.set('n', '<leader>bk', ":bdelete!<CR>", { desc = "Kill current buffer" })
+
+-- Better vertical navigation
+keymap.set('n', '<C-d>', '<C-d>zz')
+keymap.set('n', '<C-u>', '<C-u>zz')

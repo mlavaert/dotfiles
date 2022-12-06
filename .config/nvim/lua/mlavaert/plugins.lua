@@ -10,11 +10,11 @@ packer.startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- Visual 
-    use 'folke/tokyonight.nvim' -- theme
     use { "catppuccin/nvim", as = "catppuccin" }
     use 'hoob3rt/lualine.nvim' -- statusline
     use 'onsails/lspkind-nvim' -- icons for LSP completion
     use 'kyazdani42/nvim-web-devicons' -- icons for files in telescope
+    use 'jose-elias-alvarez/null-ls.nvim'
     use 'lewis6991/gitsigns.nvim' -- git change indicators
 
     -- Lsp and Completion
@@ -27,6 +27,7 @@ packer.startup(function(use)
 
     -- Formatting
     use 'sbdchd/neoformat'
+    use 'gpanders/editorconfig.nvim'
 
     -- DAP
     use 'mfussenegger/nvim-dap'

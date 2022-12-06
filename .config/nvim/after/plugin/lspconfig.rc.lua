@@ -1,68 +1,52 @@
-local status, nvim_lsp = pcall(require, "lspconfig")
+local status, lspconfig = pcall(require, "lspconfig")
 if (not status) then return end
+
+local k = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+k('n', '[d', vim.diagnostic.goto_next, opts)
+k('n', ']d', vim.diagnostic.goto_prev, opts)
+k('n', '<leader>e', ':Telescope diagnostics<cr>', opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-    --Enable completion triggered by <c-x><c-o>
-    --local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-    --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+local on_attach = function(_, bufnr)
+        --Enable completion triggered by <c-x><c-o>
+        --local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+        --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    -- Mappings.
-    local opts = { noremap = true, silent = true, buffer = true }
+        -- Mappings.
+        local bopts = { noremap = true, silent = true, buffer = bufnr }
 
-    vim.keymap.set('i', 'C-k', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, opts)
-    vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, opts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-
-    vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', '<leader>df', '<cmd>Telescope diagnostics<cr>', opts)
+        k('i', 'C-k', vim.lsp.buf.signature_help, bopts)
+        k('n', 'K', vim.lsp.buf.hover, bopts)
+        k('n', 'gd', vim.lsp.buf.definition, bopts)
+        k('n', 'gr', vim.lsp.buf.references, bopts)
+        k('n', 'gD', vim.lsp.buf.declaration, bopts)
+        k('n', 'gT', vim.lsp.buf.type_definition, bopts)
+        k('n', 'gi', vim.lsp.buf.implementation, bopts)
+        k('n', '<leader>cf', vim.lsp.buf.format, bopts)
+        k('n', '<leader>cr', vim.lsp.buf.rename, bopts)
+        k('n', '<leader>cl', vim.lsp.codelens.run, bopts)
+        k('n', '<leader>ca', vim.lsp.buf.code_action, bopts)
 end
 
--- Set up completion using nvim_cmp with LSP source
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-nvim_lsp.pyright.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-nvim_lsp.bashls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-nvim_lsp.terraformls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-nvim_lsp.sumneko_lua.setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-    end,
-    settings = {
-        Lua = {
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false
-            },
+lspconfig["pyright"].setup { on_attach = on_attach }
+lspconfig["awk_ls"].setup { on_attach = on_attach }
+lspconfig["bashls"].setup { on_attach = on_attach }
+lspconfig["terraformls"].setup { on_attach = on_attach }
+lspconfig["sumneko_lua"].setup {
+        on_attach = on_attach,
+        settings = {
+                Lua = {
+                        diagnostics = { globals = { 'vim', 'require' } },
+                        workspace = {
+                                -- Make the server aware of Neovim runtime files
+                                library = vim.api.nvim_get_runtime_file("", true),
+                                checkThirdParty = false
+                        },
+                        telemetry = { enable = false }
+                },
         },
-    },
 }
