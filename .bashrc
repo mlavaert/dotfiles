@@ -9,10 +9,6 @@ if [[ -d "$HOME/.local/share/pyenv/bin" ]]; then
     export PATH=$PATH:"$HOME"/.local/share/pyenv/bin
 fi
 
-if [[ -d "$HOME/.local/share/tfenv/bin" ]]; then
-    export PATH=$PATH:"$HOME"/.local/share/tfenv/bin
-fi
-
 # Environment variables
 export PAGER="less"
 export MANPAGER=$PAGER
@@ -28,7 +24,6 @@ export IPYTHONDIR=$XDG_CONFIG_HOME/jupyter
 export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
 export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
 export LESSHISTFILE=$XDG_CACHE_HOME/less/history
-export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
 export Z_DATA=$XDG_CACHE_HOME/z
 
 # If not running interactively, don't do anything.  This too is taken
@@ -145,9 +140,9 @@ alias p='xclip -out -selection clipboard'
 # Dotfile managment
 alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-# Use Neovim
 alias vim=nvim
 alias tf=terraform
+alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 
 # Plugins and tools
 source ${HOME}/.local/share/z/z.sh
@@ -159,3 +154,6 @@ eval "$(direnv hook bash)"
 backupthis() {
 	cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
 }
+
+# Putting DBS on the PATH
+export PATH=/home/mlavaert/work/dbs/bin:$PATH

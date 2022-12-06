@@ -2,8 +2,6 @@ local keymap = vim.keymap
 
 vim.g.mapleader = ' '
 
-keymap.set('n', '<leader>cf', ":Neoformat<CR>", { desc = "Format the file using Neoformat" })
-
 keymap.set('n', '<leader>ve', ":edit ${XDG_CONFIG_HOME}/nvim/init.lua<CR>", { desc = "Open Neovim Config" })
 keymap.set('n', '<leader>vr', ":luafile %<CR>", { desc = "Reload Lua config file" })
 

@@ -14,7 +14,6 @@ packer.startup(function(use)
     use 'hoob3rt/lualine.nvim' -- statusline
     use 'onsails/lspkind-nvim' -- icons for LSP completion
     use 'kyazdani42/nvim-web-devicons' -- icons for files in telescope
-    use 'jose-elias-alvarez/null-ls.nvim'
     use 'lewis6991/gitsigns.nvim' -- git change indicators
 
     -- Lsp and Completion
@@ -24,14 +23,9 @@ packer.startup(function(use)
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/nvim-cmp'
+    use 'jose-elias-alvarez/null-ls.nvim'
 
     -- Formatting
-    use 'sbdchd/neoformat'
-    use 'gpanders/editorconfig.nvim'
-
-    -- DAP
-    use 'mfussenegger/nvim-dap'
-    use 'mfussenegger/nvim-dap-python'
 
     -- Auto-install LSP-servers
     use 'williamboman/mason.nvim'
