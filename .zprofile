@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 export EDITOR="nvim"
 export TERMINAL="xterm"
-export BROWSER="firefox"
+export BROWSER="brave-browser"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
