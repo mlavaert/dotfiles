@@ -2,11 +2,11 @@
 # ================
 # Include my scripts in the PATH
 if [[ -d "$HOME/.local/bin" ]]; then
-    export PATH=$PATH:"$HOME"/.local/bin
+	export PATH=$PATH:"$HOME"/.local/bin
 fi
 
 if [[ -d "$HOME/.local/share/pyenv/bin" ]]; then
-    export PATH=$PATH:"$HOME"/.local/share/pyenv/bin
+	export PATH=$PATH:"$HOME"/.local/share/pyenv/bin
 fi
 
 # Environment variables
@@ -29,23 +29,22 @@ export Z_DATA=$XDG_CACHE_HOME/z
 # If not running interactively, don't do anything.  This too is taken
 # from Debian 9's bashrc.
 case $- in
-    *i*) ;;
-    *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 show_virtual_env() {
-    if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
-        echo "[]"
-    fi
+	if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+		echo "[]"
+	fi
 }
 export -f show_virtual_env
 
 # Simple prompt
-if [ -n "$SSH_CONNECTION" ]
-then
-        export PS1="\u@\h: \w \$ "
+if [ -n "$SSH_CONNECTION" ]; then
+	export PS1="\u@\h: \w \$ "
 else
-        export PS1='\[\e[0;2m\]$(show_virtual_env) \w$(__git_ps1) \[\e[0;35m\]λ\[\e[0m\] '
+	export PS1='\[\e[0;2m\]$(show_virtual_env) \w$(__git_ps1) \[\e[0;35m\]λ\[\e[0m\] '
 fi
 export PS2="> "
 
@@ -53,20 +52,16 @@ export PS2="> "
 # programmable completion features (you don't need to enable this, if
 # it's already enabled in /etc/bash.bashrc and /etc/profile sources
 # /etc/bash.bashrc).
-if ! shopt -oq posix
-then
-    if [ -f /usr/share/bash-completion/bash_completion ]
-    then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]
-    then
-        . /etc/bash_completion
-    fi
+if ! shopt -oq posix; then
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
 
 # Enable tab completion when starting a command with 'sudo'
 [ "$PS1" ] && complete -cf sudo
-
 
 # Don't put duplicate lines or lines starting with space in the history.
 # See `man bash` for more options.
@@ -80,7 +75,7 @@ shopt -s cmdhist
 
 # For setting history length see HISTSIZE and HISTFILESIZE in `man bash`.
 HISTSIZE=1000
-HISTFILESIZE=2000
+HISTFILESIZE=10000
 
 # Check the window size after each command and, if necessary, update the
 # values of LINES and COLUMNS.
@@ -90,9 +85,8 @@ shopt -s checkwinsize
 set -o vi
 
 # Options
-shopt -s autocd         # Auto change to named directories
-shopt -s cdspell        # Auto-correct cd misspellings
-
+shopt -s autocd  # Auto change to named directories
+shopt -s cdspell # Auto-correct cd misspellings
 
 #### Common tasks and utilities ####
 
@@ -145,14 +139,14 @@ alias tf=terraform
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 
 # Plugins and tools
-source ${HOME}/.local/share/z/z.sh
+source "${HOME}/.local/share/z/z.sh"
 source /usr/share/doc/fzf/examples/key-bindings.bash
 source /usr/share/doc/fzf/examples/completion.bash
 eval "$(direnv hook bash)"
 
-# Small utilities 
+# Small utilities
 backupthis() {
-	cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
+	cp -riv "$1" "${1}-$(date +%Y%m%d%H%M).backup"
 }
 
 # Putting DBS on the PATH

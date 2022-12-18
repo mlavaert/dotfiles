@@ -25,8 +25,6 @@ packer.startup(function(use)
     use 'hrsh7th/nvim-cmp'
     use 'jose-elias-alvarez/null-ls.nvim'
 
-    -- Formatting
-
     -- Auto-install LSP-servers
     use 'williamboman/mason.nvim'
     use 'williamboman/mason-lspconfig.nvim'
