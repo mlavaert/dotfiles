@@ -1,12 +1,11 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env sh
 
 xrdb ~/.Xresources
 
 run() {
-    if ! pgrep $1 ;
+    if ! pgrep "$1"
     then
-        $@&
+        "$@" &
     else
         echo "=> $1 already running"
     fi
