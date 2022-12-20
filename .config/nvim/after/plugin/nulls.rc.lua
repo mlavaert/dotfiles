@@ -7,7 +7,6 @@ null_ls.setup({
 		null_ls.builtins.formatting.usort,
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.shfmt,
-		null_ls.builtins.formatting.shellharden,
 		null_ls.builtins.formatting.yamlfmt,
 
 		null_ls.builtins.diagnostics.write_good,

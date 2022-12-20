@@ -16,11 +16,17 @@ treesitter.setup({
 		"scala",
 		"sql",
 	},
-	indent = {
-		enable = true,
-		disable = { "python" },
-	},
 	highlight = { enable = true },
+	indent = { enable = true, disable = { "python" } },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<c-space>",
+			node_incremental = "<c-space>",
+			scope_incremental = "<c-s>",
+			node_decremental = "<c-backspace>",
+		},
+	},
 	textobjects = {
 		select = {
 			enable = true,
@@ -62,4 +68,4 @@ treesitter.setup({
 		},
 	},
 })
--- vim: ts=2 sts=2 sw=2:
+-- vim: ts=4 sts=4 sw=4:
