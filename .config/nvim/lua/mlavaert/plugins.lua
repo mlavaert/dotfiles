@@ -26,8 +26,8 @@ packer.startup(function(use)
 			"j-hui/fidget.nvim",
 			-- Extra LSP injections
 			"jose-elias-alvarez/null-ls.nvim",
-			-- Schemas for Yamlls
-			"b0o/schemastore.nvim"
+			-- Additional Lua configuration, makes Nvim configuration amazing
+			"folke/neodev.nvim"
 		},
 	})
 

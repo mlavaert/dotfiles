@@ -15,6 +15,7 @@ export MANPAGER=$PAGER
 export VISUAL=nvim
 export EDITOR=$VISUAL
 export BROWSER=/usr/bin/xdg-open
+export AWS_PROFILE="data"
 
 # XDG Specification
 export PYENV_ROOT=$XDG_DATA_HOME/pyenv
@@ -136,6 +137,7 @@ alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias vim=nvim
 alias tf=terraform
+alias docker=podman
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 
 # Plugins and tools
@@ -149,5 +151,4 @@ backupthis() {
 	cp -riv "$1" "${1}-$(date +%Y%m%d%H%M).backup"
 }
 
-# Putting DBS on the PATH
-export PATH=/home/mlavaert/work/dbs/bin:$PATH
+# Putting DBS on the PATH export PATH=/home/mlavaert/work/dbs/bin:$PATH
