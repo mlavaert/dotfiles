@@ -15,6 +15,7 @@ treesitter.setup({
 		"python",
 		"scala",
 		"sql",
+		"terraform",
 	},
 	highlight = { enable = true },
 	indent = { enable = true, disable = { "python" } },
