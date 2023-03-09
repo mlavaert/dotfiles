@@ -1,0 +1,21 @@
+#!/bin/sh
+set -x
+
+case "$1" in
+plan)
+	terraform plan -out tfplan
+	;;
+apply)
+	if test "$(find "tfplan" -maxdepth 1 -mmin -1)"; then # If a plan exists of less than a minute old, execute it
+		echo "Found a recent plan to execute"
+		terraform apply tfplan
+		trap "test -f tfplan && rm tfplan" EXIT
+	else
+		rm tfplan
+		terraform apply
+	fi
+	;;
+*)
+	terraform "$@"
+	;;
+esac
