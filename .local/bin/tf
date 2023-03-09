@@ -1,17 +1,18 @@
 #!/bin/sh
-set -x
-
+#
+# This utility saves every Terraform plan locally. If you want to apply it
+# checks if it can find a recent plan. When found it will apply said plan.
+# Otherwise it's going to execute the plan.
 case "$1" in
 plan)
 	terraform plan -out tfplan
 	;;
 apply)
-	if test "$(find "tfplan" -maxdepth 1 -mmin -1)"; then # If a plan exists of less than a minute old, execute it
+	if test "$(find "tfplan" -maxdepth 1 -mmin -2)"; then # If a plan exists of less than a minute old, execute it
 		echo "Found a recent plan to execute"
-		terraform apply tfplan
-		trap "test -f tfplan && rm tfplan" EXIT
+		terraform apply tfplan && rm tfplan
 	else
-		rm tfplan
+		test -f tfplan && rm tfplan
 		terraform apply
 	fi
 	;;
