@@ -33,7 +33,6 @@ local on_attach = function(_, bufnr)
 	k("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 end
 
-require("fidget").setup()
 require("neodev").setup()
 require("mason").setup()
 

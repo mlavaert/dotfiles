@@ -7,12 +7,12 @@ null_ls.setup({
 		null_ls.builtins.formatting.usort,
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.shfmt,
-		null_ls.builtins.formatting.yamlfmt,
-
+		null_ls.builtins.diagnostics.yamllint,
 		null_ls.builtins.diagnostics.write_good,
-
 		-- Code Actions
 		null_ls.builtins.code_actions.gitsigns,
 		null_ls.builtins.code_actions.shellcheck,
 	},
 })
+
+-- vim: ts=4 sts=4 sw=4:

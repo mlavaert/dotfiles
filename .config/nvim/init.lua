@@ -15,7 +15,22 @@ require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	-- Visual
-	use({ "catppuccin/nvim", as = "catppuccin" })
+	use("folke/tokyonight.nvim")
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup()
+		end,
+	})
+	use({
+		"folke/trouble.nvim",
+		requires = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("trouble").setup()
+		end,
+	})
+
 	use("hoob3rt/lualine.nvim") -- statusline
 	use("kyazdani42/nvim-web-devicons") -- icons for files in telescope
 	use("lewis6991/gitsigns.nvim") -- git change indicators
@@ -27,8 +42,6 @@ require("packer").startup(function(use)
 			-- Auto-install LSP-servers
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			-- Useful status updates for LSP
-			"j-hui/fidget.nvim",
 			-- Extra LSP injections
 			"jose-elias-alvarez/null-ls.nvim",
 			-- Additional Lua configuration, makes Nvim configuration amazing
@@ -42,7 +55,6 @@ require("packer").startup(function(use)
 		requires = {
 			"L3MON4D3/LuaSnip",
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
 			"onsails/lspkind-nvim", -- icons for LSP completion
 		},
 	})
@@ -90,7 +102,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 vim.cmd("autocmd!")
 
-
 -- -------------------------------------
 -- Basic configuration
 -- -------------------------------------
@@ -112,9 +123,16 @@ vim.opt.swapfile = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Decrease the updatetime
-vim.opt.updatetime = 250
-vim.opt.signcolumn = "yes"
+-- Decrease update time
+vim.o.updatetime = 250
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+
+-- Keep signcolumn on by default
+vim.wo.signcolumn = "yes"
+
+-- Enable break indent
+vim.o.breakindent = true
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.cmdheight = 1
@@ -144,7 +162,7 @@ keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 keymap.set("n", "<leader>ve", ":edit ${XDG_CONFIG_HOME}/nvim/init.lua<CR>", { desc = "Open Neovim Config" })
 keymap.set("n", "<leader>vr", ":luafile %<CR>", { desc = "Reload Lua config file" })
 
-keymap.set("n", "<leader>pd", ":Lex 25<CR>", { desc = "Open project drawer" })
+keymap.set("n", "<leader>pd", ":Lex 20<CR>", { desc = "Open project drawer" })
 
 -- [[ Buffers ]]
 keymap.set("n", "]b", ":bnext<CR>", { desc = "Next buffer" })
@@ -174,5 +192,5 @@ vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]
 vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
 vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("tokyonight-night")
 -- vim: ts=2:

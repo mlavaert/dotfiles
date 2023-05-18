@@ -5,10 +5,9 @@ end
 
 lualine.setup({
 	options = {
-		theme = "catppuccin",
-	},
-	tabline = {
-		lualine_a = { "buffers" },
-		lualine_c = { "filename" },
-	},
+		icons_enabled = false,
+		theme = 'tokyonight',
+		component_separators = '|',
+		section_separators = '',
+	}
 })
