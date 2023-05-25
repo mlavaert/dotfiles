@@ -142,7 +142,6 @@ alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redire
 # Plugins and tools
 source "${HOME}/.local/share/z/z.sh"
 source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
 eval "$(direnv hook bash)"
 
 # Small utilities
