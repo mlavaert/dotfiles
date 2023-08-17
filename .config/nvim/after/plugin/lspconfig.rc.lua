@@ -38,10 +38,12 @@ require("mason").setup()
 
 local servers = {
 	pyright = {},
+	ruff_lsp = {},
 	awk_ls = {},
 	bashls = {},
 	dockerls = {},
 	terraformls = {},
+	yamlls = {},
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = false },

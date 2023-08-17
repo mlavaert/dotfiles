@@ -12,7 +12,8 @@ fi
 case "$1" in
 plan)
 	shift
-	terraform plan -out tfplan "$@"
+	terraform plan -out plan "$@"
+	echo 'rm plan' | at now+2min
 	;;
 apply)
 	shift
