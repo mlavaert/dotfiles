@@ -10,6 +10,7 @@ return {
     -- Adds LSP completion capabilities
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
 
     -- Nice icons
     "onsails/lspkind-nvim",
@@ -77,8 +78,9 @@ return {
       },
       sources = {
         { name = "nvim_lsp" },
-        { name = "buffer" },
         { name = "luasnip" },
+        { name = "buffer" },
+        { name = "path" },
       },
     })
   end,

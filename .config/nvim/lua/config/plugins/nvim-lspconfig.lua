@@ -18,9 +18,6 @@ return {
       --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
       local k = function(keys, func, desc)
-        if desc then
-          desc = "LSP: " .. desc
-        end
         vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, noremap = true, silent = true })
       end
 

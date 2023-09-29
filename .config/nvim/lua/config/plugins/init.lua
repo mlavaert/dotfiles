@@ -6,13 +6,11 @@ return {
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
   },
-
+  { "stevearc/dressing.nvim", config = true },
   { "tpope/vim-fugitive", cmd = "Git" },
   { "lewis6991/gitsigns.nvim", event = "VeryLazy", config = true },
   { "numToStr/Comment.nvim", event = "VeryLazy", config = true },
 
-  -- Tim Pope
-  "tpope/vim-surround",
   "tpope/vim-vinegar",
   "tpope/vim-sleuth",
 }

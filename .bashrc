@@ -64,6 +64,9 @@ fi
 # Enable tab completion when starting a command with 'sudo'
 [ "$PS1" ] && complete -cf sudo
 
+# 
+PROMPT_COMMAND='history -a'
+
 # Don't put duplicate lines or lines starting with space in the history.
 # See `man bash` for more options.
 HISTFILE=${XDG_CACHE_HOME}/bash_history
@@ -149,4 +152,12 @@ backupthis() {
 	cp -riv "$1" "${1}-$(date +%Y%m%d%H%M).backup"
 }
 
-# Putting DBS on the PATH export PATH=/home/mlavaert/work/dbs/bin:$PATH
+kcluster() {
+	local cluster=$(aws eks list-clusters --output text "$@" | awk '{print $2}' | fzf)
+	aws eks update-kubeconfig --name "$cluster"
+}
+
+kssh() {
+	local pod=$(kubectl get pods "$@" | awk '/Running/ {print $1}' | fzf)
+	kubectl exec --stdin --tty "$@" ${pod} -- /bin/bash
+}

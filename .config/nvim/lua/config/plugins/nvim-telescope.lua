@@ -23,9 +23,9 @@ return {
       desc = "[F]ind [F]iles",
     },
     { "<leader>fr", require("telescope.builtin").oldfiles, desc = "[F]ind [R]ecent files" },
-    { "<leader>/", require("telescope.builtin").live_grep, desc = "[/] Find by using grep" },
+    { "<leader>/", require("telescope.builtin").live_grep, desc = "[F]ind by using rg" },
     { "<leader>fd", require("telescope.builtin").diagnostics, desc = "[F]ind [D]iagnostics" },
-    { "<leader>,", require("telescope.builtin").buffers, desc = "Find exsting buffers" },
+    { "<leader>,", require("telescope.builtin").buffers, desc = "Find existing buffers" },
   },
   config = function()
     local telescope = require("telescope")
