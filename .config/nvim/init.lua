@@ -1,106 +1,44 @@
 -- -------------------------------------
--- Install packer
+-- Install Lazy
 -- -------------------------------------
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	is_bootstrap = true
-	vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-	vim.cmd([[packadd packer.nvim]])
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[packadd packer.nvim]])
-
-require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-
-	-- Visual
-	use("folke/tokyonight.nvim")
-	use({
-		"folke/todo-comments.nvim",
-		requires = "nvim-lua/plenary.nvim",
-		config = function()
-			require("todo-comments").setup()
-		end,
-	})
-	use({
-		"folke/trouble.nvim",
-		requires = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("trouble").setup()
-		end,
-	})
-
-	use("hoob3rt/lualine.nvim") -- statusline
-	use("kyazdani42/nvim-web-devicons") -- icons for files in telescope
-	use("lewis6991/gitsigns.nvim") -- git change indicators
-
-	-- Lsp configuration
-	use({
-		"neovim/nvim-lspconfig",
-		requires = {
-			-- Auto-install LSP-servers
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			-- Extra LSP injections
-			"jose-elias-alvarez/null-ls.nvim",
-			-- Additional Lua configuration, makes Nvim configuration amazing
-			"folke/neodev.nvim",
+local opts = {
+	git = { log = { "--since=3 days ago" } },
+	ui = { custom_keys = { false } },
+	install = { colorscheme = { "tokyonight-moon" } },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+				"rplugin",
+				"matchparen",
+				"matchit",
+			},
 		},
-	})
+	},
+	checker = { enabled = false },
+}
 
-	-- Completion
-	use({
-		"hrsh7th/nvim-cmp",
-		requires = {
-			"L3MON4D3/LuaSnip",
-			"hrsh7th/cmp-nvim-lsp",
-			"onsails/lspkind-nvim", -- icons for LSP completion
-		},
-	})
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-	-- Telescope
-	use({
-		"nvim-telescope/telescope.nvim",
-		requires = {
-			"nvim-lua/popup.nvim",
-			"nvim-lua/plenary.nvim",
-		},
-	})
-	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
-
-	-- Treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
-		end,
-	})
-	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" })
-
-	-- Tim Pope
-	use("tpope/vim-surround")
-	use("tpope/vim-vinegar")
-	use("tpope/vim-commentary")
-	use("tpope/vim-fugitive")
-	use("tpope/vim-rhubarb")
-	use("tpope/vim-sleuth")
-
-	if is_bootstrap then
-		require("packer").sync()
-	end
-end)
-
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-	command = "source <afile> | silent! LspStop | silent! LspStart | PackerCompile",
-	group = packer_group,
-	pattern = vim.fn.expand("$MYVIMRC"),
-})
-
-vim.cmd("autocmd!")
+require("lazy").setup("config.plugins",  opts)
 
 -- -------------------------------------
 -- Basic configuration
@@ -108,6 +46,9 @@ vim.cmd("autocmd!")
 -- Numbers
 vim.wo.number = true
 vim.wo.relativenumber = true
+
+-- Keep signcolumn on by default
+vim.wo.signcolumn = "yes"
 
 -- Enable the mouse
 vim.o.mouse = "a"
@@ -127,9 +68,6 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = "yes"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -152,9 +90,6 @@ vim.opt.wrap = false
 -- Keymaps
 -- -------------------------------------
 local keymap = vim.keymap
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 
@@ -183,14 +118,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
--- -------------------------------------
--- Improve Terraform handling
--- -------------------------------------
-vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
-vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
-vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]])
-vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
-vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
-
-vim.cmd.colorscheme("tokyonight-night")
--- vim: ts=2:
+-- vim: ts=4 sts=4 sw=4:
