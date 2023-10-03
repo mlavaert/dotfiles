@@ -23,14 +23,15 @@ return {
 
       k("C-k", vim.lsp.buf.signature_help, "Signature Documentation")
       k("K", vim.lsp.buf.hover, "Hover Documentation")
-      k("gd", vim.lsp.buf.definition, "[G]o [D]efinition")
-      k("gr", vim.lsp.buf.references, "[G]o [R]eferences")
-      k("gD", vim.lsp.buf.declaration, "[G]o [D]eclaration")
-      k("gT", vim.lsp.buf.type_definition, "[G]o [T]ype Definition")
-      k("gi", vim.lsp.buf.implementation, "[G]o [I]mplementation")
-      k("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
-      k("<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens Run")
-      k("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+      k("gd", vim.lsp.buf.definition, "Goto Definition")
+      k("gr", vim.lsp.buf.references, "References")
+      k("gD", vim.lsp.buf.declaration, "Goto Declaration")
+      k("gT", vim.lsp.buf.type_definition, "Goto Type Definition")
+      k("gi", vim.lsp.buf.implementation, "Goto Implementation")
+      k("<leader>cr", vim.lsp.buf.rename, "Rename")
+      k("<leader>cl", vim.lsp.codelens.run, "Code Lens")
+      k("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+      k("<leader>cA", vim.lsp.buf.source_action, "Source Action")
     end
 
     local servers = {
@@ -53,12 +54,6 @@ return {
         json = {
           schemas = require("schemastore").json.schemas(),
           validate = { enable = true },
-        },
-      },
-      lua_ls = {
-        Lua = {
-          workspace = { checkThirdParty = false },
-          telemetry = { enable = false },
         },
       },
     }

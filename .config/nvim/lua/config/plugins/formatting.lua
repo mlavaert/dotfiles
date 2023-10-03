@@ -21,6 +21,6 @@ return {
     },
   },
   keys = {
-    { "<leader>cf", ":Format<CR>", desc = "[C]ode [F]ormat" },
+    { "<leader>cf", ":Format<CR>", desc = "Format" },
   },
 }
