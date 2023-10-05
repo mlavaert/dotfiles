@@ -1,1 +1,1 @@
-exec dwm
+exec dbus-run-session -- dwm
