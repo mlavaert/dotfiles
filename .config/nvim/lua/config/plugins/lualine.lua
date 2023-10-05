@@ -5,7 +5,7 @@ return {
     options = {
       icons_enabled = false,
       component_separators = "|",
-      theme = "tokyonight",
+      theme = "onedark",
       section_separators = "",
     },
   },
