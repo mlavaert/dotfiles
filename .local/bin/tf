@@ -5,9 +5,8 @@ if [ "${TRACE-0}" == "1" ]; then
 	set -o xtrace
 fi
 
-checksum() {
-	echo "$(sha1sum $(find . -maxdepth 1 -type f) | sha1sum | cut -d ' ' -f 1)"
-}
+CHECKSUM=$(echo "$(sha1sum $(find . -maxdepth 1 -type f) | sha1sum)" "$@" | sha1sum | cut -d ' ' -f 1)
+PLAN="${XDG_CACHE_HOME}/terraform/$CHECKSUM.tfplan"
 
 # This utility saves every Terraform plan locally. If you want to apply it
 # checks if it can find a recent plan. When found it will apply said plan.
@@ -19,15 +18,14 @@ fmt)
 	;;
 plan)
 	shift
-	terraform plan -out "$XDG_CACHE_HOME/terraform/$(checksum).tfplan" "$@"
+	terraform plan -out "$PLAN" "$@"
 	;;
 apply)
 	shift
-	plan=$XDG_CACHE_HOME/terraform/$(checksum).tfplan
-	if test -f "${plan}"; then # If a plan exists of less than a minute old, execute it
+	if test -f "${PLAN}"; then # If a plan exists of less than a minute old, execute it
 		echo "📍 Found a plan to execute"
-		trap  'rm ${plan}' EXIT
-		terraform apply "${plan}" "$@"
+		trap  'rm ${PLAN}' EXIT
+		terraform apply "${PLAN}" "$@"
 	else
 		terraform apply "$@"
 	fi

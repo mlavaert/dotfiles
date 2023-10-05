@@ -1,3 +1,5 @@
+local Util = require("config.util")
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -8,42 +10,21 @@ return {
     },
   },
   cmd = "Telescope",
+
   keys = {
-    {
-      "<leader><space>",
-      function()
-        local builtin = require("telescope.builtin")
-        local opts = {} -- define here if you want to define something
-        local is_inside_work_tree = {}
-
-        local cwd = vim.fn.getcwd()
-        if is_inside_work_tree[cwd] == nil then
-          vim.fn.system("git rev-parse --is-inside-work-tree")
-          is_inside_work_tree[cwd] = vim.v.shell_error == 0
-        end
-
-        if is_inside_work_tree[cwd] then
-          builtin.git_files(opts)
-        else
-          builtin.find_files(opts)
-        end
-      end,
-      desc = "Find Files",
-    },
-
+    { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
+    { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
     { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-    { "<leader>/", require("telescope.builtin").live_grep, desc = "Grep" },
-    { "<leader>,", require("telescope.builtin").buffers, desc = "Buffers" },
-
+    { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
     -- find
-    { "<leader>fr", require("telescope.builtin").oldfiles, desc = "Find Recent Files" },
-    { "<leader>fd", require("telescope.builtin").diagnostics, desc = "Find Diagnostics" },
-    { "<leader>fb", require("telescope.builtin").buffers, desc = "Buffers" },
-
+    { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+    { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
+    { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+    { "<leader>fR", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
     -- git
     { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
-
     -- search
     { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
     { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
@@ -52,6 +33,8 @@ return {
     { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
     { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
     { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
+    { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+    { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
     { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
     { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
     { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
@@ -59,8 +42,51 @@ return {
     { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
     { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
     { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-
-    -- TODO Include others from LazyVim
+    { "<leader>sw", Util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
+    { "<leader>sW", Util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
+    { "<leader>sw", Util.telescope("grep_string"), mode = "v", desc = "Selection (root dir)" },
+    { "<leader>sW", Util.telescope("grep_string", { cwd = false }), mode = "v", desc = "Selection (cwd)" },
+    { "<leader>uc", Util.telescope("colorscheme", { enable_preview = true }), desc = "Change colorscheme" },
+    {
+      "<leader>ss",
+      Util.telescope("lsp_document_symbols", {
+        symbols = {
+          "Class",
+          "Function",
+          "Method",
+          "Constructor",
+          "Interface",
+          "Module",
+          "Struct",
+          "Trait",
+          "Field",
+          "Property",
+          "Enum",
+          "Constant",
+        },
+      }),
+      desc = "Goto Symbol",
+    },
+    {
+      "<leader>sS",
+      Util.telescope("lsp_dynamic_workspace_symbols", {
+        symbols = {
+          "Class",
+          "Function",
+          "Method",
+          "Constructor",
+          "Interface",
+          "Module",
+          "Struct",
+          "Trait",
+          "Field",
+          "Property",
+          "Enum",
+          "Constant",
+        },
+      }),
+      desc = "Goto Symbol (Workspace)",
+    },
   },
   config = function()
     local telescope = require("telescope")

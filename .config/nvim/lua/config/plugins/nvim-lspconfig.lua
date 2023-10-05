@@ -21,7 +21,7 @@ return {
         vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, noremap = true, silent = true })
       end
 
-      k("C-k", vim.lsp.buf.signature_help, "Signature Documentation")
+      k("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
       k("K", vim.lsp.buf.hover, "Hover Documentation")
       k("gd", vim.lsp.buf.definition, "Goto Definition")
       k("gr", vim.lsp.buf.references, "References")

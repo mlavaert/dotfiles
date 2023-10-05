@@ -5,7 +5,7 @@ return {
     options = {
       icons_enabled = false,
       component_separators = "|",
-      theme = "gruvbox",
+      theme = "tokyonight",
       section_separators = "",
     },
   },
