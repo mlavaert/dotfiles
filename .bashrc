@@ -15,7 +15,6 @@ export MANPAGER=$PAGER
 export VISUAL=nvim
 export EDITOR=$VISUAL
 export BROWSER=/usr/bin/xdg-open
-export AWS_PROFILE=data
 
 # XDG Specification
 export PYENV_ROOT=$XDG_DATA_HOME/pyenv

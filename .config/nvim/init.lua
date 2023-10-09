@@ -18,6 +18,21 @@ local opts = {
   install = { colorscheme = { "gruvbox" } },
   checker = { enabled = false },
   change_detection = { notify = false },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+        "rplugin",
+        "matchparen",
+        "matchit",
+      },
+    },
+  },
 }
 
 vim.g.mapleader = " "
