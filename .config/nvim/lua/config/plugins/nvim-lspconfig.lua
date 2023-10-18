@@ -1,9 +1,29 @@
 return {
   "neovim/nvim-lspconfig",
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
   dependencies = {
-    { "williamboman/mason.nvim", cmd = "Mason", config = true },
     { "folke/neodev.nvim", config = true },
+    {
+      "williamboman/mason.nvim",
+      cmd = "Mason",
+      keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+      build = ":MasonUpdate",
+      opts = {
+        ensure_installed = {
+          "bashls",
+          "black",
+          "dockerls",
+          "hadolint",
+          "markdownlint",
+          "marksman",
+          "pyright",
+          "ruff",
+          "shellcheck",
+          "shfmt",
+          "terraformls",
+        },
+      },
+    },
     "williamboman/mason-lspconfig.nvim",
     "b0o/schemastore.nvim",
   },
@@ -36,11 +56,10 @@ return {
 
     local servers = {
       pyright = {},
-      cmake = {},
-      awk_ls = {},
       bashls = {},
       dockerls = {},
       terraformls = {},
+      marksman = {},
       yamlls = {
         yaml = {
           schemaStore = {
@@ -73,5 +92,26 @@ return {
         })
       end,
     })
+
+    -- Setup Snyk
+    -- local lspconfig = require("lspconfig")
+    -- local configs = require("lspconfig.configs")
+    --
+    -- if not configs.snyk then
+    --         configs.snyk = {
+    --                 default_config = {
+    --                         cmd = { "snyk-ls", "-f", "/path/to/log/snyk-ls-vim.log" },
+    --                         root_dir = function(name)
+    --                                 return lspconfig.util.find_git_ancestor(name) or vim.loop.os_homedir()
+    --                         end,
+    --                         init_options = {
+    --                                 activateSnykCode = "true",
+    --                         },
+    --                 },
+    --         }
+    -- end
+    -- lspconfig.snyk.setup({
+    --         on_attach = on_attach,
+    -- })
   end,
 }

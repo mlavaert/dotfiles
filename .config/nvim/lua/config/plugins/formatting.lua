@@ -1,26 +1,36 @@
 return {
-  "mhartington/formatter.nvim",
-  opts = {
-    filetype = {
-      lua = require("formatter.filetypes.lua").stylua,
-      python = require("formatter.filetypes.python").black,
-      sh = require("formatter.filetypes.sh").shfmt,
-      sql = function()
-        local util = require("formatter.util")
-        return {
-          exe = "sqlfluff",
-          args = {
-            "format",
-            util.escape_path(util.get_current_buffer_file_path()),
-          },
-        }
+  "stevearc/conform.nvim",
+  event = { "BufWritePre" },
+  keys = {
+    {
+      -- Customize or remove this keymap to your liking
+      "<leader>cf",
+      function()
+        require("conform").format({ async = true, lsp_fallback = true })
       end,
-      terraform = require("formatter.filetypes.terraform").terraformfmt,
-      yaml = require("formatter.filetypes.yaml").yamlfmt,
-      ["*"] = require("formatter.filetypes.any").remove_trailing_whitespace,
+      mode = "",
+      desc = "Format",
     },
   },
-  keys = {
-    { "<leader>cf", ":Format<CR>", desc = "Format" },
+  -- Everything in opts will be passed to setup()
+  opts = {
+    -- Define your formatters
+    formatters_by_ft = {
+      sh = { "shfmt", "shellharden" },
+      lua = { "stylua" },
+      python = { "ruff_fix", "black" },
+      terraform = { "terraform_fmt" },
+      tf = { "terraform_fmt" },
+      -- Use the "_" filetype to run formatters on filetypes that don't
+      -- have other formatters configured.
+      ["_"] = { "trim_whitespace", "trim_newlines" },
+    },
+
+    -- Set up format-on-save
+    format_on_save = { timeout_ms = 500, lsp_fallback = true },
   },
+  init = function()
+    -- If you want the formatexpr, here is the place to set it
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+  end,
 }

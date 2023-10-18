@@ -9,7 +9,7 @@ fi
 CHECKSUM=$(echo "${@:2}" "$(sha1sum $(find . -maxdepth 1 -type f) | sha1sum)" | sha1sum | cut -d ' ' -f 1)
 PLAN="${XDG_CACHE_HOME}/terraform/$CHECKSUM.tfplan"
 
-echo "Checksum: $CHECKSUM"
+echo "✅ $CHECKSUM"
 
 # This utility saves every Terraform plan locally. If you want to apply it
 # checks if it can find a recent plan. When found it will apply said plan.
@@ -26,8 +26,8 @@ plan)
 apply)
 	shift
 	if test -f "${PLAN}"; then # If a plan exists of less than a minute old, execute it
-		echo "📍 Found a plan to execute"
-		trap  'rm ${PLAN}' EXIT
+		echo "📍 Existing plan"
+		trap 'rm ${PLAN}' EXIT
 		terraform apply "${PLAN}" "$@"
 	else
 		terraform apply "$@"

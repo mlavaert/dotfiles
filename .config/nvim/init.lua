@@ -115,6 +115,9 @@ keymap.set("v", ">", ">gv")
 
 keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
+-- quit
+keymap.set("n", "<leader>qq" , "<cmd>qa<cr>" , { desc = "Quit all" })
+
 -- [[ Highlight on Yank ]]
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -124,3 +127,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   pattern = "*",
 })
+
