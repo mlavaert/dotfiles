@@ -8,7 +8,6 @@ return {
       function()
         require("conform").format({ async = true, lsp_fallback = true })
       end,
-      mode = "",
       desc = "Format",
     },
   },
@@ -18,7 +17,7 @@ return {
     formatters_by_ft = {
       sh = { "shfmt", "shellharden" },
       lua = { "stylua" },
-      python = { "ruff_fix", "black" },
+      python = { "ruff_fix", "ruff_format" },
       terraform = { "terraform_fmt" },
       tf = { "terraform_fmt" },
       -- Use the "_" filetype to run formatters on filetypes that don't

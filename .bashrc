@@ -41,7 +41,7 @@ show_virtual_env() {
 export -f show_virtual_env
 
 # Simple prompt
-if [ -n "$SSH_CONNECTION" ]; then
+if [ "$SSH_CONNECTION" != "" ]; then
 	export PS1="\u@\h: \w \$ "
 else
 	export PS1='\[\e[0;2m\]$(show_virtual_env) \w$(__git_ps1) \[\e[0;35m\]λ\[\e[0m\] '
@@ -63,14 +63,6 @@ fi
 # Enable tab completion when starting a command with 'sudo'
 [ "$PS1" ] && complete -cf sudo
 
-# 
-PROMPT_COMMAND='history -a'
-
-# Don't put duplicate lines or lines starting with space in the history.
-# See `man bash` for more options.
-HISTFILE=${XDG_CACHE_HOME}/bash_history
-HISTCONTROL=ignoreboth
-
 # Append to the history file, don't overwrite it.
 shopt -s histappend
 
@@ -78,7 +70,13 @@ shopt -s histappend
 shopt -s cmdhist
 
 # For setting history length see HISTSIZE and HISTFILESIZE in `man bash`.
+HISTFILE=${XDG_CACHE_HOME}/bash_history
+
+# Don't put duplicate lines or lines starting with space in the history.
+# See `man bash` for more options.
+HISTCONTROL=ignoreboth
 HISTSIZE=10000
+PROMPT_COMMAND='history -a'
 
 # Check the window size after each command and, if necessary, update the
 # values of LINES and COLUMNS.
@@ -158,5 +156,5 @@ kcluster() {
 
 kssh() {
 	local pod=$(kubectl get pods "$@" | awk '/Running/ {print $1}' | fzf)
-	kubectl exec --stdin --tty "$@" ${pod} -- /bin/bash
+	kubectl exec --stdin --tty "$@" "$pod" -- /bin/bash
 }

@@ -11,6 +11,7 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
+    "hrsh7th/cmp-emoji",
 
     -- Nice icons
     "onsails/lspkind-nvim",
@@ -82,6 +83,7 @@ return {
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
+        { name = "emoji", option = { insert = true } },
       },
       experimental = {
         ghost_text = {

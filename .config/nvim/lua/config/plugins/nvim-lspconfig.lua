@@ -93,25 +93,29 @@ return {
       end,
     })
 
-    -- Setup Snyk
-    -- local lspconfig = require("lspconfig")
-    -- local configs = require("lspconfig.configs")
-    --
-    -- if not configs.snyk then
-    --         configs.snyk = {
-    --                 default_config = {
-    --                         cmd = { "snyk-ls", "-f", "/path/to/log/snyk-ls-vim.log" },
-    --                         root_dir = function(name)
-    --                                 return lspconfig.util.find_git_ancestor(name) or vim.loop.os_homedir()
-    --                         end,
-    --                         init_options = {
-    --                                 activateSnykCode = "true",
-    --                         },
-    --                 },
-    --         }
-    -- end
-    -- lspconfig.snyk.setup({
-    --         on_attach = on_attach,
-    -- })
+  --   -- Setup Snyk
+  --   local lspconfig = require("lspconfig")
+  --   local configs = require("lspconfig.configs")
+  --
+  --   if not configs.snyk then
+  --     configs.snyk = {
+  --       default_config = {
+  --         cmd = { "snyk-ls", "-f", "/path/to/log/snyk-ls-vim.log" },
+  --         root_dir = function(name)
+  --           return lspconfig.util.find_git_ancestor(name) or vim.loop.os_homedir()
+  --         end,
+  --         init_options = {
+  --           activateSnykCode = "true",
+  --           enableTrustedFoldersFeature = "false", -- Disable folder trust
+  --           enableTelemetry = "false",
+  --           token = os.getenv("SNYK_TOKEN"),
+  --           automaticAuthentication = true and os.getenv("SNYK_TOKEN"),
+  --         },
+  --       },
+  --     }
+  --   end
+  --   lspconfig.snyk.setup({
+  --     on_attach = on_attach,
+  --   })
   end,
 }

@@ -5,11 +5,10 @@ if [ "${TRACE-0}" == "1" ]; then
 	set -o xtrace
 fi
 
-# Create a checksum of the arguments and all files in the Terraform module
-CHECKSUM=$(echo "${@:2}" "$(sha1sum $(find . -maxdepth 1 -type f) | sha1sum)" | sha1sum | cut -d ' ' -f 1)
+# Create a checksum of the first argument and all files in the Terraform module
+CHECKSUM=$(echo "${@:2}" "$(find . -maxdepth 1 -type f -exec sha1sum "{}" +)" | sha1sum | cut -d ' ' -f 1)
+echo "✔️ $CHECKSUM"
 PLAN="${XDG_CACHE_HOME}/terraform/$CHECKSUM.tfplan"
-
-echo "✅ $CHECKSUM"
 
 # This utility saves every Terraform plan locally. If you want to apply it
 # checks if it can find a recent plan. When found it will apply said plan.
@@ -21,14 +20,19 @@ fmt)
 	;;
 plan)
 	shift
-	terraform plan -out "$PLAN" "$@"
+	if test -f "$PLAN"; then # If a plan exists just show it
+		echo "🪧 Existing plan"
+		terraform plan -out "$PLAN" "$@"
+	else
+		terraform plan -out "$PLAN" "$@"
+	fi
 	;;
 apply)
 	shift
-	if test -f "${PLAN}"; then # If a plan exists of less than a minute old, execute it
-		echo "📍 Existing plan"
+	if test -f "$PLAN"; then # If a plan exists of less than a minute old, execute it
+		echo "🪧 Existing plan"
 		trap 'rm ${PLAN}' EXIT
-		terraform apply "${PLAN}" "$@"
+		terraform apply "$PLAN" "$@"
 	else
 		terraform apply "$@"
 	fi
