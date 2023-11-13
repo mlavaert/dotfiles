@@ -37,6 +37,12 @@ apply)
 		terraform apply "$@"
 	fi
 	;;
+clean)
+	shift
+	if test -f "$PLAN"; then # If a plan exists of less than a minute old, execute it
+		rm "$PLAN"
+	fi
+	;;
 *)
 	terraform "$@"
 	;;
