@@ -1,4 +1,4 @@
-vim.bo.commentstring = "#\\ %s"
+vim.bo.commentstring = "#%s"
 
 vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
 vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
