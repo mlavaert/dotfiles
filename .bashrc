@@ -44,6 +44,7 @@ export -f show_virtual_env
 if [ "$SSH_CONNECTION" != "" ]; then
 	export PS1="\u@\h: \w \$ "
 else
+	source $HOME/.local/share/git/git-prompt.sh
 	export PS1='\[\e[0;2m\]$(show_virtual_env) \w$(__git_ps1) \[\e[0;35m\]λ\[\e[0m\] '
 fi
 export PS2="> "
@@ -133,7 +134,7 @@ alias y='xclip -in -selection clipboard'
 alias p='xclip -out -selection clipboard'
 
 # Dotfile managment
-alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 alias vim=nvim
 alias docker=podman
@@ -141,7 +142,7 @@ alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redire
 
 # Plugins and tools
 source "${HOME}/.local/share/z/z.sh"
-source /usr/share/doc/fzf/examples/key-bindings.bash
+source /usr/share/fzf/shell/key-bindings.bash 
 eval "$(direnv hook bash)"
 
 # Small utilities
