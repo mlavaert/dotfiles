@@ -170,6 +170,8 @@ alias docker=podman
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 alias tmux='tmux -2'
 
+alias aws-profile='export AWS_PROFILE=$(grep "\[profile" "$HOME"/.aws/config | tr -d "[]" | cut -d " " -f2 | fzf)'
+
 # Plugins and tools
 source "${HOME}/.local/share/z/z.sh"
 source /usr/share/fzf/shell/key-bindings.bash
