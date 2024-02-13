@@ -7,9 +7,6 @@ export PAGER="less"
 export MANPAGER=$PAGER
 export BROWSER=/usr/bin/xdg-open
 
-# Conveyor
-export CONVEYOR_CONTAINER_MANAGER=podman
-
 # XDG Specification
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -30,6 +27,9 @@ export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
 export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
 export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 export Z_DATA=$XDG_CACHE_HOME/z
+
+# Conveyor
+export CONVEYOR_CONTAINER_MANAGER=podman
 
 # Include my scripts in the PATH
 if [[ -d "$HOME/.local/bin" ]]; then
@@ -60,14 +60,14 @@ show_virtual_env() {
 		echo "[]"
 	fi
 }
+export -f show_virtual_env
 
 show_aws_profile() {
 	if [[ -n "$AWS_PROFILE" ]]; then
 		echo "[☁️ $AWS_PROFILE]"
 	fi
 }
-
-export -f show_virtual_env
+export -f show_aws_profile
 
 # Simple prompt
 if [ "$SSH_CONNECTION" != "" ]; then
