@@ -24,16 +24,14 @@
 }
 
 #custom-powermenu,
-#cpu,
-#temperature,
-#memory,
+#battery,
 #workspaces,
 #clock,
 #window,
 #pulseaudio,
 #custom-updates,
 #network {
-  padding: 4px 8px;
+  padding: 4px 12px;
   background-color: #303643;
   border-radius: 30px;
   margin: 6px 4px;
@@ -76,13 +74,12 @@
   color: #98c379;
 }
 
-#memory {
+#battery {
   color: #e5c07b;
 }
 
 #network {
   color: #c678dd;
-  min-width: 200px;
 }
 
 #clock {

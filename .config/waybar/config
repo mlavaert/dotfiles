@@ -10,28 +10,12 @@
     "modules-right": [
       "network",
       "pulseaudio",
+      "battery",
       "custom/powermenu",
     ],
     "tray": {
       "icon-size": 20,
       "spacing": 10
-    },
-    "hyprland/window": {
-      "format": " {}",
-      "rewrite": {
-          "(\\d\\. )?(.*) - Chromium": "<span color=\"#4285F4\"></span>  $2 ",
-          "nvim (.*)": "<span color=\"#57A143\"></span>  $1",
-          "nvim": "<span color=\"#57A143\">  Neovim</span> ",
-          "ranger(.*)": "<span color=\"#ffffff\"></span>  $1",
-          //"kitty (.*)": "<span color=\"#ffffff\"></span>  $1",
-          "Search(.*)": "<span color=\"#a855f7\"></span>  Search$1",
-      },
-      "separate-outputs": false
-    },
-    "hyprland/submap": {
-      "format": "✌️ {}",
-      "max-length": 8,
-      "tooltip": true
     },
     "hyprland/workspaces": {
       "format": "{icon}",
@@ -51,6 +35,16 @@
         "default": ""
       }
     },
+    "battery": {
+      "bat": "BAT0",
+      "interval": 60,
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{capacity}% {icon}",
+      "format-icons": ["", "", "", "", ""],
+    },
     "network": {
       "interface": "wlp1s0",
       "tooltip-format-ethernet": "{ifname} ",
@@ -64,7 +58,7 @@
     },
     "pulseaudio": {
       "format": "{volume}% {icon}",
-      "format-bluetooth": "{volume}% {icon}",
+      "format-bluetooth": "{volume}% {icon} ",
       "format-muted": "",
       "format-icons": {
           "headphone": "",
