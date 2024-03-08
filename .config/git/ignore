@@ -9,7 +9,7 @@
 .dotfiles
 
 # direnv
-.envrc
+.envrc.private
 **/.direnv/
 
 .metals/

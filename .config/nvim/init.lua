@@ -15,8 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {
-  install = { colorscheme = { "gruvbox" } },
-  checker = { enabled = false },
   change_detection = { notify = false },
   performance = {
     rtp = {
@@ -35,6 +33,7 @@ local opts = {
   },
 }
 
+-- NOTE: Map leaders before loading plugins
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -93,11 +92,21 @@ local keymap = vim.keymap
 keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 
 -- [[ Buffers ]]
-keymap.set("n", "]b", ":bnext<cr>", { desc = "Next buffer" })
-keymap.set("n", "[b", ":bprev<cr>", { desc = "Previous buffer" })
+keymap.set("n", "H", ":bnext<cr>", { desc = "Next buffer" })
+keymap.set("n", "L", ":bprev<cr>", { desc = "Previous buffer" })
 keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete Buffer" })
 keymap.set("n", "<leader>bD", ":bdelete!<CR>", { desc = "Delete Buffer (Force)" })
 keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+-- [[ Diagnostics ]] --
+keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
+keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Jump to previous diagnostic" })
+keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", { desc = "Jump to next diagnostic" })
+
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next Diagnostic message" })
+vim.keymap.set("n", "<leader>xe", vim.diagnostic.open_float, { desc = "Show diagnostic Error messages" })
+vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "Open diagnostic Quickfix list" })
 
 -- [[ Better vertical navigation ]]
 keymap.set("n", "<C-d>", "<C-d>zz")
@@ -116,7 +125,7 @@ keymap.set("v", ">", ">gv")
 keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- quit
-keymap.set("n", "<leader>qq" , "<cmd>qa<cr>" , { desc = "Quit all" })
+keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
 -- [[ Highlight on Yank ]]
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -127,4 +136,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   pattern = "*",
 })
-

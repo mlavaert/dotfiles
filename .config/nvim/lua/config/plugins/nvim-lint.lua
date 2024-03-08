@@ -7,6 +7,7 @@ return {
       markdown = { "markdownlint" },
       python = { "ruff", "vulture" },
       sh = { "shellcheck" },
+      sql = { "sqlfluff" },
       terraform = { "terraform_validate" },
       tf = { "terraform_validate" },
     }

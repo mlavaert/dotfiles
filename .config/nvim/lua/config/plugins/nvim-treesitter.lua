@@ -38,10 +38,4 @@ return {
       },
     },
   },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
-    enabled = true,
-    opts = { mode = "cursor" },
-  },
 }
