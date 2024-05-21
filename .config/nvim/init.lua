@@ -33,54 +33,69 @@ local opts = {
   },
 }
 
--- NOTE: Map leaders before loading plugins
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("lazy").setup("config.plugins", opts)
-
--- -------------------------------------
--- Basic configuration
--- -------------------------------------
--- Numbers
-vim.wo.number = true
-vim.wo.relativenumber = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = "yes"
+-- Make line-numbers default
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- Enable the mouse
 vim.opt.mouse = "a"
 
--- Backup, undo and swap
-vim.opt.backup = true
-vim.opt.backupdir = vim.fn.stdpath("cache") .. "/backupdir"
-vim.opt.undofile = true
-vim.opt.undodir = vim.fn.stdpath("cache") .. "/undodir"
-vim.opt.swapfile = false
+-- Don't show the mode, since it's already in the status line
+vim.opt.showmode = false
 
--- Case insensitive searching unless capital in search
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Decrease update time
-vim.opt.updatetime = 250
-vim.opt.timeout = true
-vim.opt.timeoutlen = 300
+-- Sync clipboard between OS and Neovim.
+--  Remove this option if you want your OS clipboard to remain independent.
+--  See `:help 'clipboard'`
+vim.opt.clipboard = "unnamedplus"
 
 -- Enable break indent
 vim.opt.breakindent = true
 
-vim.opt.clipboard = "unnamedplus"
-vim.opt.cmdheight = 1
-vim.opt.completeopt = "menu,menuone,noselect"
-vim.opt.expandtab = true
-vim.opt.inccommand = "split"
+-- Save undo history
+vim.opt.undofile = true
+
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- Keep signcolumn on by default
+vim.opt.signcolumn = "yes"
+
+-- Decrease update time
+vim.opt.updatetime = 250
+
+-- Decrease mapped sequence wait time
+-- Displays which-key popup sooner
+vim.opt.timeoutlen = 300
+
+-- Configure how new splits should be opened
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "▸ ", trail = "·" }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = "split"
+
+-- Show which line your cursor is on
+vim.opt.cursorline = true
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 10
+
+vim.opt.completeopt = "menu,menuone,noselect"
+
 vim.opt.path:append({ "**" }) -- find files recursively
-vim.opt.scrolloff = 8
-vim.opt.shell = "bash"
 vim.opt.sidescrolloff = 8
 vim.opt.wrap = false
 
@@ -92,16 +107,14 @@ local keymap = vim.keymap
 keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 
 -- [[ Buffers ]]
-keymap.set("n", "H", ":bnext<cr>", { desc = "Next buffer" })
-keymap.set("n", "L", ":bprev<cr>", { desc = "Previous buffer" })
+keymap.set("n", "H", ":bprev<cr>", { desc = "Previous buffer" })
+keymap.set("n", "L", ":bnext<cr>", { desc = "Next buffer" })
 keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete Buffer" })
 keymap.set("n", "<leader>bD", ":bdelete!<CR>", { desc = "Delete Buffer (Force)" })
 keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- [[ Diagnostics ]] --
 keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
-keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Jump to previous diagnostic" })
-keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", { desc = "Jump to next diagnostic" })
 
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next Diagnostic message" })
@@ -136,3 +149,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   pattern = "*",
 })
+
+require("lazy").setup("config.plugins", opts)

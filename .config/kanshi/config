@@ -1,7 +1,7 @@
 profile dock {
         output eDP-1 disable
 	output DP-8 mode 1920x1080 position 0,0
-	output DP-9 mode 1920x1080 position 1920,0
+	output DP-7 mode 1920x1080 position 1920,0
 }
 
 profile laptop {

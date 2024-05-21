@@ -61,10 +61,6 @@ return {
         -- or a suggestion from your LSP for this to activate.
         map("<leader>ca", vim.lsp.buf.code_action, "Action")
 
-        -- Opens a popup that displays documentation about the word under your cursor
-        --  See `:help K` for why this keymap
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
-
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         --  For example, in C this would take you to the header
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
@@ -75,7 +71,7 @@ return {
         --
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.server_capabilities.documentHighlightProvider then
+        if client and client.supports_method.(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
             callback = vim.lsp.buf.document_highlight,
@@ -85,6 +81,16 @@ return {
             buffer = event.buf,
             callback = vim.lsp.buf.clear_references,
           })
+        end
+
+        -- The following autocommand is used to enable inlay hints in your
+        -- code, if the language server you are using supports them
+        --
+        -- This may be unwanted, since they displace some of your code
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          map("<leader>th", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+          end, "[T]oggle Inlay [H]ints")
         end
       end,
     })

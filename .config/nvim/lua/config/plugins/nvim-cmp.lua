@@ -1,7 +1,8 @@
 return {
   -- Autocompletion
   "hrsh7th/nvim-cmp",
-  event = "InsertEnter",
+  lazy = false,
+  priority = 100,
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
     "L3MON4D3/LuaSnip",
@@ -9,6 +10,7 @@ return {
 
     -- Adds LSP completion capabilities
     "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
 
     -- Nice icons
@@ -92,8 +94,9 @@ return {
       },
       sources = {
         { name = "nvim_lsp" },
-        { name = "luasnip" },
         { name = "path" },
+        { name = "buffer" },
+        { name = "luasnip" },
       },
     })
   end,

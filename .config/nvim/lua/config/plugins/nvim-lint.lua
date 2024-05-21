@@ -10,6 +10,7 @@ return {
       sql = { "sqlfluff" },
       terraform = { "terraform_validate" },
       tf = { "terraform_validate" },
+      yml = { "cfn-lint" },
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost" }, {
