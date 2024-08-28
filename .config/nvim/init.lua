@@ -113,9 +113,6 @@ keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete Buffer" })
 keymap.set("n", "<leader>bD", ":bdelete!<CR>", { desc = "Delete Buffer (Force)" })
 keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
--- [[ Diagnostics ]] --
-keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
-
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next Diagnostic message" })
 vim.keymap.set("n", "<leader>xe", vim.diagnostic.open_float, { desc = "Show diagnostic Error messages" })

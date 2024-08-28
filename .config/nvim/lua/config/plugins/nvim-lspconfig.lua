@@ -71,7 +71,7 @@ return {
         --
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.supports_method.(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
             callback = vim.lsp.buf.document_highlight,
@@ -94,6 +94,8 @@ return {
         end
       end,
     })
+
+    vim.lsp.set_log_level("ERROR")
 
     -- LSP servers and clients are able to communicate to each other what features they support.
     --  By default, Neovim doesn't support everything that is in the LSP Specification.

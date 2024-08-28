@@ -11,6 +11,7 @@ return {
     -- Adds LSP completion capabilities
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-path",
 
     -- Nice icons
@@ -96,6 +97,7 @@ return {
         { name = "nvim_lsp" },
         { name = "path" },
         { name = "buffer" },
+        { name = "emoji" },
         { name = "luasnip" },
       },
     })
