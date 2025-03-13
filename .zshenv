@@ -1,6 +1,7 @@
 export EDITOR="nvim"
 export TERMINAL="foot"
 export BROWSER="firefox"
+export GPG_TTY=$(tty)
 
 export XDG_BIN_HOME="$HOME/.local/bin"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -20,3 +21,16 @@ export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
 export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
 export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 export Z_DATA=$XDG_CACHE_HOME/z
+
+
+# ZScaler
+export ZSCALER_ROOT_CERT=/Users/malavaert/.zcli/zscaler_root.pem;
+export AWS_CA_BUNDLE=/opt/homebrew/etc/ca-certificates/cert.pem;
+export NODE_EXTRA_CA_CERTS=/Users/malavaert/.zcli/zscaler_root.pem;
+## Python
+export UV_NATIVE_TLS=true
+export REQUESTS_CA_BUNDLE=/Users/malavaert/.zcli/zscaler_root.pem;
+
+# SOPS
+export SOPS_KMS_ARN="arn:aws:kms:eu-west-1:767397876121:alias/data-platform-build-sops-key"
+

@@ -23,11 +23,13 @@
 
 # Use Meld for merging
 [merge]
-    tool = meld
+  tool = meld
 [mergetool "meld"]
-    # Choose one of these 2 lines (not both!) explained below.
-    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
-    cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+  # Choose one of these 2 lines (not both!) explained below.
+  cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+  cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
 
 [push]
-    autoSetupRemote = true
+  autoSetupRemote = true
+[http]
+	sslCAInfo = /Users/malavaert/.zcli/zscaler_root.pem

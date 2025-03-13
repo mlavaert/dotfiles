@@ -1,20 +1,40 @@
 layout_uv() {
-    if [[ -d ".venv" ]]; then
-        VIRTUAL_ENV="$(pwd)/.venv"
+  if [[ -d ".venv" ]]; then
+    VIRTUAL_ENV="$(pwd)/.venv"
+  fi
+
+  if [[ -z $VIRTUAL_ENV || ! -d $VIRTUAL_ENV ]]; then
+    log_status "No virtual environment exists. Executing \`uv venv\` to create one."
+
+    if [[ -z $1 ]]; then
+      uv venv
+    else
+      uv venv --python $1 --native-tls
     fi
+    VIRTUAL_ENV="$(pwd)/.venv"
+  fi
 
-    if [[ -z $VIRTUAL_ENV || ! -d $VIRTUAL_ENV ]]; then
-        log_status "No virtual environment exists. Executing \`uv venv\` to create one."
+  PATH_add "$VIRTUAL_ENV/bin"
+  export UV_ACTIVE=1 # or VENV_ACTIVE=1
+  export VIRTUAL_ENV
+}
 
-        if [[ -z $1 ]]; then
-            uv venv
-	else
-	    uv venv --python $1
-        fi
-	VIRTUAL_ENV="$(pwd)/.venv"
-    fi
+layout_terraform() {
+  DIRENV_TMP_DIR="${PWD}/.direnv"
+  DIRENV_BIN_DIR="${PWD}/.direnv/bin"
+  [ ! -e "${DIRENV_BIN_DIR}" ] && mkdir -p "${DIRENV_BIN_DIR}"
 
-    PATH_add "$VIRTUAL_ENV/bin"
-    export UV_ACTIVE=1  # or VENV_ACTIVE=1
-    export VIRTUAL_ENV
+  export TF_VERSION=${1:-"1.9.5"}
+  [ -z "${TF_ARCH}" ] && export TF_ARCH="darwin_arm64"
+  TF_PKG_NAME="terraform_${TF_VERSION}_${TF_ARCH}.zip"
+  TF_PKG_URL="https://releases.hashicorp.com/terraform/${TF_VERSION}/${TF_PKG_NAME}"
+  TF_PKG_PATH="${DIRENV_TMP_DIR}/${TF_PKG_NAME}"
+  if [ ! -e "${DIRENV_BIN_DIR}/terraform" ] || ! "${DIRENV_BIN_DIR}/terraform" --version | grep -q "Terraform v${TF_VERSION}"; then
+    log_status "=> Getting terraform:${TF_VERSION}:${TF_ARCH} (can take a while to execute)"
+    curl -s -L "${TF_PKG_URL}" -o "${TF_PKG_PATH}"
+    unzip -o ${TF_PKG_PATH} -d ${DIRENV_BIN_DIR}
+    chmod +x ${DIRENV_BIN_DIR}/terraform
+    rm -f ${TF_PKG_PATH}
+  fi
+  PATH_add "$DIRENV_BIN_DIR"
 }

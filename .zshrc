@@ -67,10 +67,10 @@ alias egrep='egrep --color=auto'
 # the previous dir denoted by two dots).  I would also like to use the
 # -p option, which prepends a forward slash to directories, but it does
 # not seem to work with symlinked directories. For more, see `man ls`.
-alias ls='ls -pv --color=auto --group-directories-first'
-alias lsa='ls -pvA --color=auto --group-directories-first'
-alias ll='ls -lhpv --color=auto --group-directories-first'
-alias lla='ls -lhpvA --color=auto --group-directories-first'
+alias ls='ls -pv --color=auto '
+alias lsa='ls -pvA --color=auto '
+alias ll='ls -lhpv --color=auto '
+alias lla='ls -lhpvA --color=auto '
 
 alias y='wl-copy'
 alias p='wl-paste'
@@ -82,6 +82,7 @@ alias vim=nvim
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 alias tmux='tmux -2'
 alias tf='terraform'
+alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql
 
 function get-aws-profiles() {
         rg -o '\[profile (.*administrator-cf)' -r '$1' "$HOME/.aws/config"
@@ -92,6 +93,11 @@ function retry() {
 	do
 		echo "Operation failed, retrying..."
 	done
+}
+
+function patch-python-venv() {
+  echo "-> Patching virtualenv with ZScaler Certificate"
+  openssl x509 -in ${ZSCALER_ROOT_CERT} -text >> $VIRTUAL_ENV/lib/python*/site-packages/certifi/cacert.pem
 }
 
 alias aws-profile='export AWS_PROFILE=$(get-aws-profiles | fzf)'
@@ -138,3 +144,14 @@ fi
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/malavaert/.local/bin/terraform terraform
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/malavaert/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
