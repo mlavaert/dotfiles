@@ -24,12 +24,12 @@ export Z_DATA=$XDG_CACHE_HOME/z
 
 
 # ZScaler
-export ZSCALER_ROOT_CERT=/Users/malavaert/.zcli/zscaler_root.pem;
-export AWS_CA_BUNDLE=/opt/homebrew/etc/ca-certificates/cert.pem;
-export NODE_EXTRA_CA_CERTS=/Users/malavaert/.zcli/zscaler_root.pem;
+export ZSCALER_ROOT_CERT=$HOME/.zcli/zscaler_root.pem;
+# export AWS_CA_BUNDLE=/opt/homebrew/etc/ca-certificates/cert.pem;
+# export NODE_EXTRA_CA_CERTS=$HOME/.zcli/zscaler_root.pem;
 ## Python
 export UV_NATIVE_TLS=true
-export REQUESTS_CA_BUNDLE=/Users/malavaert/.zcli/zscaler_root.pem;
+# export REQUESTS_CA_BUNDLE=$HOME/.zcli/zscaler_root.pem;
 
 # SOPS
 export SOPS_KMS_ARN="arn:aws:kms:eu-west-1:767397876121:alias/data-platform-build-sops-key"

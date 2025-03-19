@@ -136,14 +136,16 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
 	export PATH=$PATH:"$HOME"/.cargo/bin
 fi
 
-if [[ -d "$HOME/.local/share/pyenv/bin" ]]; then
-	export PATH=$PATH:"$HOME"/.local/share/pyenv/bin
+if [[ -d "/opt/nvim/bin" ]]; then
+	export PATH=$PATH:/opt/nvim/bin
 fi
 
 # Integrations
-eval "$(fzf --zsh)"
-eval "$(direnv hook zsh)"
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 eval "$(zoxide init zsh)"
+eval "$(direnv hook zsh)"
+eval "$(uv generate-shell-completion zsh)"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/malavaert/.local/bin/terraform terraform
@@ -151,7 +153,3 @@ complete -o nospace -C /Users/malavaert/.local/bin/terraform terraform
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
 zstyle ':completion:*' menu select
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/malavaert/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

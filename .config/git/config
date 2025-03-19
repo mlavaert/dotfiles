@@ -31,5 +31,3 @@
 
 [push]
   autoSetupRemote = true
-[http]
-	sslCAInfo = /Users/malavaert/.zcli/zscaler_root.pem

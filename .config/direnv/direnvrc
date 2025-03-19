@@ -25,7 +25,7 @@ layout_terraform() {
   [ ! -e "${DIRENV_BIN_DIR}" ] && mkdir -p "${DIRENV_BIN_DIR}"
 
   export TF_VERSION=${1:-"1.9.5"}
-  [ -z "${TF_ARCH}" ] && export TF_ARCH="darwin_arm64"
+  [ -z "${TF_ARCH}" ] && export TF_ARCH="linux_amd64"
   TF_PKG_NAME="terraform_${TF_VERSION}_${TF_ARCH}.zip"
   TF_PKG_URL="https://releases.hashicorp.com/terraform/${TF_VERSION}/${TF_PKG_NAME}"
   TF_PKG_PATH="${DIRENV_TMP_DIR}/${TF_PKG_NAME}"
