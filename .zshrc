@@ -1,3 +1,10 @@
+# Automatically start TMUX 
+# if [ -z "$TMUX" ]
+# then
+#     tmux attach -t TMUX || tmux new -s TMUX
+# fi
+eval "$(zellij setup --generate-auto-start zsh)"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -82,7 +89,6 @@ alias vim=nvim
 alias willy="mpv https://playerservices.streamtheworld.com/api/livestream-redirect/WILLYAAC.AAC"
 alias tmux='tmux -2'
 alias tf='terraform'
-alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql
 
 function get-aws-profiles() {
         rg -o '\[profile (.*administrator-cf)' -r '$1' "$HOME/.aws/config"
@@ -140,16 +146,32 @@ if [[ -d "/opt/nvim/bin" ]]; then
 	export PATH=$PATH:/opt/nvim/bin
 fi
 
+if [[ -d "${HOME}/.local/share/coursier/bin" ]]; then
+	export PATH=$PATH:"$HOME"/.local/share/coursier/bin
+fi
+
+if [[ -d "$HOME/.config/nvim" ]]; then
+  export NVM_DIR="$HOME/.config/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
 # Integrations
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
-eval "$(uv generate-shell-completion zsh)"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /Users/malavaert/.local/bin/terraform terraform
-
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
-
 zstyle ':completion:*' menu select
+
+
+# Added by dbt installer
+export PATH="$PATH:/home/mlavaert/.local/bin"
+
+# dbt aliases
+alias dbtf=/home/mlavaert/.local/bin/dbt
+
+# opencode
+export PATH=/home/mlavaert/.opencode/bin:$PATH

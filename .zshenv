@@ -1,6 +1,6 @@
 export EDITOR="nvim"
 export TERMINAL="foot"
-export BROWSER="firefox"
+export BROWSER="google-chrome"
 export GPG_TTY=$(tty)
 
 export XDG_BIN_HOME="$HOME/.local/bin"
@@ -34,3 +34,4 @@ export UV_NATIVE_TLS=true
 # SOPS
 export SOPS_KMS_ARN="arn:aws:kms:eu-west-1:767397876121:alias/data-platform-build-sops-key"
 
+export EENVOUDIG_FACTUREREN_API_KEY=d5deb26a-4af4-46c4-b47d-9f05318e65b8
