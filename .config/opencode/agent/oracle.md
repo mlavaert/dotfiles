@@ -1,9 +1,7 @@
 ---
-id: oracle
-name: Oracle
 description: Architecture, debugging, and strategic reasoning
 mode: subagent
-model: github-copilot/gpt-5.2
+model: ${OPENCODE_PROVIDER:-github-copilot}/gpt-5.2
 temperature: 0.4
 tools:
   read: true
@@ -12,7 +10,7 @@ tools:
   bash: false
   edit: false
   write: false
-permissions:
+permission:
   bash:
     "*": "deny"
   edit:

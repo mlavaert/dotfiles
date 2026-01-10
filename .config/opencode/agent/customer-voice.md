@@ -1,9 +1,7 @@
 ---
-id: customer-voice
-name: Customer Voice
 description: Customer communication and Jira ticket handling
 mode: subagent
-# model: github-copilot/gemini-3-flash
+model: ${OPENCODE_PROVIDER:-github-copilot}/gemini-3-flash
 temperature: 0.5
 tools:
   read: true
@@ -12,7 +10,7 @@ tools:
   bash: false
   edit: false
   write: true
-permissions:
+permission:
   bash:
     "*": "deny"
   edit:

@@ -1,9 +1,7 @@
 ---
-id: librarian
-name: Librarian
 description: Research open-source implementations, docs, and library versions
 mode: subagent
-model: github-copilot/claude-sonnet-4.5
+model: ${OPENCODE_PROVIDER:-github-copilot}/claude-sonnet-4.5
 temperature: 0.2
 tools:
   read: true
@@ -13,7 +11,7 @@ tools:
   edit: false
   write: false
   webfetch: true
-permissions:
+permission:
   edit:
     "**/*": "deny"
 ---

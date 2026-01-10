@@ -1,9 +1,7 @@
 ---
-id: technical-writer
-name: Technical Writer
 description: Writes and maintains project documentation
 mode: subagent
-model: github-copilot/gemini-3-flash
+model: ${OPENCODE_PROVIDER:-github-copilot}/gemini-3-flash
 temperature: 0.4
 tools:
   read: true
@@ -12,7 +10,7 @@ tools:
   edit: true
   write: true
   bash: false
-permissions:
+permission:
   bash:
     "*": "deny"
   edit:
