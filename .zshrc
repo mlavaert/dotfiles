@@ -3,6 +3,10 @@
 # then
 #     tmux attach -t TMUX || tmux new -s TMUX
 # fi
+
+# Detect OS
+OS="$(uname -s)"
+
 eval "$(zellij setup --generate-auto-start zsh)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -62,25 +66,45 @@ alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -Iv'
 
-alias diff='diff --color=auto'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+if [[ "$OS" == "Linux" ]]; then
+    alias diff='diff --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 
-# Make ls a bit easier to read.  Note that the -A is the same as -a but
-# does not include implied paths (the current dir denoted by a dot and
-# the previous dir denoted by two dots).  I would also like to use the
-# -p option, which prepends a forward slash to directories, but it does
-# not seem to work with symlinked directories. For more, see `man ls`.
-alias ls='ls -pv --color=auto '
-alias lsa='ls -pvA --color=auto '
-alias ll='ls -lhpv --color=auto '
-alias lla='ls -lhpvA --color=auto '
+    # Linux ls configuration
+    alias ls='ls -pv --color=auto '
+    alias lsa='ls -pvA --color=auto '
+    alias ll='ls -lhpv --color=auto '
+    alias lla='ls -lhpvA --color=auto '
 
-alias y='wl-copy'
-alias p='wl-paste'
+    # Wayland clipboard
+    if command -v wl-copy &> /dev/null; then
+        alias y='wl-copy'
+        alias p='wl-paste'
+    elif command -v xclip &> /dev/null; then
+        alias y='xclip -selection clipboard'
+        alias p='xclip -selection clipboard -o'
+    fi
+
+elif [[ "$OS" == "Darwin" ]]; then
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+
+    # macOS ls configuration (using BSD ls)
+    export CLICOLOR=1
+    alias ls='ls -p'
+    alias lsa='ls -pA'
+    alias ll='ls -lhp'
+    alias lla='ls -lhpA'
+
+    # macOS clipboard
+    alias y='pbcopy'
+    alias p='pbpaste'
+fi
 
 # Dotfile managment
 alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -157,7 +181,22 @@ if [[ -d "$HOME/.config/nvim" ]]; then
 fi
 
 # Integrations
-source /usr/share/fzf/shell/key-bindings.zsh
+# Attempt to find and source fzf key bindings
+FZF_BINDINGS=""
+if [[ -f "/usr/share/fzf/shell/key-bindings.zsh" ]]; then
+    FZF_BINDINGS="/usr/share/fzf/shell/key-bindings.zsh"
+elif [[ -f "/usr/local/opt/fzf/shell/key-bindings.zsh" ]]; then
+    FZF_BINDINGS="/usr/local/opt/fzf/shell/key-bindings.zsh"
+elif [[ -f "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" ]]; then
+    FZF_BINDINGS="/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+elif [[ -f "${HOME}/.fzf/shell/key-bindings.zsh" ]]; then
+    FZF_BINDINGS="${HOME}/.fzf/shell/key-bindings.zsh"
+fi
+
+if [[ -n "$FZF_BINDINGS" ]]; then
+    source "$FZF_BINDINGS"
+fi
+
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
 
@@ -167,10 +206,10 @@ zstyle ':completion:*' menu select
 
 
 # Added by dbt installer
-export PATH="$PATH:/home/mlavaert/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # dbt aliases
-alias dbtf=/home/mlavaert/.local/bin/dbt
+alias dbtf="$HOME/.local/bin/dbt"
 
 # opencode
-export PATH=/home/mlavaert/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
