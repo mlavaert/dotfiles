@@ -206,17 +206,21 @@ fi
 # Integrations
 # Attempt to find and source fzf key bindings
 FZF_BINDINGS=""
-if [[ -f "/usr/share/fzf/shell/key-bindings.zsh" ]]; then
-    FZF_BINDINGS="/usr/share/fzf/shell/key-bindings.zsh"
-elif [[ -f "/usr/local/opt/fzf/shell/key-bindings.zsh" ]]; then
-    FZF_BINDINGS="/usr/local/opt/fzf/shell/key-bindings.zsh"
-elif [[ -f "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" ]]; then
-    FZF_BINDINGS="/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
-elif [[ -f "${HOME}/.fzf/shell/key-bindings.zsh" ]]; then
-    FZF_BINDINGS="${HOME}/.fzf/shell/key-bindings.zsh"
-fi
+# Common paths for fzf bindings
+for path in \
+  "/usr/share/fzf/shell/key-bindings.zsh" \
+  "/usr/local/opt/fzf/shell/key-bindings.zsh" \
+  "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" \
+  "$HOME/.fzf/shell/key-bindings.zsh" \
+  "$HOME/.nix-profile/share/fzf/key-bindings.zsh"; do
+  if [[ -f "$path" ]]; then
+      FZF_BINDINGS="$path"
+      break
+  fi
+done
 
 if [[ -n "$FZF_BINDINGS" ]]; then
+    # shellcheck disable=SC1090
     source "$FZF_BINDINGS"
 fi
 
