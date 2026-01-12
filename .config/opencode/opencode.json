@@ -1,17 +1,11 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "playwright": {
-      "type": "local",
-      "command": [
-        "npx",
-        "@playwright/mcp@latest",
-      ]
-    },
     "duckduckgo": {
       "type": "local",
       "command": [
-        "/home/mlavaert/.local/share/opencode-mcp/duckduckgo-venv/bin/duckduckgo-mcp-server"
+        "uvx",
+        "duckduckgo-mcp-server"
       ]
     },
     "grep-app": {

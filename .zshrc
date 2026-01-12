@@ -157,8 +157,7 @@ if [[ -d "$HOME/.config/nvim" ]]; then
 fi
 
 # Integrations
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+source /usr/share/fzf/shell/key-bindings.zsh
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
 
