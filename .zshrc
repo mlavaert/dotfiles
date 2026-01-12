@@ -10,6 +10,18 @@ fi
 # PATH Configuration (MUST be early!)
 # ------------------------------------------------------------------------------
 
+# Detect OS early for PATH adjustments
+OS="$(uname -s)"
+
+# macOS Specific: Ensure system paths are present before modifying anything
+# This fixes issues where /bin or /usr/bin might be missing or shadowed
+if [[ "$OS" == "Darwin" ]]; then
+    # Ensure basic system paths are included if they appear missing
+    if [[ ":$PATH:" != *":/bin:"* ]]; then
+        export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+    fi
+fi
+
 # Initialize Homebrew if available
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -48,6 +60,9 @@ if [[ -d "$HOME/.config/nvim" ]]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
+
+# Deduplicate PATH to keep it clean
+typeset -U PATH path
 
 # ------------------------------------------------------------------------------
 # External Tools (require PATH to be set)
@@ -92,8 +107,8 @@ zinit cdreplay -q
 # Aliases
 # ------------------------------------------------------------------------------
 
-# Detect OS
-OS="$(uname -s)"
+# Detect OS (Already detected at top, but keeping variable for other scripts)
+# OS="$(uname -s)"
 
 # Navigation
 alias ..='cd ..'
