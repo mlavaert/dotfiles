@@ -13,22 +13,6 @@ fi
 # Detect OS early for PATH adjustments
 OS="$(uname -s)"
 
-# macOS Specific: Ensure system paths are present before modifying anything
-# This fixes issues where /bin or /usr/bin might be missing or shadowed
-if [[ "$OS" == "Darwin" ]]; then
-    # Ensure basic system paths are included if they appear missing
-    if [[ ":$PATH:" != *":/bin:"* ]]; then
-        export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-    fi
-fi
-
-# Initialize Homebrew if available
-if [[ -x "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -x "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
-
 # Include custom binary paths
 if [[ -d "$HOME/.local/bin" ]]; then
 	export PATH=$PATH:"$HOME"/.local/bin
