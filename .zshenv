@@ -34,4 +34,6 @@ export UV_NATIVE_TLS=true
 # SOPS
 export SOPS_KMS_ARN="arn:aws:kms:eu-west-1:767397876121:alias/data-platform-build-sops-key"
 
-export EENVOUDIG_FACTUREREN_API_KEY=d5deb26a-4af4-46c4-b47d-9f05318e65b8
+if [ -f "$HOME/.env.secrets.gpg" ]; then
+    eval "$(gpg --quiet --decrypt "$HOME/.env.secrets.gpg" 2> /dev/null)"
+fi

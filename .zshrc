@@ -12,6 +12,7 @@ eval "$(zellij setup --generate-auto-start zsh)"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+# shellcheck disable=SC2296
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -21,7 +22,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
+   mkdir -p "$(dirname "$ZINIT_HOME")"
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
@@ -119,7 +120,7 @@ function get-aws-profiles() {
 }
 
 function retry() {
-	until `$@`
+	until "$@"
 	do
 		echo "Operation failed, retrying..."
 	done
@@ -127,7 +128,29 @@ function retry() {
 
 function patch-python-venv() {
   echo "-> Patching virtualenv with ZScaler Certificate"
-  openssl x509 -in ${ZSCALER_ROOT_CERT} -text >> $VIRTUAL_ENV/lib/python*/site-packages/certifi/cacert.pem
+  openssl x509 -in "${ZSCALER_ROOT_CERT}" -text >> "$VIRTUAL_ENV"/lib/python*/site-packages/certifi/cacert.pem
+}
+
+function edit-secrets() {
+    local SECRETS_FILE="$HOME/.env.secrets.gpg"
+    local TEMP_FILE="$HOME/.env.secrets.tmp"
+    
+    # Decrypt to temp file
+    if [ -f "$SECRETS_FILE" ]; then
+        gpg --quiet --decrypt "$SECRETS_FILE" > "$TEMP_FILE"
+    else
+        touch "$TEMP_FILE"
+    fi
+    
+    # Edit temp file
+    ${EDITOR:-vim} "$TEMP_FILE"
+    
+    # Encrypt back if changes were made
+    if [ -f "$TEMP_FILE" ]; then
+        gpg --batch --yes --trust-model always --encrypt --recipient mathias@pilcrow.be --output "$SECRETS_FILE" "$TEMP_FILE"
+        rm "$TEMP_FILE"
+        echo "Secrets updated and re-encrypted."
+    fi
 }
 
 alias aws-profile='export AWS_PROFILE=$(get-aws-profiles | fzf)'
