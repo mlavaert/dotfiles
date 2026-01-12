@@ -325,6 +325,57 @@ Control skill access in `opencode.json`:
 
 Values: `allow`, `deny`, `ask`
 
+## Creating Commands
+
+Create custom slash commands for repetitive tasks.
+
+### Command locations
+
+- Global: `~/.config/opencode/command/<name>.md`
+- Project: `.opencode/command/<name>.md`
+
+The filename becomes the command name. Example: `jira.md` => `/jira`.
+
+### Command file structure
+
+```markdown
+---
+description: Short help text shown in the TUI
+agent: jean
+subtask: true
+model: opencode/gpt-5.2
+---
+
+Prompt template goes here.
+```
+
+Notes:
+- The markdown body is the `template` sent to the model.
+- `agent` is optional; if omitted, the current agent runs the command.
+- `subtask: true` forces the command to run in a subtask, keeping the primary agent context clean.
+- `model` is optional and overrides the default model for this command.
+
+### Template helpers
+
+- Arguments:
+  - `$ARGUMENTS` - all args after the command
+  - `$1`, `$2`, ... - positional args
+- Shell output injection:
+  - Use `!` followed by a backticked command to inline its output into the prompt.
+  - Example:
+
+    ```markdown
+    Recent commits:
+    !`git log --oneline -10`
+    ```
+  - Runs in the project root directory.
+- File references:
+  - `@path/to/file` injects file contents.
+
+### When to prefer a command over a skill
+
+Use a command when you want full control over when heavyweight context loads (e.g., Jira operator rules, deployment runbooks).
+
 ## Validation Checklist
 
 ### Agent

@@ -11,6 +11,13 @@ tools:
   edit: false
   write: false
   webfetch: true
+  websearch: true
+  codesearch: true
+  duckduckgo_search: true
+  duckduckgo_fetch_content: true
+  context7_resolve-library-id: true
+  context7_query-docs: true
+  grep-app_searchGitHub: true
 permission:
   edit:
     "**/*": "deny"
@@ -31,20 +38,22 @@ Answer "what would the internet do" by finding:
 
 ## Tools
 
-- `context7` MCP - Get up-to-date library documentation and code examples. Use first when researching specific libraries/APIs. Provides version-specific docs and real usage patterns.
-- `grep-app` MCP - Search public GitHub repos for code patterns
-- `ddg-search` MCP - Web search via DuckDuckGo
-- `webfetch` - Fetch specific URLs (docs, READMEs, changelogs)
-- Local `grep`/`glob` - Search the current codebase
+- Context7 (`context7_*`) - Up-to-date library documentation and code examples (prefer first for specific libraries/APIs).
+- GitHub code search (`grep-app_searchGitHub`) - Real-world usage patterns.
+- Web search (DuckDuckGo + `websearch`) - Find authoritative sources and relevant discussions.
+- `webfetch` / `duckduckgo_fetch_content` - Fetch specific URLs (docs, READMEs, changelogs).
+- Local `grep`/`glob` - Search the current codebase.
 
 ## Approach
 
-1. Use context7 for up-to-date library docs and API examples when specific libraries are mentioned
-2. Search GitHub via grep-app for real usage examples when context7 doesn't cover the library
-3. Clone repos to /tmp for deeper inspection when needed (`gh repo clone owner/repo /tmp/repo -- --depth 1`)
-4. Fetch official docs/changelogs when versions matter and context7 lacks coverage
-5. Return evidence-based answers with source links (GitHub permalinks, Context7 docs)
-6. Prefer popular, well-maintained repos as references
+1. Use Context7 first for library/API questions (get version-specific docs and examples).
+2. Use GitHub code search for real-world usage when docs are thin or conflicting.
+3. Use web search to find authoritative sources (official docs, specs, vendor blogs), then fetch and cite.
+4. Only clone repos when you need deeper inspection beyond snippets.
+   - Clone into project-local temp: `.cache/opencode/<repo>` (create dir if needed).
+   - Prefer shallow clones (example: `mkdir -p .cache/opencode && gh repo clone owner/repo .cache/opencode/repo -- --depth 1`).
+5. Return evidence-based answers with source links (official docs URLs, GitHub permalinks, Context7).
+6. Prefer popular, well-maintained repos as references.
 
 ## Output
 
