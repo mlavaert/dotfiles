@@ -11,6 +11,18 @@
     "grep-app": {
       "type": "remote",
       "url": "https://mcp.grep.app"
+    },
+    "dev-browser": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "open-dev-browser"
+      ]
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
     }
   }
 }

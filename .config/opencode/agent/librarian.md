@@ -1,7 +1,7 @@
 ---
 description: Research open-source implementations, docs, and library versions
 mode: subagent
-model: ${OPENCODE_PROVIDER:-github-copilot}/claude-sonnet-4.5
+model: ${OPENCODE_PROVIDER:-opencode}/claude-sonnet-4.5
 temperature: 0.2
 tools:
   read: true
@@ -31,6 +31,7 @@ Answer "what would the internet do" by finding:
 
 ## Tools
 
+- `context7` MCP - Get up-to-date library documentation and code examples. Use first when researching specific libraries/APIs. Provides version-specific docs and real usage patterns.
 - `grep-app` MCP - Search public GitHub repos for code patterns
 - `ddg-search` MCP - Web search via DuckDuckGo
 - `webfetch` - Fetch specific URLs (docs, READMEs, changelogs)
@@ -38,11 +39,12 @@ Answer "what would the internet do" by finding:
 
 ## Approach
 
-1. Search GitHub via grep-app for real usage examples
-2. Clone repos to /tmp for deeper inspection when needed (`gh repo clone owner/repo /tmp/repo -- --depth 1`)
-3. Fetch official docs/changelogs when versions matter
-4. Return evidence-based answers with source links (GitHub permalinks)
-5. Prefer popular, well-maintained repos as references
+1. Use context7 for up-to-date library docs and API examples when specific libraries are mentioned
+2. Search GitHub via grep-app for real usage examples when context7 doesn't cover the library
+3. Clone repos to /tmp for deeper inspection when needed (`gh repo clone owner/repo /tmp/repo -- --depth 1`)
+4. Fetch official docs/changelogs when versions matter and context7 lacks coverage
+5. Return evidence-based answers with source links (GitHub permalinks, Context7 docs)
+6. Prefer popular, well-maintained repos as references
 
 ## Output
 

@@ -1,7 +1,7 @@
 ---
 description: Architecture, debugging, and strategic reasoning
 mode: subagent
-model: ${OPENCODE_PROVIDER:-github-copilot}/gpt-5.2
+model: ${OPENCODE_PROVIDER:-opencode}/gpt-5.2
 temperature: 0.4
 tools:
   read: true

@@ -18,31 +18,8 @@ if [[ -d "$HOME/.local/bin" ]]; then
 	export PATH=$PATH:"$HOME"/.local/bin
 fi
 
-if [[ -d "$HOME/bin" ]]; then
-	export PATH=$PATH:"$HOME"/bin
-fi
-
-if [[ -d "$HOME/.cargo/bin" ]]; then
-	export PATH=$PATH:"$HOME"/.cargo/bin
-fi
-
-if [[ -d "/opt/nvim/bin" ]]; then
-	export PATH=$PATH:/opt/nvim/bin
-fi
-
-if [[ -d "${HOME}/.local/share/coursier/bin" ]]; then
-	export PATH=$PATH:"$HOME"/.local/share/coursier/bin
-fi
-
 if [[ -d "$HOME/.opencode/bin" ]]; then
     export PATH="$PATH:$HOME/.opencode/bin"
-fi
-
-# Load NVM if present
-if [[ -d "$HOME/.config/nvim" ]]; then
-  export NVM_DIR="$HOME/.config/nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
 
 # Deduplicate PATH to keep it clean
@@ -76,7 +53,6 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::aws
-zinit snippet OMZP::kubectl
 zinit snippet OMZP::terraform
 zinit snippet OMZP::command-not-found
 
