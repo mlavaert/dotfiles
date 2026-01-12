@@ -17,6 +17,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Initialize Homebrew if available
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -134,22 +141,36 @@ function patch-python-venv() {
 function edit-secrets() {
     local SECRETS_FILE="$HOME/.env.secrets.gpg"
     local TEMP_FILE="$HOME/.env.secrets.tmp"
-    
+    local EDITOR_CMD="${EDITOR:-vim}"
+
+    # Ensure required commands are available
+    if ! command -v gpg >/dev/null 2>&1; then
+        echo "Error: gpg is not installed or not in PATH."
+        return 1
+    fi
+
     # Decrypt to temp file
     if [ -f "$SECRETS_FILE" ]; then
-        gpg --quiet --decrypt "$SECRETS_FILE" > "$TEMP_FILE"
+        if ! command gpg --quiet --decrypt "$SECRETS_FILE" > "$TEMP_FILE"; then
+            echo "Error: Failed to decrypt secrets."
+            return 1
+        fi
     else
         touch "$TEMP_FILE"
     fi
     
     # Edit temp file
-    ${EDITOR:-vim} "$TEMP_FILE"
+    $EDITOR_CMD "$TEMP_FILE"
     
     # Encrypt back if changes were made
     if [ -f "$TEMP_FILE" ]; then
-        gpg --batch --yes --trust-model always --encrypt --recipient mathias@pilcrow.be --output "$SECRETS_FILE" "$TEMP_FILE"
-        rm "$TEMP_FILE"
-        echo "Secrets updated and re-encrypted."
+        if command gpg --batch --yes --trust-model always --encrypt --recipient mathias@pilcrow.be --output "$SECRETS_FILE" "$TEMP_FILE"; then
+            command rm "$TEMP_FILE"
+            echo "Secrets updated and re-encrypted."
+        else
+            echo "Error: Failed to encrypt secrets. Temporary file kept at $TEMP_FILE"
+            return 1
+        fi
     fi
 }
 
