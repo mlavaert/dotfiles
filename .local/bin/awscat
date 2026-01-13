@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-aws s3 cp "$1" -
