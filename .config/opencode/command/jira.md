@@ -1,6 +1,6 @@
 ---
 description: Jira operations via jira-cli (approval-gated)
-agent: jean
+agent: communicator
 subtask: true
 ---
 
