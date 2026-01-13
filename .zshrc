@@ -29,11 +29,6 @@ typeset -U PATH path
 # External Tools (require PATH to be set)
 # ------------------------------------------------------------------------------
 
-# Automatically start Zellij if installed
-if command -v zellij >/dev/null 2>&1; then
-    eval "$(zellij setup --generate-auto-start zsh)"
-fi
-
 # Zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -47,7 +42,6 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light jeffreytse/zsh-vi-mode
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
-zinit light Aloxaf/fzf-tab
 
 # Snippets
 zinit snippet OMZP::git
