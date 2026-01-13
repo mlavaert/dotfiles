@@ -215,24 +215,8 @@ setopt HIST_BEEP                 # Beep when accessing non-existent history.
 # ------------------------------------------------------------------------------
 # Integrations (FZF, Zoxide, Direnv)
 # ------------------------------------------------------------------------------
-
-# FZF Bindings
-FZF_BINDINGS=""
-for path in \
-  "/usr/share/fzf/shell/key-bindings.zsh" \
-  "/usr/local/opt/fzf/shell/key-bindings.zsh" \
-  "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" \
-  "$HOME/.fzf/shell/key-bindings.zsh" \
-  "$HOME/.nix-profile/share/fzf/key-bindings.zsh"; do
-  if [[ -f "$path" ]]; then
-      FZF_BINDINGS="$path"
-      break
-  fi
-done
-
-if [[ -n "$FZF_BINDINGS" ]]; then
-    # shellcheck disable=SC1090
-    source "$FZF_BINDINGS"
+if command -v fzf >/dev/null 2>&1; then
+    source <(fzf --zsh)
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
