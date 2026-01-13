@@ -20,6 +20,9 @@ export Z_DATA=$XDG_CACHE_HOME/z
 # OpenCode
 export OPENCODE_ENABLE_EXA=false
 
+# UV
+export UV_NATIVE_TLS=true
+
 if [ -f "$HOME/.env.secrets.gpg" ]; then
     eval "$(gpg --quiet --decrypt "$HOME/.env.secrets.gpg" 2> /dev/null)"
 fi
