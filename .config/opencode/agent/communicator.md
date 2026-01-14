@@ -1,7 +1,6 @@
 ---
 description: Consistent customer communication across all channels
 mode: subagent
-model: ${OPENCODE_PROVIDER:-opencode}/gemini-2.5-pro
 temperature: 0.5
 tools:
   read: true

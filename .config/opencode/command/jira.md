@@ -9,6 +9,7 @@ You are operating Jira via `jira` CLI (ankitpokhrel/jira-cli).
 User request: $ARGUMENTS
 
 Rules:
+
 - Always use `--plain` output when fetching data for parsing.
 - For any write operation (create/edit/assign/move/comment/link/worklog/delete):
   1) Gather missing inputs.
@@ -20,6 +21,7 @@ Rules:
 - Quote/escape user-provided strings safely.
 
 Process:
+
 1) Decide intent (create/update/comment/transition/list/link/etc.). If ambiguous, ask 1-3 clarifying questions.
 2) Read current state first:
    - For an issue: `jira issue view ISSUE-123 --plain`.
@@ -30,18 +32,24 @@ Process:
 6) Report results with key fields and URLs.
 
 Output format:
+
 ## Understanding
+
 - <1-3 bullets>
 
 ## Proposed commands
+
 ```bash
 <commands>
 ```
 
 ## Approval
+
 Proceed? [y/N]
 
 (Only after approval)
+
 ## Result
+
 - <what changed>
 - <links>

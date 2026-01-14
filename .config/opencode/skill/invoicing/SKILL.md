@@ -18,7 +18,9 @@ https://eenvoudigfactureren.be/api/v1
 The API supports two authentication methods:
 
 ### API Key (Recommended)
+
 Pass the API key via the `X-API-Key` header:
+
 ```
 X-API-Key: your-api-key
 ```
@@ -26,17 +28,20 @@ X-API-Key: your-api-key
 **Environment Variable:** The API key should be stored in `EENVOUDIG_FACTUREREN_API_KEY`. Always use this environment variable rather than hardcoding the key.
 
 Example usage:
+
 ```bash
 curl -H "X-API-Key: $EENVOUDIG_FACTUREREN_API_KEY" https://eenvoudigfactureren.be/api/v1/clients
 ```
 
 ### Basic Authentication
+
 Use email and password with standard Basic Authentication via the `Authorization` header.
 If the user has access to multiple accounts, specify the account via the `X-AccountId` header.
 
 ## Response Formats
 
 Add `?format=` parameter to specify response format:
+
 - `json` - JSON format
 - `xml` - XML format (default)
 - `csv` - CSV format (Excel compatible)
@@ -64,9 +69,11 @@ Add `?format=` parameter to specify response format:
 ## Available Domains
 
 ### Clients (`/clients`)
+
 Manage customer data including contacts and custom fields.
 
 **Endpoints:**
+
 - `GET /clients` - List all clients
 - `GET /clients/{id}` - Get specific client
 - `POST /clients` - Create client
@@ -75,6 +82,7 @@ Manage customer data including contacts and custom fields.
 - `DELETE /clients/{id}` - Delete client
 
 **Key fields:**
+
 - `client_id` - Unique ID (auto-generated)
 - `name` - Client name (required, max 75 chars)
 - `number` - Client number
@@ -86,9 +94,11 @@ Manage customer data including contacts and custom fields.
 - `state` - 'active' or 'archived'
 
 ### Invoices (`/invoices`)
+
 Manage invoices and credit notes. Credit notes have negative totals.
 
 **Endpoints:**
+
 - `GET /invoices` - List all invoices
 - `GET /invoices/{id}` - Get specific invoice
 - `POST /invoices` - Create invoice
@@ -96,6 +106,7 @@ Manage invoices and credit notes. Credit notes have negative totals.
 - `DELETE /invoices/{id}` - Delete invoice
 
 **Subdomains:**
+
 - `/invoices/{id}/items` - Invoice line items
 - `/invoices/{id}/payments` - Payments received
 - `/invoices/{id}/remarks` - Internal remarks
@@ -103,6 +114,7 @@ Manage invoices and credit notes. Credit notes have negative totals.
 - `/invoices/{id}/events` - Events/history
 
 **Key fields:**
+
 - `invoice_id` - Unique ID (auto-generated)
 - `client_id` - Client ID (required)
 - `number` - Invoice number (auto-generated if not provided)
@@ -116,6 +128,7 @@ Manage invoices and credit notes. Credit notes have negative totals.
 - `note` - Note shown on invoice
 
 **Invoice items:**
+
 - `description` - Item description (required)
 - `amount` - Unit price excl. VAT
 - `amount_with_tax` - Unit price incl. VAT
@@ -124,72 +137,91 @@ Manage invoices and credit notes. Credit notes have negative totals.
 - `stockitem_id` - Link to stock item (auto-adjusts inventory)
 
 ### Quotes (`/quotes`)
+
 Manage quotations/offers.
 
 **Endpoints:** Same structure as invoices
+
 - `GET /quotes`, `GET /quotes/{id}`, `POST /quotes`, etc.
 
 ### Orders (`/orders`)
+
 Manage order confirmations.
 
 **Endpoints:** Same structure as invoices
 
 ### Deliveries (`/deliveries`)
+
 Manage delivery notes.
 
 **Endpoints:** Same structure as invoices
 
 ### Receipts (`/receipts`)
+
 Manage cash register receipts.
 
 **Endpoints:** Same structure as invoices
 
 ### Subscriptions (`/subscriptions`)
+
 Manage recurring invoices.
 
 ### Stock Items (`/stockitems`)
+
 Manage product/service catalog.
 
 **Endpoints:**
+
 - `GET /stockitems` - List all items
 - `POST /stockitems?bulk` - Bulk create/update (max 100)
 
 ### Layouts (`/layouts`)
+
 Manage document templates.
 
 ### Activities (`/activities`)
+
 View activity log/events.
 
 ## Common Query Parameters
 
 ### Filtering
+
 ```
 ?filter=field%3Dvalue,field2%3D%7Etext
 ```
+
 Operators (URL-encoded):
+
 - `=` (%3D) - equals
 - `!=` (%21%3D) - not equals
 - `<` (%3C), `>` (%3E), `<=` (%3C%3D), `>=` (%3E%3D) - comparisons
 - `=~` (%3D%7E) - contains
 
 ### Searching
+
 ```
 ?search=searchterm
 ```
 
 ### Sorting
+
 ```
 ?sort=field1%2B-field2
 ```
+
 Prefix with `-` for descending order. Separate multiple fields with `+` (%2B).
 
 ### Pagination
+
 ```
 ?skip=30&take=10
 ```
+
 Recommended: max 100 documents per request.
 
 ### Field Selection
+
 ```
 ?fields=name,email_address
 ```
@@ -197,10 +229,13 @@ Recommended: max 100 documents per request.
 ## Sending Documents
 
 ### Send via Email
+
 ```
 POST /invoices/{id}?send_mail
 ```
+
 Body parameters:
+
 - `recipient` - Email address, contact_id, or: 'myself', 'main_contact', 'first_contact', 'all_contacts'
 - `recipients` - List of recipients
 - `subject` - Email subject (optional)
@@ -209,27 +244,34 @@ Body parameters:
 - `attachments` - List of attachments (upload_id, filename)
 
 ### Send via PEPPOL
+
 ```
 POST /invoices/{id}?send_peppol
 ```
 
 ### Send via Postal Mail (BPost)
+
 ```
 POST /invoices/{id}?send_postalmail
 ```
+
 Body parameters:
+
 - `address_type` - 'billing', 'delivery', 'site'
 - `send_registered` - 0 (non-prior) or 1 (registered)
 
 ### Send to Accountant
+
 ```
 POST /invoices/{id}?send_accountant
 ```
 
 ## File Uploads (Attachments)
+
 ```
 POST /uploads
 ```
+
 Upload files as form-data with key 'file' (max 5MB). Returns `upload_id` to use with email attachments.
 
 ## Example: Create Invoice with Items
