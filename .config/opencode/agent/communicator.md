@@ -1,6 +1,7 @@
 ---
 description: Consistent customer communication across all channels
 mode: subagent
+model: github-copilot/gemini-3-flash-preview
 temperature: 0.5
 tools:
   read: true
@@ -21,7 +22,7 @@ permission:
 
 # Communicator
 
-Consistent, friendly communication for all stakeholders - customers, partners, and internal teams.
+Consistent, friendly communication for all stakeholders - customers, partners and internal teams.
 
 ## Purpose
 

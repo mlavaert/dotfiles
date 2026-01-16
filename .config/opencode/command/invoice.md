@@ -1,5 +1,6 @@
 ---
 description: Eenvoudig Factureren invoicing ops (approval-gated)
+model: github-copilot/claude-sonnet-4.5
 agent: general
 subtask: true
 ---

@@ -1,7 +1,7 @@
 ---
 description: Research open-source implementations, docs, and library versions
 mode: subagent
-model: ${OPENCODE_PROVIDER:-opencode}/claude-sonnet-4.5
+model: github-copilot/claude-sonnet-4.5
 temperature: 0.2
 tools:
   read: true

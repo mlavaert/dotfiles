@@ -19,6 +19,23 @@ layout_uv() {
   export VIRTUAL_ENV
 }
 
+use_sops() {
+  local file="${1:-.env.sops}"
+  
+  if [[ ! -f "$file" ]]; then
+    log_error "SOPS file not found: $file"
+    return 1
+  fi
+  
+  if ! command -v sops &> /dev/null; then
+    log_error "sops command not found. Install from https://github.com/getsops/sops"
+    return 1
+  fi
+  
+  watch_file "$file"
+  eval "$(sops --decrypt --output-type dotenv "$file" | sed 's/^/export /')"
+}
+
 layout_terraform() {
   DIRENV_TMP_DIR="${PWD}/.direnv"
   DIRENV_BIN_DIR="${PWD}/.direnv/bin"

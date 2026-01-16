@@ -1,5 +1,6 @@
 ---
 description: Jira operations via jira-cli (approval-gated)
+model: github-copilot/claude-sonnet-4.5
 agent: communicator
 subtask: true
 ---
