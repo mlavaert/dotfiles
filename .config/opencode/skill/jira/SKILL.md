@@ -1,5 +1,5 @@
 ---
-name: jira-manage
+name: jira
 description: |
   Manage Jira tickets using jira-cli: create new issues, update existing tickets
   (summary, description, priority, labels, components), and close/transition tickets.
@@ -7,7 +7,7 @@ description: |
   "mark as done", "change priority", or modify Jira issues.
 ---
 
-# Jira Ticket Management Skill
+# Jira Skill
 
 ## Purpose
 

@@ -12,9 +12,9 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export ZGEN_AUTOLOAD_COMPINIT=0
 export ZVM_INIT_MODE=sourcing
 
-# Adapt existing tools to the specification
+# Adapt existing tools to te specification
 export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
-export LESSHISTFILE=$XDG_CACHE_HOME/less/history
+export LESSHISTFILE=$XDG_CACHE_HOME/less/istory
 export Z_DATA=$XDG_CACHE_HOME/z
 
 # OpenCode
@@ -22,6 +22,13 @@ export OPENCODE_ENABLE_EXA=false
 
 # UV
 export UV_NATIVE_TLS=true
+
+# Claude
+export CLAUDE_CODE_USE_FOUNDRY="1"
+export ANTHROPIC_FOUNDRY_RESOURCE="foundry-data-platform-team"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-5"
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-aku-4-5"
+export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-5"
 
 if [ -f "$HOME/.env.secrets.gpg" ]; then
     eval "$(gpg --quiet --decrypt "$HOME/.env.secrets.gpg" 2> /dev/null)"

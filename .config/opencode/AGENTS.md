@@ -21,3 +21,9 @@
 - **Minimal comments** - code should be self-documenting. Only comment the
 "why", never the "what". No TODO comments, no obvious comments, no section
 dividers.
+
+## Prefered tools
+
+- direnv
+- sops
+- uv
