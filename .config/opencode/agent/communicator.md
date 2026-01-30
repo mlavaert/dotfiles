@@ -54,3 +54,7 @@ Consistent, friendly communication for all stakeholders - customers, partners an
 - User documentation (READMEs, guides)
 - Technical references (when requested)
 - Release notes (user + technical views)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9dac2a4 (Updates)

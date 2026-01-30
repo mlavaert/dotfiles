@@ -16,6 +16,7 @@ export ZVM_INIT_MODE=sourcing
 export LESSKEY=$XDG_CONFIG_HOME/less/lesskey
 export LESSHISTFILE=$XDG_CACHE_HOME/less/istory
 export Z_DATA=$XDG_CACHE_HOME/z
+export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 
 # OpenCode
 export OPENCODE_ENABLE_EXA=false
@@ -24,7 +25,7 @@ export OPENCODE_ENABLE_EXA=false
 export UV_NATIVE_TLS=true
 
 # Claude
-export CLAUDE_CODE_USE_FOUNDRY="1"
+export CLAUDE_CODE_USE_FOUNDRY="0"
 export ANTHROPIC_FOUNDRY_RESOURCE="foundry-data-platform-team"
 export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-5"
 export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-aku-4-5"

@@ -115,7 +115,22 @@ elif [[ "$OS" == "Darwin" ]]; then
 fi
 
 # Dotfile management
-alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+# Use a function (not an alias) so zsh can reliably attach git completions.
+# Make it idempotent when re-sourcing ~/.zshrc.
+unalias config 2>/dev/null
+unset -f config 2>/dev/null
+
+config() {
+  GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" command git "$@"
+}
+
+# Make git completion aware of the bare repo + work tree so file/path completion works.
+_config() {
+  local -x GIT_DIR="$HOME/.cfg"
+  local -x GIT_WORK_TREE="$HOME"
+  _git "$@"
+}
+compdef _config config
 
 # Tool aliases
 alias vim=nvim
@@ -221,8 +236,8 @@ if command -v direnv >/dev/null 2>&1; then
     eval "$(direnv hook zsh)"
 fi
 
-autoload -U +X bashcompinit && bashcompinit
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
+# Completion system is already initialized earlier (autoload -Uz compinit && compinit).
+# Re-running compinit here can cause weird completion behavior and slows startup.
 zstyle ':completion:*' menu select
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
