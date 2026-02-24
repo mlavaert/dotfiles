@@ -5,25 +5,6 @@
     "@simonwjackson/opencode-direnv"
   ],
   "mcp": {
-    "duckduckgo": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "duckduckgo-mcp-server"
-      ]
-    },
-    "grep-app": {
-      "type": "remote",
-      "url": "https://mcp.grep.app"
-    },
-    "browser-mcp": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@browsermcp/mcp@latest"
-      ]
-    },
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp"

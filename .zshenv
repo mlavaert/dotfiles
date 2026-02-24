@@ -24,13 +24,6 @@ export OPENCODE_ENABLE_EXA=false
 # UV
 export UV_NATIVE_TLS=true
 
-# Claude
-export CLAUDE_CODE_USE_FOUNDRY="0"
-export ANTHROPIC_FOUNDRY_RESOURCE="foundry-data-platform-team"
-export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-5"
-export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-aku-4-5"
-export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-5"
-
 if [ -f "$HOME/.env.secrets.gpg" ]; then
     eval "$(gpg --quiet --decrypt "$HOME/.env.secrets.gpg" 2> /dev/null)"
 fi
