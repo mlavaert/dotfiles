@@ -5,7 +5,7 @@ git clone --bare git@github.com:mlavaert/dotfiles.git "$HOME/.cfg"
 
 # Define a function to interact with the repo
 function config {
-   /usr/bin/git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
+   git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
 }
 
 # Create a backup directory for conflicting files
