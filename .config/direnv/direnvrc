@@ -9,7 +9,7 @@ layout_uv() {
     if [[ -z $1 ]]; then
       uv venv
     else
-      uv venv --python $1 --native-tls
+      uv venv --python "$1" --native-tls
     fi
     VIRTUAL_ENV="$(pwd)/.venv"
   fi
@@ -17,41 +17,144 @@ layout_uv() {
   PATH_add "$VIRTUAL_ENV/bin"
   export UV_ACTIVE=1 # or VENV_ACTIVE=1
   export VIRTUAL_ENV
+
+  # Keep dependencies in sync if this is a uv project
+  if [[ -f "uv.lock" ]]; then
+    watch_file uv.lock
+    watch_file pyproject.toml
+    uv sync
+  fi
 }
 
 use_sops() {
   local file="${1:-.env.sops}"
-  
+
+  if ! command -v sops &>/dev/null; then
+    log_error "sops not found. Install from https://github.com/getsops/sops"
+    return 1
+  fi
+
+  # Watch even when missing, so direnv reloads as soon as the file appears
+  watch_file "$file"
+
   if [[ ! -f "$file" ]]; then
     log_error "SOPS file not found: $file"
     return 1
   fi
-  
-  if ! command -v sops &> /dev/null; then
-    log_error "sops command not found. Install from https://github.com/getsops/sops"
+
+  local decrypted
+  if ! decrypted="$(sops --decrypt --output-type dotenv "$file")"; then
+    log_error "sops: failed to decrypt $file"
     return 1
   fi
-  
-  watch_file "$file"
-  eval "$(sops --decrypt --output-type dotenv "$file" | sed 's/^/export /')"
+
+  # dotenv output is already KEY=VALUE; source under `set -a` instead of
+  # eval+sed, skipping comments and blank lines
+  set -a
+  source <(printf '%s\n' "$decrypted" | grep -vE '^[[:space:]]*(#|$)')
+  set +a
+}
+
+# Detect HashiCorp-style arch string (e.g. darwin_arm64, linux_amd64)
+_terraform_arch() {
+  local os arch
+  case "$(uname -s)" in
+    Darwin) os="darwin" ;;
+    Linux) os="linux" ;;
+    *) log_error "terraform: unsupported OS: $(uname -s)"; return 1 ;;
+  esac
+  case "$(uname -m)" in
+    x86_64|amd64) arch="amd64" ;;
+    arm64|aarch64) arch="arm64" ;;
+    *) log_error "terraform: unsupported architecture: $(uname -m)"; return 1 ;;
+  esac
+  echo "${os}_${arch}"
+}
+
+# Resolve latest terraform version, cached for 24h to avoid network calls on
+# every direnv reload. Falls back to a pinned version when offline.
+_TERRAFORM_FALLBACK_VERSION="1.9.5"
+_terraform_latest_version() {
+  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/direnv"
+  local cache_file="${cache_dir}/terraform-latest-version"
+  local max_age=$((24 * 3600))
+
+  if [[ -f "${cache_file}" ]]; then
+    local age=$(( $(date +%s) - $(date -r "${cache_file}" +%s) ))
+    if (( age < max_age )); then
+      cat "${cache_file}"
+      return 0
+    fi
+  fi
+
+  local version
+  version="$(curl -fsSL --max-time 5 https://checkpoint-api.hashicorp.com/v1/check/terraform \
+    | sed -n 's/.*"current_version":"\([^"]*\)".*/\1/p')"
+
+  if [[ -n "${version}" ]]; then
+    mkdir -p "${cache_dir}"
+    printf '%s' "${version}" > "${cache_file}"
+    echo "${version}"
+  elif [[ -f "${cache_file}" ]]; then
+    log_status "terraform: offline, using cached latest version"
+    cat "${cache_file}"
+  else
+    log_status "terraform: offline, falling back to ${_TERRAFORM_FALLBACK_VERSION}"
+    echo "${_TERRAFORM_FALLBACK_VERSION}"
+  fi
 }
 
 layout_terraform() {
-  DIRENV_TMP_DIR="${PWD}/.direnv"
-  DIRENV_BIN_DIR="${PWD}/.direnv/bin"
-  [ ! -e "${DIRENV_BIN_DIR}" ] && mkdir -p "${DIRENV_BIN_DIR}"
-
-  export TF_VERSION=${1:-"1.9.5"}
-  [ -z "${TF_ARCH}" ] && export TF_ARCH="linux_amd64"
-  TF_PKG_NAME="terraform_${TF_VERSION}_${TF_ARCH}.zip"
-  TF_PKG_URL="https://releases.hashicorp.com/terraform/${TF_VERSION}/${TF_PKG_NAME}"
-  TF_PKG_PATH="${DIRENV_TMP_DIR}/${TF_PKG_NAME}"
-  if [ ! -e "${DIRENV_BIN_DIR}/terraform" ] || ! "${DIRENV_BIN_DIR}/terraform" --version | grep -q "Terraform v${TF_VERSION}"; then
-    log_status "=> Getting terraform:${TF_VERSION}:${TF_ARCH} (can take a while to execute)"
-    curl -s -L "${TF_PKG_URL}" -o "${TF_PKG_PATH}"
-    unzip -o ${TF_PKG_PATH} -d ${DIRENV_BIN_DIR}
-    chmod +x ${DIRENV_BIN_DIR}/terraform
-    rm -f ${TF_PKG_PATH}
+  # Priority: explicit arg > .terraform-version file > latest release
+  local tf_version="${1:-}"
+  if [[ -z "${tf_version}" && -f ".terraform-version" ]]; then
+    tf_version="$(< ".terraform-version")"
+    tf_version="${tf_version//[$'\t\r\n ']/}"  # trim whitespace
+    watch_file ".terraform-version"
   fi
-  PATH_add "$DIRENV_BIN_DIR"
+  [[ -n "${tf_version}" ]] || tf_version="$(_terraform_latest_version)"
+  local tf_arch="${TF_ARCH:-$(_terraform_arch)}" || return 1
+
+  # Per-version bin dir so switching versions/archs doesn't leave stale binaries
+  local direnv_bin_dir="${PWD}/.direnv/terraform-${tf_version}-${tf_arch}"
+  local tf_bin="${direnv_bin_dir}/terraform"
+
+  if [[ ! -x "${tf_bin}" ]] || ! "${tf_bin}" --version | grep -q "Terraform v${tf_version}"; then
+    command -v unzip >/dev/null || { log_error "terraform: 'unzip' is required"; return 1; }
+    mkdir -p "${direnv_bin_dir}"
+
+    local pkg_name="terraform_${tf_version}_${tf_arch}.zip"
+    local base_url="https://releases.hashicorp.com/terraform/${tf_version}"
+    local tmp_zip
+    tmp_zip="$(mktemp "${PWD}/.direnv/${pkg_name}.XXXX")" || return 1
+
+    log_status "=> Downloading terraform ${tf_version} (${tf_arch})"
+    if ! curl -fsSL "${base_url}/${pkg_name}" -o "${tmp_zip}"; then
+      rm -f "${tmp_zip}"
+      log_error "terraform: download failed for ${pkg_name} (bad version/arch?)"
+      return 1
+    fi
+
+    # Verify checksum against official SHA256SUMS if shasum is available
+    if command -v shasum >/dev/null; then
+      local expected actual sums
+      sums="$(curl -fsSL "${base_url}/terraform_${tf_version}_SHA256SUMS" 2>/dev/null)"
+      expected="$(grep " ${pkg_name}\$" <<< "${sums}" | awk '{print $1}')"
+      actual="$(shasum -a 256 "${tmp_zip}" | awk '{print $1}')"
+      if [[ -n "${expected}" && "${expected}" != "${actual}" ]]; then
+        rm -f "${tmp_zip}"
+        log_error "terraform: SHA256 checksum mismatch for ${pkg_name}!"
+        return 1
+      fi
+    else
+      log_status "=> Skipping checksum verification (shasum not found)"
+    fi
+
+    unzip -oq "${tmp_zip}" -d "${direnv_bin_dir}" || { rm -f "${tmp_zip}"; log_error "terraform: unzip failed"; return 1; }
+    rm -f "${tmp_zip}"
+    chmod +x "${tf_bin}"
+  fi
+
+  PATH_add "${direnv_bin_dir}"
+  export TF_VERSION="${tf_version}"
 }
