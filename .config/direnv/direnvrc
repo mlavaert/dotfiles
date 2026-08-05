@@ -42,17 +42,29 @@ use_sops() {
     return 1
   fi
 
+  if ! command -v jq &>/dev/null; then
+    log_error "jq not found; required by use_sops"
+    return 1
+  fi
+
+  # Decrypt as JSON (dotenv output mangles multi-line values like PEM keys:
+  # the lines after the first would be executed as shell commands).
   local decrypted
-  if ! decrypted="$(sops --decrypt --output-type dotenv "$file")"; then
+  if ! decrypted="$(sops --decrypt --output-type json "$file")"; then
     log_error "sops: failed to decrypt $file"
     return 1
   fi
 
-  # dotenv output is already KEY=VALUE; source under `set -a` instead of
-  # eval+sed, skipping comments and blank lines
-  set -a
-  source <(printf '%s\n' "$decrypted" | grep -vE '^[[:space:]]*(#|$)')
-  set +a
+  # Export each top-level scalar key/value. Values are passed via NUL-
+  # separated records with a \x1f separator, so multi-line values survive.
+  local entry key value
+  while IFS= read -r -d '' entry; do
+    key="${entry%%$'\x1f'*}"
+    value="${entry#*$'\x1f'}"
+    export "$key=$value"
+  done < <(jq -j 'to_entries[]
+    | select(.value | type == "string" or type == "number" or type == "boolean")
+    | "\(.key)\u001f\(.value)\u0000"' <<< "$decrypted")
 }
 
 # Detect HashiCorp-style arch string (e.g. darwin_arm64, linux_amd64)
