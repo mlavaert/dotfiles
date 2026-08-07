@@ -1,6 +1,6 @@
 ---
 description: Create commits with conventional commit messages
-model: github-copilot/grok-code-fast-1
+model: opencode-go/deepseek-v4-flash
 subtask: true
 ---
 

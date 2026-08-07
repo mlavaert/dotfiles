@@ -100,7 +100,7 @@ _terraform_latest_version() {
   fi
 
   local version
-  version="$(curl -fsSL --max-time 5 https://checkpoint-api.hashicorp.com/v1/check/terraform \
+  version="$(curl -fsSL --connect-timeout 2 --max-time 4 https://checkpoint-api.hashicorp.com/v1/check/terraform \
     | sed -n 's/.*"current_version":"\([^"]*\)".*/\1/p')"
 
   if [[ -n "${version}" ]]; then
@@ -130,8 +130,21 @@ layout_terraform() {
   # Per-version bin dir so switching versions/archs doesn't leave stale binaries
   local direnv_bin_dir="${PWD}/.direnv/terraform-${tf_version}-${tf_arch}"
   local tf_bin="${direnv_bin_dir}/terraform"
+  # Marker proving tf_bin was verified for this version; avoids launching
+  # terraform (slow Go startup, ~200-400ms) on every direnv reload.
+  local verified_marker="${direnv_bin_dir}/.verified-${tf_version}"
 
-  if [[ ! -x "${tf_bin}" ]] || ! "${tf_bin}" --version | grep -q "Terraform v${tf_version}"; then
+  if [[ ! -f "${verified_marker}" && -x "${tf_bin}" ]]; then
+    # Binary already present (e.g. installed before markers existed);
+    # verify it once instead of re-downloading.
+    if "${tf_bin}" --version | grep -q "Terraform v${tf_version}"; then
+      touch "${verified_marker}"
+    else
+      log_status "terraform: existing binary mismatch, reinstalling"
+    fi
+  fi
+
+  if [[ ! -x "${tf_bin}" || ! -f "${verified_marker}" ]]; then
     command -v unzip >/dev/null || { log_error "terraform: 'unzip' is required"; return 1; }
     mkdir -p "${direnv_bin_dir}"
 
@@ -165,6 +178,13 @@ layout_terraform() {
     unzip -oq "${tmp_zip}" -d "${direnv_bin_dir}" || { rm -f "${tmp_zip}"; log_error "terraform: unzip failed"; return 1; }
     rm -f "${tmp_zip}"
     chmod +x "${tf_bin}"
+
+    # Verify the binary once, then remember it via the marker file
+    if ! "${tf_bin}" --version | grep -q "Terraform v${tf_version}"; then
+      log_error "terraform: installed binary does not report v${tf_version}"
+      return 1
+    fi
+    touch "${verified_marker}"
   fi
 
   PATH_add "${direnv_bin_dir}"
