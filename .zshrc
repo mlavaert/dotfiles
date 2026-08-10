@@ -239,7 +239,3 @@ fi
 # Completion system is already initialized earlier (autoload -Uz compinit && compinit).
 # Re-running compinit here can cause weird completion behavior and slows startup.
 zstyle ':completion:*' menu select
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/malavaert/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

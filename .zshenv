@@ -2,8 +2,6 @@ export EDITOR="nvim"
 export TERMINAL="ghostty"
 export BROWSER="google-chrome"
 export GPG_TTY=$(tty)
-# SOPS PGP fingerprint for Mathias Lavaert <mathias@pilcrow.be>
-export SOPS_PGP_FP=2589A2C113535FB6D1026F98104D0BF996D42284
 
 export XDG_BIN_HOME="$HOME/.local/bin"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -26,6 +24,5 @@ export OPENCODE_ENABLE_EXA=false
 # UV
 export UV_NATIVE_TLS=true
 
-if [ -f "$HOME/.env.secrets.gpg" ]; then
-    eval "$(gpg --quiet --decrypt "$HOME/.env.secrets.gpg" 2> /dev/null)"
-fi
+# SOPS PGP fingerprint for Mathias Lavaert <mathias@pilcrow.be>
+export SOPS_PGP_FP=2589A2C113535FB6D1026F98104D0BF996D42284
