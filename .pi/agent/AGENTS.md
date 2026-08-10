@@ -5,8 +5,9 @@
 - Surgical changes. Touch only what you must. Clean up only your own mess.
 - Goal-driven execution. Define success criteria. Loop until verified.
 
-## Prefered tools
+## Preferred tools
 
 - direnv
 - sops
 - uv
+- terraform
