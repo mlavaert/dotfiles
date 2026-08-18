@@ -1,0 +1,11 @@
+#!/bin/bash
+# Extract readable article content from a URL as markdown.
+# Uses defuddle (Readability.js lineage) via npx — no global install needed.
+if [ $# -ne 1 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+	echo "Usage: content <url>" >&2
+	echo "" >&2
+	echo "Extracts readable content from a webpage as markdown." >&2
+	exit 1
+fi
+
+exec npx -y defuddle parse "$1" --markdown
