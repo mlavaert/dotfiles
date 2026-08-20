@@ -190,3 +190,112 @@ layout_terraform() {
   PATH_add "${direnv_bin_dir}"
   export TF_VERSION="${tf_version}"
 }
+
+# Resolve latest opentofu version, cached for 24h to avoid network calls on
+# every direnv reload. Falls back to a pinned version when offline.
+_OPENTOFU_FALLBACK_VERSION="1.11.5"
+_opentofu_latest_version() {
+  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/direnv"
+  local cache_file="${cache_dir}/opentofu-latest-version"
+  local max_age=$((24 * 3600))
+
+  if [[ -f "${cache_file}" ]]; then
+    local age=$(( $(date +%s) - $(date -r "${cache_file}" +%s) ))
+    if (( age < max_age )); then
+      cat "${cache_file}"
+      return 0
+    fi
+  fi
+
+  local version tag
+  tag="$(curl -fsSL --connect-timeout 2 --max-time 4 https://api.github.com/repos/opentofu/opentofu/releases/latest \
+    | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')"
+  version="${tag#v}"
+
+  if [[ -n "${version}" ]]; then
+    mkdir -p "${cache_dir}"
+    printf '%s' "${version}" > "${cache_file}"
+    echo "${version}"
+  elif [[ -f "${cache_file}" ]]; then
+    log_status "opentofu: offline, using cached latest version"
+    cat "${cache_file}"
+  else
+    log_status "opentofu: offline, falling back to ${_OPENTOFU_FALLBACK_VERSION}"
+    echo "${_OPENTOFU_FALLBACK_VERSION}"
+  fi
+}
+
+layout_opentofu() {
+  # Priority: explicit arg > .opentofu-version file > latest release
+  local tofu_version="${1:-}"
+  if [[ -z "${tofu_version}" && -f ".opentofu-version" ]]; then
+    tofu_version="$(< ".opentofu-version")"
+    tofu_version="${tofu_version//[$'\t\r\n ']/}"  # trim whitespace
+    watch_file ".opentofu-version"
+  fi
+  [[ -n "${tofu_version}" ]] || tofu_version="$(_opentofu_latest_version)"
+  local tofu_arch="${TF_ARCH:-$(_terraform_arch)}" || return 1
+
+  # Per-version bin dir so switching versions/archs doesn't leave stale binaries
+  local direnv_bin_dir="${PWD}/.direnv/opentofu-${tofu_version}-${tofu_arch}"
+  local tofu_bin="${direnv_bin_dir}/tofu"
+  # Marker proving tofu_bin was verified for this version; avoids launching
+  # tofu (slow Go startup, ~200-400ms) on every direnv reload.
+  local verified_marker="${direnv_bin_dir}/.verified-${tofu_version}"
+
+  if [[ ! -f "${verified_marker}" && -x "${tofu_bin}" ]]; then
+    # Binary already present (e.g. installed before markers existed);
+    # verify it once instead of re-downloading.
+    if "${tofu_bin}" version | grep -q "OpenTofu v${tofu_version}"; then
+      touch "${verified_marker}"
+    else
+      log_status "opentofu: existing binary mismatch, reinstalling"
+    fi
+  fi
+
+  if [[ ! -x "${tofu_bin}" || ! -f "${verified_marker}" ]]; then
+    command -v unzip >/dev/null || { log_error "opentofu: 'unzip' is required"; return 1; }
+    mkdir -p "${direnv_bin_dir}"
+
+    local pkg_name="tofu_${tofu_version}_${tofu_arch}.zip"
+    local base_url="https://github.com/opentofu/opentofu/releases/download/v${tofu_version}"
+    local tmp_zip
+    tmp_zip="$(mktemp "${PWD}/.direnv/${pkg_name}.XXXX")" || return 1
+
+    log_status "=> Downloading opentofu ${tofu_version} (${tofu_arch})"
+    if ! curl -fsSL "${base_url}/${pkg_name}" -o "${tmp_zip}"; then
+      rm -f "${tmp_zip}"
+      log_error "opentofu: download failed for ${pkg_name} (bad version/arch?)"
+      return 1
+    fi
+
+    # Verify checksum against official SHA256SUMS if shasum is available
+    if command -v shasum >/dev/null; then
+      local expected actual sums
+      sums="$(curl -fsSL "${base_url}/tofu_${tofu_version}_SHA256SUMS" 2>/dev/null)"
+      expected="$(grep " ${pkg_name}\$" <<< "${sums}" | awk '{print $1}')"
+      actual="$(shasum -a 256 "${tmp_zip}" | awk '{print $1}')"
+      if [[ -n "${expected}" && "${expected}" != "${actual}" ]]; then
+        rm -f "${tmp_zip}"
+        log_error "opentofu: SHA256 checksum mismatch for ${pkg_name}!"
+        return 1
+      fi
+    else
+      log_status "=> Skipping checksum verification (shasum not found)"
+    fi
+
+    unzip -oq "${tmp_zip}" -d "${direnv_bin_dir}" || { rm -f "${tmp_zip}"; log_error "opentofu: unzip failed"; return 1; }
+    rm -f "${tmp_zip}"
+    chmod +x "${tofu_bin}"
+
+    # Verify the binary once, then remember it via the marker file
+    if ! "${tofu_bin}" version | grep -q "OpenTofu v${tofu_version}"; then
+      log_error "opentofu: installed binary does not report v${tofu_version}"
+      return 1
+    fi
+    touch "${verified_marker}"
+  fi
+
+  PATH_add "${direnv_bin_dir}"
+  export TOFU_VERSION="${tofu_version}"
+}
